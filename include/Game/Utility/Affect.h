@@ -8,7 +8,9 @@
 
 class Affect
 {
-
+public:
+    Affect();
+    ~Affect();
 };
 
 
