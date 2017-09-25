@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_SPELL_H
-#define PROJECT_SPELL_H
+#ifndef WHISPERERENGINE_SPELL_H
+#define WHISPERERENGINE_SPELL_H
 
 
-class Spell {
-
-public:
-    Spell();
-    ~Spell();
+class Spell
+{
 
 };
 
 
-#endif //PROJECT_SPELL_H
+#endif //WHISPERERENGINE_SPELL_H

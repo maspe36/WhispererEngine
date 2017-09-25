@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_PLAYER_H
-#define PROJECT_PLAYER_H
+#ifndef WHISPERERENGINE_PLAYER_H
+#define WHISPERERENGINE_PLAYER_H
 
 
-class Player {
-
-public:
-    Player();
-    ~Player();
+class Player
+{
 
 };
 
 
-#endif //PROJECT_PLAYER_H
+#endif //WHISPERERENGINE_PLAYER_H

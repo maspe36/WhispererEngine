@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_SERVER_H
-#define PROJECT_SERVER_H
+#ifndef WHISPERERENGINE_SERVER_H
+#define WHISPERERENGINE_SERVER_H
 
 
-class Server {
-
-public:
-    Server();
-    ~Server();
+class Server
+{
 
 };
 
 
-#endif //PROJECT_SERVER_H
+#endif //WHISPERERENGINE_SERVER_H

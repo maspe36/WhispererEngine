@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_MANA_H
-#define PROJECT_MANA_H
+#ifndef WHISPERERENGINE_MANA_H
+#define WHISPERERENGINE_MANA_H
 
 
-class Mana {
-
-public:
-    Mana();
-    ~Mana();
+class Mana
+{
 
 };
 
 
-#endif //PROJECT_MANA_H
+#endif //WHISPERERENGINE_MANA_H

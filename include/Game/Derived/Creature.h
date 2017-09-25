@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_CREATURE_H
-#define PROJECT_CREATURE_H
+#ifndef WHISPERERENGINE_CREATURE_H
+#define WHISPERERENGINE_CREATURE_H
 
 
-class Creature {
-
-public:
-    Creature();
-    ~Creature();
+class Creature
+{
 
 };
 
 
-#endif //PROJECT_CREATURE_H
+#endif //WHISPERERENGINE_CREATURE_H

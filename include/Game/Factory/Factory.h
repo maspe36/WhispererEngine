@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_FACTORY_H
-#define PROJECT_FACTORY_H
+#ifndef WHISPERERENGINE_FACTORY_H
+#define WHISPERERENGINE_FACTORY_H
 
 
-class Factory {
-
-public:
-    Factory();
-    ~Factory();
+class Factory
+{
 
 };
 
 
-#endif //PROJECT_FACTORY_H
+#endif //WHISPERERENGINE_FACTORY_H

@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_CLIENT_H
-#define PROJECT_CLIENT_H
+#ifndef WHISPERERENGINE_CLIENT_H
+#define WHISPERERENGINE_CLIENT_H
 
 
-class Client {
-
-public:
-    Client();
-    ~Client();
+class Client
+{
 
 };
 
 
-#endif //PROJECT_CLIENT_H
+#endif //WHISPERERENGINE_CLIENT_H

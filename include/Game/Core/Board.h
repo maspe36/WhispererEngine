@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_BOARD_H
-#define PROJECT_BOARD_H
+#ifndef WHISPERERENGINE_BOARD_H
+#define WHISPERERENGINE_BOARD_H
 
 
-class Board {
-
-public:
-    Board();
-    ~Board();
+class Board
+{
 
 };
 
 
-#endif //PROJECT_BOARD_H
+#endif //WHISPERERENGINE_BOARD_H

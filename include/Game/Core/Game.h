@@ -1,18 +1,15 @@
 //
-// Created by Sam on 9/24/2017.
+// Created by Sam on 9/25/2017.
 //
 
-#ifndef PROJECT_GAME_H
-#define PROJECT_GAME_H
+#ifndef WHISPERERENGINE_GAME_H
+#define WHISPERERENGINE_GAME_H
 
 
-class Game {
-
-public:
-    Game();
-    ~Game();
+class Game
+{
 
 };
 
 
-#endif //PROJECT_GAME_H
+#endif //WHISPERERENGINE_GAME_H
