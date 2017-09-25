@@ -6,9 +6,18 @@
 #define WHISPERERENGINE_CARD_H
 
 
+#include <string>
+
+class Mana;
+
+
 class Card
 {
 public:
+    std::string name;
+    std::string text;
+    Mana *mana;
+
     Card();
     ~Card();
 };
