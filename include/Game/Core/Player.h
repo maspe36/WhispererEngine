@@ -6,10 +6,29 @@
 #define WHISPERERENGINE_PLAYER_H
 
 
+#include <string>
+#include <vector>
+
+class Board;
+class Card;
+class Mana;
+
+class Client;
+
+
 class Player
 {
 public:
-    Player();
+    std::string name;
+    Client *client;
+
+    Mana *availableMana;
+    Mana *totalMana;
+    Board *board;
+    std::vector<Card*> deck;
+    std::vector<Card*> hand;
+
+    Player(std::string name, Client *client);
     ~Player();
 };
 
