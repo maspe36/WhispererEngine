@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_CONSTANT_H
 
 
-class Card;
+#include "../Core/Card.h"
 
 
 class Constant : public Card

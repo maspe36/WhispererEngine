@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_CREATURE_H
 
 
-class Card;
+#include "../Core/Card.h"
 
 
 class Creature : public Card

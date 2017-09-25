@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_SPELL_H
 
 
-class Card;
+#include "../Core/Card.h"
 
 
 class Spell : public Card
