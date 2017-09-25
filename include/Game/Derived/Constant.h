@@ -8,6 +8,10 @@
 
 class Constant {
 
+public:
+    Constant();
+    ~Constant();
+
 };
 
 

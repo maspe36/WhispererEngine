@@ -8,6 +8,10 @@
 
 class Mana {
 
+public:
+    Mana();
+    ~Mana();
+
 };
 
 
