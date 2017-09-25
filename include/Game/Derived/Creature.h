@@ -6,7 +6,10 @@
 #define WHISPERERENGINE_CREATURE_H
 
 
-class Creature
+class Card;
+
+
+class Creature : public Card
 {
 public:
     Creature();

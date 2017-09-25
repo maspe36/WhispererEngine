@@ -6,7 +6,10 @@
 #define WHISPERERENGINE_CONSTANT_H
 
 
-class Constant
+class Card;
+
+
+class Constant : public Card
 {
 public:
     Constant();

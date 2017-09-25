@@ -6,7 +6,10 @@
 #define WHISPERERENGINE_SPELL_H
 
 
-class Spell
+class Card;
+
+
+class Spell : public Card
 {
 public:
     Spell();
