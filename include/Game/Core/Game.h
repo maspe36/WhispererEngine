@@ -6,10 +6,27 @@
 #define WHISPERERENGINE_GAME_H
 
 
+#include <vector>
+
+class Action;
+class Card;
+class Factory;
+class Player;
+
+class Server;
+
+
 class Game
 {
 public:
-    Game();
+    std::vector<Player*> players;
+    std::vector<Action*> history;
+    std::vector<void (*)()> stack;
+    std::vector<Card*> cardOrder;
+    Factory *factory;
+    Server *server;
+
+    Game(std::vector<Player*> players);
     ~Game();
 };
 
