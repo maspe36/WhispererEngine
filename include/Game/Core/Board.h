@@ -6,9 +6,21 @@
 #define WHISPERERENGINE_BOARD_H
 
 
+#include <vector>
+
+class Card;
+class Constant;
+class Creature;
+
+
 class Board
 {
 public:
+    std::vector<Constant*> constants;
+    std::vector<Creature*> creatures;
+    std::vector<Card*> deck;
+    std::vector<Card*> graveyard;
+
     Board();
     ~Board();
 };

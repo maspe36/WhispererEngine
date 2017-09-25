@@ -25,7 +25,6 @@ public:
     Mana *availableMana;
     Mana *totalMana;
     Board *board;
-    std::vector<Card*> deck;
     std::vector<Card*> hand;
 
     Player(std::string name, Client *client);
