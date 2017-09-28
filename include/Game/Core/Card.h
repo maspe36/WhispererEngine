@@ -18,7 +18,7 @@ public:
     std::string text;
     Mana *mana;
 
-    Card();
+    Card(std::string name, std::string text, Mana *mana);
     ~Card();
 };
 

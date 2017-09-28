@@ -6,13 +6,13 @@
 #define WHISPERERENGINE_CONSTANT_H
 
 
-#include "../Core/Card.h"
+#include "../../Core/Card.h"
 
 /* Represents the permanent, constant. */
 class Constant : public Card
 {
 public:
-    Constant();
+    Constant(std::string name, std::string text, Mana *mana;
     ~Constant();
 };
 

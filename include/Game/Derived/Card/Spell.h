@@ -6,13 +6,13 @@
 #define WHISPERERENGINE_SPELL_H
 
 
-#include "../Core/Card.h"
+#include "../../Core/Card.h"
 
 /* Represents the card type, spell. */
 class Spell : public Card
 {
 public:
-    Spell();
+    Spell(std::string name, std::string text, Mana *mana);
     ~Spell();
 };
 
