@@ -8,7 +8,7 @@
 
 #include "../Core/Card.h"
 
-
+/* Represents the permanent, constant. */
 class Constant : public Card
 {
 public:

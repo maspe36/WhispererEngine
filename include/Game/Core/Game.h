@@ -15,7 +15,7 @@ class Player;
 
 class Server;
 
-
+/* Overall handler for game interactions. */
 class Game
 {
 public:

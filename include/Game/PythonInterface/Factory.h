@@ -2,16 +2,16 @@
 // Created by Sam on 9/25/2017.
 //
 
-#ifndef WHISPERERENGINE_PYTHONINTERFACE_H
-#define WHISPERERENGINE_PYTHONINTERFACE_H
+#ifndef WHISPERERENGINE_FACTORY_H
+#define WHISPERERENGINE_FACTORY_H
 
-/* Hanldes all python card creation and interfacing. */
-class PythonInterface
+/* Hanldes all python card creation. */
+class Factory
 {
 public:
-    PythonInterface();
-    ~PythonInterface();
+    Factory();
+    ~Factory();
 };
 
 
-#endif //WHISPERERENGINE_PYTHONINTERFACE_H
+#endif //WHISPERERENGINE_FACTORY_H

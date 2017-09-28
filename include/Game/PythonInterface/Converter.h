@@ -5,10 +5,12 @@
 #ifndef WHISPERERENGINE_CONVERTER_H
 #define WHISPERERENGINE_CONVERTER_H
 
-
+/* Hanldes all python card interfacing with C++. */
 class Converter
 {
-
+public:
+    Converter();
+    ~Converter();
 };
 
 

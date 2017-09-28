@@ -15,7 +15,7 @@ class Mana;
 
 class Client;
 
-
+/* Represents a single player. */
 class Player
 {
 public:

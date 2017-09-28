@@ -8,7 +8,7 @@
 
 #include "../Core/Card.h"
 
-
+/* Represents the card type, spell. */
 class Spell : public Card
 {
 public:

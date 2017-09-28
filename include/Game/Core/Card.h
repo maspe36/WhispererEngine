@@ -10,7 +10,7 @@
 
 class Mana;
 
-
+/* Represents a single card. */
 class Card
 {
 public:

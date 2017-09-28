@@ -12,7 +12,7 @@ class Card;
 class Constant;
 class Creature;
 
-
+/* Handles a single players cards in play. */
 class Board
 {
 public:
