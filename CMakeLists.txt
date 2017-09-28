@@ -19,6 +19,12 @@ add_definitions( ${GCC_HYPOT_FLAGS} )
 set(SOURCE_FILES
         src/WhispererEngine.cpp
 
+        src/Game/Core/Action.cpp
+        include/Game/Core/Action.h
+
+        src/Game/Core/Affect.cpp
+        include/Game/Core/Affect.h
+
         src/Game/Core/Board.cpp
         include/Game/Core/Board.h
 
@@ -28,32 +34,26 @@ set(SOURCE_FILES
         src/Game/Core/Game.cpp
         include/Game/Core/Game.h
 
+        src/Game/Core/Mana.cpp
+        include/Game/Core/Mana.h
+
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
 
-        src/Game/Derived/Constant.cpp
-        include/Game/Derived/Constant.h
+        src/Game/Derived/Card/Constant.cpp
+        include/Game/Derived/Card/Constant.h
 
-        src/Game/Derived/Creature.cpp
-        include/Game/Derived/Creature.h
+        src/Game/Derived/Card/Creature.cpp
+        include/Game/Derived/Card/Creature.h
 
-        src/Game/Derived/Spell.cpp
-        include/Game/Derived/Spell.h
+        src/Game/Derived/Card/Spell.cpp
+        include/Game/Derived/Card/Spell.h
 
         src/Game/PythonInterface/Factory.cpp
         include/Game/PythonInterface/Factory.h
 
         src/Game/PythonInterface/Converter.cpp
         include/Game/PythonInterface/Converter.h
-
-        src/Game/Utility/Action.cpp
-        include/Game/Utility/Action.h
-
-        src/Game/Utility/Affect.cpp
-        include/Game/Utility/Affect.h
-
-        src/Game/Utility/Mana.cpp
-        include/Game/Utility/Mana.h
 
         src/Network/Client.cpp
         include/Network/Client.h
