@@ -4,9 +4,9 @@ project(WhispererEngine)
 set(CMAKE_CXX_STANDARD 17)
 
 # Add pybind11
-# set(PYBIND11_CPP_STANDARD -std=c++1z)
-# add_subdirectory(pybind11)
-# pybind11_add_module(<module name> [<module source files>, ...])
+set(PYBIND11_CPP_STANDARD -std=c++1z)
+add_subdirectory(libs/pybind11)
+#pybind11_add_module(<module name> [<module source files>, ...])
 
 # Add the hypot flag
 set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
@@ -40,8 +40,11 @@ set(SOURCE_FILES
         src/Game/Derived/Spell.cpp
         include/Game/Derived/Spell.h
 
-        src/Game/Factory/Factory.cpp
-        include/Game/Factory/Factory.h
+        src/Game/PythonInterface/Factory.cpp
+        include/Game/PythonInterface/Factory.h
+
+        src/Game/PythonInterface/Converter.cpp
+        include/Game/PythonInterface/Converter.h
 
         src/Game/Utility/Action.cpp
         include/Game/Utility/Action.h
@@ -56,8 +59,7 @@ set(SOURCE_FILES
         include/Network/Client.h
 
         src/Network/Server.cpp
-        include/Network/Server.h
-)
+        include/Network/Server.h)
 
 add_executable(WhispererEngine ${SOURCE_FILES})
-#target_link_libraries(WhispererEngine PRIVATE pybind11::embed)
+target_link_libraries(WhispererEngine PRIVATE pybind11::embed)
