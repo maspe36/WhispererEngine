@@ -10,6 +10,7 @@
 
 class Action;
 class Card;
+class Converter;
 class Factory;
 class Player;
 
@@ -24,6 +25,7 @@ public:
     std::vector<void (*)()> stack;
     std::vector<Card*> cardOrder;
     Factory *factory;
+    Converter *converter;
     Server *server;
 
     Game(std::vector<Player*> players);
