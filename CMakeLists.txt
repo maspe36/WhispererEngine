@@ -40,6 +40,18 @@ set(SOURCE_FILES
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
 
+        src/Game/Derived/Action/GameActions/DeadAction.cpp
+        include/Game/Derived/Action/GameActions/DeadAction.h
+
+        src/Game/Derived/Action/GameActions/DrawAction.cpp
+        include/Game/Derived/Action/GameActions/DrawAction.h
+
+        src/Game/Derived/Action/PlayerActions/AttackAction.cpp
+        include/Game/Derived/Action/PlayerActions/AttackAction.h
+
+        src/Game/Derived/Action/PlayerActions/PlayAction.cpp
+        include/Game/Derived/Action/PlayerActions/PlayAction.h
+
         src/Game/Derived/Card/Constant.cpp
         include/Game/Derived/Card/Constant.h
 
