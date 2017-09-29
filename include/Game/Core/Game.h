@@ -8,11 +8,13 @@
 
 #include <vector>
 
-class Event;
 class Card;
+class Event;
+class Effect;
+class Player;
+
 class Converter;
 class Factory;
-class Player;
 
 class Server;
 
@@ -22,13 +24,13 @@ class Game
 public:
     std::vector<Player*> players;
     std::vector<Event*> history;
-    std::vector<void (*)()> stack;
+    std::vector<Effect*> stack;
     std::vector<Card*> cardOrder;
     Factory *factory;
     Converter *converter;
     Server *server;
 
-    Game(std::vector<Player*> players);
+    Game(std::vector<Player*> players, Server *server);
     ~Game();
 };
 

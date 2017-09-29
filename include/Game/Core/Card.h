@@ -8,6 +8,7 @@
 
 #include <string>
 
+class Player;
 class Mana;
 
 /* Represents a single card. */
@@ -17,8 +18,9 @@ public:
     std::string name;
     std::string text;
     Mana *mana;
+    Player *player;
 
-    Card(std::string name, std::string text, Mana *mana);
+    Card(std::string name, std::string text, Mana *mana, Player *player);
     ~Card();
 };
 

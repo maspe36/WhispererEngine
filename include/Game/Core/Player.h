@@ -11,6 +11,7 @@
 
 class Board;
 class Card;
+class Game;
 class Mana;
 
 class Client;
@@ -21,6 +22,7 @@ class Player
 public:
     std::string name;
     Client *client;
+    Game *game;
 
     Mana *availableMana;
     Mana *totalMana;
