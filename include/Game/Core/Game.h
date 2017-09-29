@@ -8,7 +8,7 @@
 
 #include <vector>
 
-class Action;
+class Event;
 class Card;
 class Converter;
 class Factory;
@@ -21,7 +21,7 @@ class Game
 {
 public:
     std::vector<Player*> players;
-    std::vector<Action*> history;
+    std::vector<Event*> history;
     std::vector<void (*)()> stack;
     std::vector<Card*> cardOrder;
     Factory *factory;

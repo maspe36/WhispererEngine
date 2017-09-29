@@ -6,14 +6,14 @@
 #define WHISPERERENGINE_ATTACKACTION_H
 
 
-#include "../../../Core/Action.h"
+#include "../../../Core/Event.h"
 
-/* A single attacks action */
-class AttackAction : public Action
+/* A creature attack */
+class AttackEvent : public Event
 {
 public:
-    AttackAction();
-    ~AttackAction();
+    AttackEvent();
+    ~AttackEvent();
 };
 
 

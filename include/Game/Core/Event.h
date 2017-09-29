@@ -6,11 +6,11 @@
 #define WHISPERERENGINE_ACTION_H
 
 /* A slice in time of an action to the current game state. */
-class Action
+class Event
 {
 public:
-    Action();
-    ~Action();
+    Event();
+    ~Event();
 };
 
 

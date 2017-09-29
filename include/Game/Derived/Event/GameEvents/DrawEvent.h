@@ -6,14 +6,14 @@
 #define WHISPERERENGINE_DRAWACTION_H
 
 
-#include "../../../Core/Action.h"
+#include "../../../Core/Event.h"
 
-/* A player drawing card(s) action */
-class DrawAction : public Action
+/* A player drawing card(s) */
+class DrawEvent : public Event
 {
 public:
-    DrawAction();
-    ~DrawAction();
+    DrawEvent();
+    ~DrawEvent();
 };
 
 

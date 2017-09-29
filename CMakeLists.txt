@@ -19,8 +19,8 @@ add_definitions( ${GCC_HYPOT_FLAGS} )
 set(SOURCE_FILES
         src/WhispererEngine.cpp
 
-        src/Game/Core/Action.cpp
-        include/Game/Core/Action.h
+        src/Game/Core/Event.cpp
+        include/Game/Core/Event.h
 
         src/Game/Core/Affect.cpp
         include/Game/Core/Affect.h
@@ -40,17 +40,17 @@ set(SOURCE_FILES
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
 
-        src/Game/Derived/Action/GameActions/DeadAction.cpp
-        include/Game/Derived/Action/GameActions/DeadAction.h
+        src/Game/Derived/Event/GameEvents/DeadEvent.cpp
+        include/Game/Derived/Event/GameEvents/DeadEvent.h
 
-        src/Game/Derived/Action/GameActions/DrawAction.cpp
-        include/Game/Derived/Action/GameActions/DrawAction.h
+        src/Game/Derived/Event/GameEvents/DrawEvent.cpp
+        include/Game/Derived/Event/GameEvents/DrawEvent.h
 
-        src/Game/Derived/Action/PlayerActions/AttackAction.cpp
-        include/Game/Derived/Action/PlayerActions/AttackAction.h
+        src/Game/Derived/Event/PlayerEvents/AttackEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/AttackEvent.h
 
-        src/Game/Derived/Action/PlayerActions/PlayAction.cpp
-        include/Game/Derived/Action/PlayerActions/PlayAction.h
+        src/Game/Derived/Event/PlayerEvents/PlayEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/PlayEvent.h
 
         src/Game/Derived/Card/Constant.cpp
         include/Game/Derived/Card/Constant.h

@@ -23,7 +23,7 @@ Constants are permanents. Constants can not participate in combat. Constants hav
 ## Turn Format
 ### Start
 When a players start phase begins, they draw a card. Mana is then refilled up to the available level.
-### Action
+### Event
 The action phase encapsulates any decisions a player makes during their turn. Playing cards and combat happens in this phase in no particular order. 
 ### End
 When a player end theirs turn, any effects that trigger happen in this phase. 

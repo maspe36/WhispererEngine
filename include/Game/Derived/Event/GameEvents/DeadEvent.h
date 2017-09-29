@@ -6,14 +6,14 @@
 #define WHISPERERENGINE_DEADACTION_H
 
 
-#include "../../../Core/Action.h"
+#include "../../../Core/Event.h"
 
-/* A card being sent to the graveyard action */
-class DeadAction : public Action
+/* A card being sent to the graveyard */
+class DeadEvent : public Event
 {
 public:
-    DeadAction();
-    ~DeadAction();
+    DeadEvent();
+    ~DeadEvent();
 };
 
 

@@ -6,14 +6,14 @@
 #define WHISPERERENGINE_PLAYACTION_H
 
 
-#include "../../../Core/Action.h"
+#include "../../../Core/Event.h"
 
-/* A single card entering play action */
-class PlayAction : public Action
+/* A card entering play */
+class PlayEvent : public Event
 {
 public:
-    PlayAction();
-    ~PlayAction();
+    PlayEvent();
+    ~PlayEvent();
 };
 
 
