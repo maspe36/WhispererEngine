@@ -49,8 +49,20 @@ set(SOURCE_FILES
         src/Game/Derived/Event/PlayerEvents/AttackEvent.cpp
         include/Game/Derived/Event/PlayerEvents/AttackEvent.h
 
+        src/Game/Derived/Event/PlayerEvents/DamageEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/DamageEvent.h
+
+        src/Game/Derived/Event/PlayerEvents/HealEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/HealEvent.h
+
+        src/Game/Derived/Event/PlayerEvents/DestroyEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/DestroyEvent.h
+
         src/Game/Derived/Event/PlayerEvents/PlayEvent.cpp
         include/Game/Derived/Event/PlayerEvents/PlayEvent.h
+
+        src/Game/Derived/Event/PlayerEvents/SelectionEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/SelectionEvent.h
 
         src/Game/Derived/Card/Constant.cpp
         include/Game/Derived/Card/Constant.h
