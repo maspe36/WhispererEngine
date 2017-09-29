@@ -31,6 +31,9 @@ set(SOURCE_FILES
         src/Game/Core/Card.cpp
         include/Game/Core/Card.h
 
+        src/Game/Core/Effect.cpp
+        include/Game/Core/Effect.h
+
         src/Game/Core/Game.cpp
         include/Game/Core/Game.h
 
@@ -39,6 +42,21 @@ set(SOURCE_FILES
 
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
+
+        src/Game/Derived/Card/Constant.cpp
+        include/Game/Derived/Card/Constant.h
+
+        src/Game/Derived/Card/Creature.cpp
+        include/Game/Derived/Card/Creature.h
+
+        src/Game/Derived/Card/Spell.cpp
+        include/Game/Derived/Card/Spell.h
+
+        src/Game/Derived/Effect/TriggerEffect.cpp
+        include/Game/Derived/Effect/TriggerEffect.h
+
+        src/Game/Derived/Effect/AuraEffect.cpp
+        include/Game/Derived/Effect/AuraEffect.h
 
         src/Game/Derived/Event/GameEvents/DeadEvent.cpp
         include/Game/Derived/Event/GameEvents/DeadEvent.h
@@ -63,15 +81,6 @@ set(SOURCE_FILES
 
         src/Game/Derived/Event/PlayerEvents/SelectionEvent.cpp
         include/Game/Derived/Event/PlayerEvents/SelectionEvent.h
-
-        src/Game/Derived/Card/Constant.cpp
-        include/Game/Derived/Card/Constant.h
-
-        src/Game/Derived/Card/Creature.cpp
-        include/Game/Derived/Card/Creature.h
-
-        src/Game/Derived/Card/Spell.cpp
-        include/Game/Derived/Card/Spell.h
 
         src/Game/PythonInterface/Factory.cpp
         include/Game/PythonInterface/Factory.h
