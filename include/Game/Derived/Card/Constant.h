@@ -12,7 +12,7 @@
 class Constant : public Card
 {
 public:
-    Constant(std::string name, std::string text, Mana *mana;
+    Constant(std::string name, std::string text, Mana *mana);
     ~Constant();
 };
 
