@@ -12,7 +12,9 @@
 class TriggerEffect : public Effect
 {
 public:
-    TriggerEffect();
+    std::function<void()> isEffectTriggered;
+
+    TriggerEffect(std::function<void()> effect, std::function<void()> isEffectTriggered);
     ~TriggerEffect();
 };
 

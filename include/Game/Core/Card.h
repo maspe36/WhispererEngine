@@ -7,7 +7,9 @@
 
 
 #include <string>
+#include <vector>
 
+class Effect;
 class Player;
 class Mana;
 
@@ -19,6 +21,11 @@ public:
     std::string text;
     Mana *mana;
     Player *player;
+    std::vector<Effect*> effects;
+
+    void isEffectTriggered();
+    void effect();
+    void addEffect(Effect *effect);
 
     Card(std::string name, std::string text, Mana *mana, Player *player);
     ~Card();

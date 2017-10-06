@@ -5,11 +5,15 @@
 #ifndef WHISPERERENGINE_EFFECT_H
 #define WHISPERERENGINE_EFFECT_H
 
+#include <functional>
+
 /* Holds an effects trigger condition and actual effect implementation */
 class Effect
 {
 public:
-    Effect();
+    std::function<void()> effect;
+
+    Effect(std::function<void()> effect);
     ~Effect();
 };
 
