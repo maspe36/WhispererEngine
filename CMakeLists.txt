@@ -4,7 +4,7 @@ project(WhispererEngine)
 set(CMAKE_CXX_STANDARD 17)
 
 # Add pybind11
-set(PYBIND11_CPP_STANDARD -std=c++1z)
+set(PYBIND11_CPP_STANDARD -std=c++17)
 add_subdirectory(libs/pybind11)
 #pybind11_add_module(<module name> [<module source files>, ...])
 
