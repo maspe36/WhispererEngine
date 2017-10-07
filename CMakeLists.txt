@@ -9,6 +9,10 @@ set(PYBIND11_CPP_STANDARD -std=c++17)
 add_subdirectory(libs/pybind11)
 #pybind11_add_module(<module name> [<module source files>, ...])
 
+# Add testing
+enable_testing()
+add_subdirectory(test)
+
 # Add the hypot flag
 set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
 add_definitions( ${GCC_HYPOT_FLAGS} )
