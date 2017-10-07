@@ -7,13 +7,16 @@
 
 #include <functional>
 
+/* A C++ function type */
+typedef std::function<void()> func;
+
 /* Holds an effects trigger condition and actual effect implementation */
 class Effect
 {
 public:
-    std::function<void()> effect;
+    func *effect;
 
-    Effect(std::function<void()> effect);
+    Effect(func *effect);
     ~Effect();
 };
 

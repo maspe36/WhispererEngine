@@ -12,9 +12,9 @@
 class TriggerEffect : public Effect
 {
 public:
-    std::function<void()> isEffectTriggered;
+    func *isEffectTriggered;
 
-    TriggerEffect(std::function<void()> effect, std::function<void()> isEffectTriggered);
+    TriggerEffect(func *effect, func *isEffectTriggered);
     ~TriggerEffect();
 };
 

@@ -12,7 +12,7 @@
 class AuraEffect : public Effect
 {
 public:
-    AuraEffect(std::function<void()> effect);
+    AuraEffect(func *effect);
     ~AuraEffect();
 };
 
