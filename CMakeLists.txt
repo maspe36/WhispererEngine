@@ -5,13 +5,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add pybind11
+# Download and unpack pybind11 at configure time
+configure_file(libs/CMakeLists-pybind11.txt pybind11-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
 set(PYBIND11_CPP_STANDARD -std=c++17)
-add_subdirectory(libs/pybind11)
+add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
 #pybind11_add_module(<module name> [<module source files>, ...])
-
-# Add testing
-enable_testing()
-add_subdirectory(test)
 
 # Add the hypot flag
 set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
