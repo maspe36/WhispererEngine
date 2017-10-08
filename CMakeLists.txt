@@ -114,3 +114,9 @@ set(SOURCE_FILES
 
 add_executable(WhispererEngine ${SOURCE_FILES})
 target_link_libraries(WhispererEngine PRIVATE pybind11::embed)
+
+set(TEST_FILES
+        tests/CatchMain.cpp
+        tests/Game/Core/test_Card.cpp)
+
+add_executable(WhispererEngineTests ${TEST_FILES})
