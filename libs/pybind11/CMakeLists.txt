@@ -10,5 +10,4 @@ ExternalProject_Add(pybind11
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
-    TEST_COMMAND ""
-)
+    TEST_COMMAND "")
