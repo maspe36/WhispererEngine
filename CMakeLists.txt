@@ -4,13 +4,6 @@ project(WhispererEngine)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Download pybind11
-configure_file(libs/pybind11/CMakeLists.txt pybind11-download/CMakeLists.txt)
-execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
-execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
-
 # Download catch test framework
 configure_file(libs/catch/CMakeLists.txt catch-download/CMakeLists.txt)
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
@@ -18,9 +11,23 @@ execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
 execute_process(COMMAND "${CMAKE_COMMAND}" --build .
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/catch-download")
 
+# Download pybind11
+configure_file(libs/pybind11/CMakeLists.txt pybind11-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+
 # Include downloaded directories
-add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
 add_subdirectory(${CMAKE_BINARY_DIR}/catch-src)
+add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
+
+set(Boost_USE_STATIC_LIBS        ON)
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME    OFF)
+find_package(Boost 1.65.1 REQUIRED system)
+include_directories(${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
 
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
@@ -113,7 +120,7 @@ set(SOURCE_FILES
         include/Network/Server.h)
 
 add_executable(WhispererEngine ${SOURCE_FILES})
-target_link_libraries(WhispererEngine PRIVATE pybind11::embed)
+target_link_libraries(WhispererEngine PRIVATE pybind11::embed ws2_32 ${Boost_LIBRARIES})
 
 set(TEST_FILES
         tests/CatchMain.cpp
