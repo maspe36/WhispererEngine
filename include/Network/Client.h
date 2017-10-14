@@ -5,9 +5,9 @@
 #ifndef WHISPERERENGINE_CLIENT_H
 #define WHISPERERENGINE_CLIENT_H
 
+#include "boost/asio.hpp"
 
-class Client
-{
+class Client{
 public:
     Client();
     ~Client();
