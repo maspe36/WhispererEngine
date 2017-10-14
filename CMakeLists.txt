@@ -4,12 +4,12 @@ project(WhispererEngine)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Download pybind11
-configure_file(libs/pybind11/CMakeLists.txt pybind11-download/CMakeLists.txt)
+# Download asio
+configure_file(libs/asio/CMakeLists.txt asio-download/CMakeLists.txt)
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/asio-download")
 execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/asio-download")
 
 # Download catch test framework
 configure_file(libs/catch/CMakeLists.txt catch-download/CMakeLists.txt)
@@ -18,9 +18,17 @@ execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
 execute_process(COMMAND "${CMAKE_COMMAND}" --build .
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/catch-download")
 
+# Download pybind11
+configure_file(libs/pybind11/CMakeLists.txt pybind11-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
+
 # Include downloaded directories
-add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
+include_directories(${CMAKE_BINARY_DIR}/asio-src)
 add_subdirectory(${CMAKE_BINARY_DIR}/catch-src)
+add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
 
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
