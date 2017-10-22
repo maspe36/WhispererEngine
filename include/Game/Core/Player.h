@@ -16,14 +16,12 @@ class Card;
 class Game;
 class Mana;
 
-class Client;
-
 /* Represents a single player. */
 class Player
 {
 public:
     std::string name;
-    Client *client;
+    Client::pointer client;
     Game *game;
 
     Mana *availableMana;
