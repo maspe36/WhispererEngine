@@ -16,8 +16,9 @@ void Server::WriteToAll(std::string data)
     std::cout << data << std::endl;
 }
 
-Server::Server(boost::asio::io_service & io_service, int Port)
-        : acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), Port))
+Server::Server(boost::asio::io_service & io_service, int port)
+        : acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
+                                                              static_cast<unsigned short>(port)))
 {
     std::cout << "Listening for clients..." << std::endl;
     Start();

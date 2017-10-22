@@ -2,9 +2,10 @@
 // Created by Sam on 9/25/2017.
 //
 
+#include "../../include/Network/Client.h"
+#include "../../include/Network/Server.h"
 #include "../../include/Game/Core/Game.h"
 #include "../../include/Game/Core/Player.h"
-#include "../../include/Network/Server.h"
 
 #include <iostream>
 #include <boost/bind/bind.hpp>
@@ -28,9 +29,8 @@ void Client::Start(Server* server)
     this->server = server;
     Write("Connected!");
 
-    boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(&Client::Listen, shared_from_this(),
-                                              boost::asio::placeholders::error));
+//    boost::asio::async_read_until(socket, buffer, delimiter,
+//                                  boost::bind(&Client::Listen, shared_from_this(), boost::asio::placeholders::error));
 
     std::cout << "Listening for messages from client..." << std::endl;
 }
@@ -55,9 +55,8 @@ void Client::Listen()
 {
     std::cout << "Message from " << static_cast<void*>(this) << ": " << GetString(buffer) << std::endl;
 
-    boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(&Client::Listen, shared_from_this(),
-                                              boost::asio::placeholders::error));
+//    boost::asio::async_read_until(socket, buffer, delimiter,
+//                                  boost::bind(&Client::Listen, shared_from_this(), boost::asio::placeholders::error));
 }
 
 std::string Client::GetString(boost::asio::streambuf& buffer)
