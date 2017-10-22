@@ -6,6 +6,8 @@
 #define WHISPERERENGINE_PLAYER_H
 
 
+#include "../../Network/Client.h"
+
 #include <string>
 #include <vector>
 
@@ -29,7 +31,7 @@ public:
     Board *board;
     std::vector<Card*> hand;
 
-    Player(std::string name, Client *client);
+    Player(std::string name, Client::pointer client);
     ~Player();
 };
 

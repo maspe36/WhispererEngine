@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include <string>
 
 class Card;
 class Event;
@@ -29,6 +30,8 @@ public:
     Factory *factory;
     Converter *converter;
     Server *server;
+
+    void WritePlayers(std::string data);
 
     Game(std::vector<Player*> players, Server *server);
     ~Game();
