@@ -26,7 +26,7 @@ private:
     void Start();
     void OnAccept(Client::pointer connection, const boost::system::error_code& error);
 
-    static void DoClose(Client::pointer connection);
+    static void Close(Client::pointer connection);
 };
 
 #endif //WHISPERERENGINE_SERVER_H
