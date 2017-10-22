@@ -39,10 +39,6 @@ private:
     boost::asio::ip::tcp::socket socket;
 
     static std::string GetString(boost::asio::streambuf& buffer);
-    void UserNameReceive(const boost::system::error_code& error);
-    void DeckReceive(const boost::system::error_code& error);
-    void MulliganRecieve(const boost::system::error_code& error);
-    void TurnListen(const boost::system::error_code& error);
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
 
     explicit Client(boost::asio::io_service& ioService);
