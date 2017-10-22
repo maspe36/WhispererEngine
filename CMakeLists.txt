@@ -25,9 +25,7 @@ add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
 set(Boost_USE_STATIC_LIBS        ON)
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME    OFF)
-find_package(Boost 1.65.1 REQUIRED system)
-include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
+find_package(Boost 1.65.1 REQUIRED system thread)
 
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
@@ -120,7 +118,8 @@ set(SOURCE_FILES
         include/Network/Server.h)
 
 add_executable(WhispererEngine ${SOURCE_FILES})
-target_link_libraries(WhispererEngine PRIVATE pybind11::embed ws2_32 ${Boost_LIBRARIES})
+target_include_directories(WhispererEngine PRIVATE ${Boost_INCLUDE_DIRS})
+target_link_libraries(WhispererEngine PRIVATE pybind11::embed wsock32 ws2_32 ${Boost_LIBRARIES})
 
 set(TEST_FILES
         tests/CatchMain.cpp
