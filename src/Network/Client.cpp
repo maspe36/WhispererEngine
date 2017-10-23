@@ -28,9 +28,9 @@ void Client::Start(Server* server)
 {
     this->server = server;
     Write("Connected!");
+    this->server->WriteAll("New Client");
 
-    boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(&Client::Listen, shared_from_this()));
+    AsyncListen();
 
     std::cout << "Listening for messages from client..." << std::endl;
 }
@@ -51,12 +51,25 @@ void Client::Disconnect()
     std::cout << "Lost connection to client!" << std::endl;
 }
 
-void Client::Listen()
+void Client::AsyncListen()
 {
-    std::cout << "Message from " << static_cast<void*>(this) << ": " << GetString(buffer) << std::endl;
-
     boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(&Client::Listen, shared_from_this()));
+                                  boost::bind(&Client::Listen, shared_from_this(), boost::asio::placeholders::error));
+}
+
+void Client::Listen(const boost::system::error_code& errorCode)
+{
+    if (errorCode == nullptr)
+    {
+        std::cout << "Message from " << static_cast<void*>(this) << ": " << GetString(buffer) << std::endl;
+        buffer.consume(buffer.size());
+
+        AsyncListen();
+    }
+    else
+    {
+        Disconnect();
+    }
 }
 
 std::string Client::GetString(boost::asio::streambuf& buffer)
@@ -75,6 +88,6 @@ void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTr
 }
 
 Client::Client(boost::asio::io_service & ioService)
-        : player(nullptr), server(nullptr), listening(false), socket(ioService)
+        : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
 {
 }

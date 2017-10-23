@@ -21,7 +21,7 @@ class Client
 public:
     typedef boost::shared_ptr<Client> pointer;
 
-    const std::string delimiter;
+    std::string delimiter;
     boost::asio::streambuf buffer;
     Player* player;
     Server* server;
@@ -33,7 +33,8 @@ public:
     void Start(Server* server);
     void Write(std::string data);
     void Disconnect();
-    void Listen();
+    void AsyncListen();
+    void Listen(const boost::system::error_code & errorCode);
 
 private:
     boost::asio::ip::tcp::socket socket;
