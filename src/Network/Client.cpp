@@ -29,8 +29,8 @@ void Client::Start(Server* server)
     this->server = server;
     Write("Connected!");
 
-//    boost::asio::async_read_until(socket, buffer, delimiter,
-//                                  boost::bind(&Client::Listen, shared_from_this(), boost::asio::placeholders::error));
+    boost::asio::async_read_until(socket, buffer, delimiter,
+                                  boost::bind(&Client::Listen, shared_from_this()));
 
     std::cout << "Listening for messages from client..." << std::endl;
 }
@@ -55,8 +55,8 @@ void Client::Listen()
 {
     std::cout << "Message from " << static_cast<void*>(this) << ": " << GetString(buffer) << std::endl;
 
-//    boost::asio::async_read_until(socket, buffer, delimiter,
-//                                  boost::bind(&Client::Listen, shared_from_this(), boost::asio::placeholders::error));
+    boost::asio::async_read_until(socket, buffer, delimiter,
+                                  boost::bind(&Client::Listen, shared_from_this()));
 }
 
 std::string Client::GetString(boost::asio::streambuf& buffer)
