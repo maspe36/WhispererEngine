@@ -17,7 +17,7 @@ public:
     std::vector<Client::pointer> clients;
     std::queue<Player*> queue;
 
-    void WriteToAll(std::string data);
+    void WriteAll(std::string data);
     Server(boost::asio::io_service& ioService, int port);
 
 private:

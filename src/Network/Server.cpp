@@ -6,7 +6,7 @@
 #include <iostream>
 #include <boost/bind/bind.hpp>
 
-void Server::WriteToAll(std::string data)
+void Server::WriteAll(std::string data)
 {
     for (const auto &i : clients)
     {
@@ -39,8 +39,8 @@ void Server::OnAccept(Client::pointer newClient, const boost::system::error_code
 {
     if (!error)
     {
-        newClient->Start(this);
         clients.push_back(newClient);
+        newClient->Start(this);
         std::cout << "Client connected!" << std::endl;
     }
     // pesudo recursive
