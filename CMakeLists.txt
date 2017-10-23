@@ -119,7 +119,17 @@ set(SOURCE_FILES
 
 add_executable(WhispererEngine ${SOURCE_FILES})
 target_include_directories(WhispererEngine PRIVATE ${Boost_INCLUDE_DIRS})
-target_link_libraries(WhispererEngine PRIVATE pybind11::embed wsock32 ws2_32 ${Boost_LIBRARIES})
+
+# Determine how we should link libs to the exe
+set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
+
+if(WIN32)
+    set(LINK_LIBS ${DEFAULT_LIBS} wsock32 ws2_32)
+else()
+    set(LINK_LIBS ${DEFAULT_LIBS})
+endif()
+
+target_link_libraries(WhispererEngine PRIVATE ${LINK_LIBS})
 
 set(TEST_FILES
         tests/CatchMain.cpp
