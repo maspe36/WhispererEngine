@@ -14,10 +14,10 @@ int main()
 {
     try
     {
-        std::cout << "Initializing io_service..." << std::endl;
-        boost::asio::io_service io_service;
+        std::cout << "Initializing server..." << std::endl;
+        Server* server = new Server(8888);
         std::cout << "Starting server..." << std::endl;
-        Server* server = new Server(io_service, 8888);
+        server->Start();
         std::cout << "Server started!" << std::endl;
 
         // Run the blocking io_service method run()

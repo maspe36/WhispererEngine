@@ -7,6 +7,8 @@
 
 
 #include <queue>
+#include <boost/thread.hpp>
+#include <boost/smart_ptr.hpp>
 #include "Client.h"
 
 class Player;
@@ -18,12 +20,17 @@ public:
     std::queue<Player*> queue;
 
     void WriteAll(std::string data);
-    Server(boost::asio::io_service& ioService, int port);
+    void Start();
+    void Stop();
+    Server(int port);
 
 private:
+    boost::asio::io_service io_service;
+    boost::asio::io_service::work workLock;
+    boost::scoped_ptr<boost::thread> thread;
     boost::asio::ip::tcp::acceptor acceptor;
 
-    void Start();
+    void Listen();
     void OnAccept(Client::pointer connection, const boost::system::error_code& error);
 
     static void Close(Client::pointer connection);

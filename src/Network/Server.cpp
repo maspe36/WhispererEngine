@@ -16,15 +16,45 @@ void Server::WriteAll(std::string data)
     std::cout << data << std::endl;
 }
 
-Server::Server(boost::asio::io_service & io_service, int port)
-        : acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
+void Server::Start()
+{
+    // Is the thread already running
+    if (thread)
+    {
+        return;
+    }
+
+    // Reset the thread
+    thread.reset(new boost::thread(
+            boost::bind(&boost::asio::io_service::run, &io_service)
+    ));
+}
+
+void Server::Stop()
+{
+    // Is the thread already stopped
+    if (!thread)
+    {
+        return;
+    }
+
+    // Stop and join the thread
+    io_service.stop();
+    thread->join();
+    io_service.reset();
+    thread.reset();
+}
+
+Server::Server(int port)
+        : io_service(), workLock(io_service), thread(),
+          acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
                                                               static_cast<unsigned short>(port)))
 {
     std::cout << "Listening for clients..." << std::endl;
-    Start();
+    Listen();
 }
 
-void Server::Start()
+void Server::Listen()
 {
     Client::pointer NewClient =
             Client::Create(acceptor.get_io_service());
@@ -44,7 +74,7 @@ void Server::OnAccept(Client::pointer newClient, const boost::system::error_code
         std::cout << "Client connected!" << std::endl;
     }
     // pesudo recursive
-    Start();
+    Listen();
 }
 
 void Server::Close(Client::pointer connection)
