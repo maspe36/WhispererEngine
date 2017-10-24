@@ -124,12 +124,12 @@ target_include_directories(WhispererEngine PRIVATE ${Boost_INCLUDE_DIRS})
 set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
 
 if(WIN32)
-    set(LINK_LIBS ${DEFAULT_LIBS} wsock32 ws2_32)
+    set(PLATFORM_LIBS wsock32 ws2_32)
 else()
-    set(LINK_LIBS ${DEFAULT_LIBS})
+    set(PLATFORM_LIBS "")
 endif()
 
-target_link_libraries(WhispererEngine PRIVATE ${LINK_LIBS})
+target_link_libraries(WhispererEngine PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 set(TEST_FILES
         tests/CatchMain.cpp
