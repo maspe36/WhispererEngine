@@ -19,7 +19,7 @@ execute_process(COMMAND "${CMAKE_COMMAND}" --build .
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
 
 # Include downloaded directories
-add_subdirectory(${CMAKE_BINARY_DIR}/catch-src)
+include_directories(${CMAKE_BINARY_DIR}/catch-src)
 add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
 
 set(Boost_USE_STATIC_LIBS        ON)
