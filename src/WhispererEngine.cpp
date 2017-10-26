@@ -19,6 +19,11 @@ int main()
         std::cout << "Starting server..." << std::endl;
         server->Start();
         std::cout << "Server started!" << std::endl;
+
+        while(true)
+        {
+            // Blocking code until the io_service thread is figured out
+        }
     }
     catch (std::exception& e)
     {
