@@ -1,5 +1,7 @@
 # Whisperer
 
+[![Build Status](http://74.208.200.101:8080/buildStatus/icon?job=Whisperer)](http://74.208.200.101:8080/job/Whisperer/)
+
 ## Terms
 
 - **Mana**, a restricted resource that players may use to pay costs for cards or effects. 
