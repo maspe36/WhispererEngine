@@ -1,6 +1,6 @@
 # Whisperer
 
-[![Build Status](http://74.208.200.101:8080/buildStatus/icon?job=Whisperer)](http://74.208.200.101:8080/job/Whisperer/)
+[![Build Status](http://74.208.200.101:8080/job/Whisperer/badge/icon)](http://74.208.200.101:8080/job/Whisperer/)
 
 ## Terms
 
