@@ -24,7 +24,8 @@ void Server::Start()
         return;
     }
 
-    // Reset the thread
+    Listen();
+
     thread.reset(new boost::thread(
             boost::bind(&boost::asio::io_service::run, &io_service)
     ));
@@ -50,8 +51,6 @@ Server::Server(int port)
           acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
                                                               static_cast<unsigned short>(port)))
 {
-    std::cout << "Listening for clients..." << std::endl;
-    Listen();
 }
 
 void Server::Listen()
