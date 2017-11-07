@@ -27,7 +27,7 @@ public:
     void effect();
     void addEffect(Effect *effect);
 
-    Card(std::string name, std::string text, Mana *mana, Player *player);
+    Card(std::string name, std::string text, Mana *mana);
     ~Card();
 };
 

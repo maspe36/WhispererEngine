@@ -16,6 +16,8 @@ class Effect
 public:
     func *effect;
 
+    void isEffectTriggered();
+
     Effect(func *effect);
     ~Effect();
 };
