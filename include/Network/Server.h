@@ -22,7 +22,8 @@ public:
     void WriteAll(std::string data);
     void Start();
     void Stop();
-    Server(int port);
+
+    explicit Server(int port);
 
 private:
     boost::asio::io_service io_service;
