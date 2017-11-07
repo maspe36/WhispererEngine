@@ -4,7 +4,10 @@
 
 #include "../../../build/catch-src/include/catch.hpp"
 
-TEST_CASE( "Play card", "[card]" )
+TEST_CASE("Pass")
 {
-    REQUIRE(true);
+    SECTION("Passing on purpose")
+    {
+        REQUIRE(true);
+    }
 }
