@@ -9,7 +9,16 @@
 class Mana
 {
 public:
-    Mana();
+    int black;
+    int blue;
+    int brown;
+    int green;
+    int red;
+    int white;
+
+    void payMana(Mana *mana);
+
+    Mana(int black, int blue, int brown, int green, int red, int white);
     ~Mana();
 };
 

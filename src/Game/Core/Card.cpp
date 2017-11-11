@@ -31,7 +31,8 @@ Card::~Card()
 
 PYBIND11_MODULE(Card, m) {
     py::class_<Card> (m, "Card")
-        .def(py::init<const std::string &, const std::string &, Mana*>())
+        .def(py::init<const std::string &, const std::string &, Mana*>(),
+             py::arg("name"), py::arg("text"), py::arg("mana"))
         .def_readwrite("name", &Card::name)
         .def_readwrite("text", &Card::text)
         .def_readwrite("mana", &Card::mana)
