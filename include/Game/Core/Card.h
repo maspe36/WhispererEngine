@@ -29,7 +29,8 @@ public:
     void addModifier(Modifier *modifier);
 
     Card(std::string name, std::string text, Mana *mana);
-    ~Card();
+
+    virtual ~Card();
 };
 
 
