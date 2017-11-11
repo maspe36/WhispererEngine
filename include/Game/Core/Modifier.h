@@ -6,11 +6,11 @@
 #define WHISPERERENGINE_AFFECT_H
 
 
-class Affect
+class Modifier
 {
 public:
-    Affect();
-    ~Affect();
+    Modifier();
+    ~Modifier();
 };
 
 

@@ -45,8 +45,8 @@ set(SOURCE_FILES
         src/Game/Core/Event.cpp
         include/Game/Core/Event.h
 
-        src/Game/Core/Affect.cpp
-        include/Game/Core/Affect.h
+        src/Game/Core/Modifier.cpp
+        include/Game/Core/Modifier.h
 
         src/Game/Core/Board.cpp
         include/Game/Core/Board.h
