@@ -12,6 +12,7 @@
 class Effect;
 class Player;
 class Mana;
+class Modifier;
 
 /* Represents a single card. */
 class Card
@@ -22,10 +23,10 @@ public:
     Mana *mana;
     Player *player;
     std::vector<Effect*> effects;
+    std::vector<Modifier*> modifiers;
 
-    void isEffectTriggered();
-    void effect();
     void addEffect(Effect *effect);
+    void addModifier(Modifier *modifier);
 
     Card(std::string name, std::string text, Mana *mana);
     ~Card();
