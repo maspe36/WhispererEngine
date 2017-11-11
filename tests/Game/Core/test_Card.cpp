@@ -3,11 +3,30 @@
 //
 
 #include "../../../build/catch-src/include/catch.hpp"
+#include "../../../include/Game/Core/Mana.h"
+#include "../../../include/Game/Core/Card.h"
+#include <pybind11/embed.h>
+#include <iostream>
 
-TEST_CASE("Pass")
+namespace py = pybind11;
+
+TEST_CASE("Get C++ card from python")
 {
-    SECTION("Passing on purpose")
-    {
-        REQUIRE(true);
-    }
+    py::scoped_interpreter guard{};
+
+    py::module cardModule = py::module::import("Card");
+    py::module mamaModule = py::module::import("Mana");
+
+    // Construct a red card called 'Fire Boy' that costs 1 red mana
+    auto* mana = new Mana(0, 0, 0, 0, 1, 0);
+    const std::string name = "Fire Boy";
+    const std::string text = "A fired boy";
+    py::object card = cardModule.attr("Card")(name, text, mana);
+
+    auto *cppCard = card.cast<Card*>();
+
+    REQUIRE(cppCard != nullptr);
+    REQUIRE(cppCard->name == name);
+    REQUIRE(cppCard->text == text);
+    REQUIRE(cppCard->mana == mana);
 }

@@ -55,9 +55,7 @@ add_definitions( ${GCC_HYPOT_FLAGS} )
 set(GCC_MS64_FLAGS "-D MS_WIN64")
 add_definitions( ${GCC_HYPOT_FLAGS} )
 
-set(SOURCE_FILES
-        src/WhispererEngine.cpp
-
+set(WHISPERER_FILES
         src/Game/Core/Event.cpp
         include/Game/Core/Event.h
 
@@ -133,12 +131,19 @@ set(SOURCE_FILES
         src/Network/Server.cpp
         include/Network/Server.h)
 
+set(SOURCE_FILES
+        src/WhispererEngine.cpp
+        ${WHISPERER_FILES})
+
 add_executable(WhispererEngine ${SOURCE_FILES})
 target_include_directories(WhispererEngine PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(WhispererEngine PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 set(TEST_FILES
+        ${WHISPERER_FILES}
         tests/CatchMain.cpp
         tests/Game/Core/test_Card.cpp)
 
 add_executable(WhispererEngineTests ${TEST_FILES})
+target_include_directories(WhispererEngineTests PRIVATE ${Boost_INCLUDE_DIRS})
+target_link_libraries(WhispererEngineTests PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} ${CMAKE_THREAD_LIBS_INIT})
