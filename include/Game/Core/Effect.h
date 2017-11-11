@@ -5,6 +5,8 @@
 #ifndef WHISPERERENGINE_EFFECT_H
 #define WHISPERERENGINE_EFFECT_H
 
+#include <functional>
+
 /* A C++ function type */
 typedef std::function<void()> func;
 
