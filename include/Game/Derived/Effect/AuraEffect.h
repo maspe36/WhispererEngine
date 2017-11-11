@@ -7,12 +7,19 @@
 
 
 #include "../../Core/Effect.h"
+#include <vector>
+
+class Modifier;
 
 /* An effect that is constantly emitting its ability */
 class AuraEffect : public Effect
 {
 public:
-    AuraEffect(func *effect);
+    std::vector<Modifier*> modifiers;
+
+    bool isApplied();
+
+    AuraEffect(std::vector<Modifier*> modifiers, func *isApplied);
     ~AuraEffect();
 };
 

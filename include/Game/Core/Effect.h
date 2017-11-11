@@ -5,8 +5,6 @@
 #ifndef WHISPERERENGINE_EFFECT_H
 #define WHISPERERENGINE_EFFECT_H
 
-#include <functional>
-
 /* A C++ function type */
 typedef std::function<void()> func;
 
@@ -14,11 +12,7 @@ typedef std::function<void()> func;
 class Effect
 {
 public:
-    func *effect;
-
-    void isEffectTriggered();
-
-    Effect(func *effect);
+    Effect();
     ~Effect();
 };
 

@@ -7,12 +7,14 @@
 
 
 #include "../../Core/Effect.h"
+#include <functional>
 
 /* An effect that has a condition to be met for it to trigger */
 class TriggerEffect : public Effect
 {
 public:
-    func *isEffectTriggered;
+    void effect();
+    bool isEffectTriggered();
 
     TriggerEffect(func *effect, func *isEffectTriggered);
     ~TriggerEffect();
