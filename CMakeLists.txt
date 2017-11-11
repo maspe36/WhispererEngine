@@ -4,6 +4,15 @@ project(WhispererEngine)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Determine how we should link libs to the exe
+set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
+
+if(WIN32)
+    set(PLATFORM_LIBS wsock32 ws2_32)
+else()
+    set(PLATFORM_LIBS "")
+endif()
+
 # Download catch test framework
 configure_file(libs/catch/CMakeLists.txt catch-download/CMakeLists.txt)
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
@@ -27,9 +36,14 @@ set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME    OFF)
 find_package(Boost 1.65.1 REQUIRED system thread)
 
+# Include boost directories
+include_directories(${Boost_INCLUDE_DIRS})
+link_libraries(${Boost_LIBRARIES} ${PLATFORM_LIBS})
+
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
 #pybind11_add_module(<module name> [<module source files>, ...])
+pybind11_add_module(Card src/Game/Core/Card.cpp)
 
 # Add the hypot flag
 set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
@@ -119,16 +133,6 @@ set(SOURCE_FILES
 
 add_executable(WhispererEngine ${SOURCE_FILES})
 target_include_directories(WhispererEngine PRIVATE ${Boost_INCLUDE_DIRS})
-
-# Determine how we should link libs to the exe
-set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
-
-if(WIN32)
-    set(PLATFORM_LIBS wsock32 ws2_32)
-else()
-    set(PLATFORM_LIBS "")
-endif()
-
 target_link_libraries(WhispererEngine PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 set(TEST_FILES
