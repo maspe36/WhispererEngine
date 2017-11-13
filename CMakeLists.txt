@@ -43,9 +43,11 @@ link_libraries(${Boost_LIBRARIES} ${PLATFORM_LIBS})
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
 #pybind11_add_module(<module name> [<module source files>, ...])
-pybind11_add_module(Card src/Game/Core/Card.cpp)
-pybind11_add_module(Constant src/Game/Derived/Card/Constant.cpp src/Game/Core/Card.cpp)
-pybind11_add_module(Mana src/Game/Core/Mana.cpp)
+pybind11_add_module(Whisperer
+        src/PythonModule.cpp
+        src/Game/Core/Card.cpp
+        src/Game/Derived/Card/Constant.cpp
+        src/Game/Core/Mana.cpp)
 
 # Add the hypot flag
 set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
