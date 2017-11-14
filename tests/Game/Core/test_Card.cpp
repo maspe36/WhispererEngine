@@ -14,14 +14,13 @@ TEST_CASE("Get C++ card from python")
 {
     py::scoped_interpreter guard{};
 
-    py::module cardModule = py::module::import("Card");
-    py::module mamaModule = py::module::import("Mana");
+    py::module whispererModule = py::module::import("Whisperer");
 
     // Construct a red card called 'Fire Boy' that costs 1 red mana
     auto* mana = new Mana(0, 0, 0, 0, 1, 0);
     const std::string name = "Fire Boy";
     const std::string text = "A fired boy";
-    py::object card = cardModule.attr("Card")(name, text, mana);
+    py::object card = whispererModule.attr("Card")(name, text, mana);
 
     auto *cppCard = card.cast<Card*>();
 
