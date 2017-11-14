@@ -7,10 +7,15 @@
 #include "../include/Network/Server.h"
 
 #include <iostream>
+#include <pybind11/embed.h>
 
+namespace py = pybind11;
 
 int main()
 {
+    py::scoped_interpreter guard{};
+
+    PyRun_SimpleString("import sys;print(sys.version)");
     try
     {
         std::cout << "Initializing server..." << std::endl;
@@ -34,4 +39,6 @@ int main()
     {
         std::cerr << e.what() << std::endl;
     }
+
+    Py_Finalize();
 }
