@@ -1,17 +1,21 @@
-cmake_minimum_required(VERSION 3.9.3)
+cmake_minimum_required(VERSION 3.9)
 project(WhispererEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Determine how we should link libs to the exe
-set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
+# Add the hypot flag
+set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
+add_definitions( ${GCC_HYPOT_FLAGS} )
 
+# Determine platform specific libs
 if(WIN32)
     set(PLATFORM_LIBS wsock32 ws2_32)
 else()
     set(PLATFORM_LIBS "")
 endif()
+
+link_libraries(${PLATFORM_LIBS})
 
 # Download catch test framework
 configure_file(libs/catch/CMakeLists.txt catch-download/CMakeLists.txt)
@@ -38,7 +42,7 @@ find_package(Boost 1.65.1 REQUIRED system thread)
 
 # Include boost directories
 include_directories(${Boost_INCLUDE_DIRS})
-link_libraries(${Boost_LIBRARIES} ${PLATFORM_LIBS})
+link_libraries(${Boost_LIBRARIES})
 
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
@@ -49,13 +53,7 @@ pybind11_add_module(Whisperer
         src/Game/Derived/Card/Constant.cpp
         src/Game/Core/Mana.cpp)
 
-# Add the hypot flag
-set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
-add_definitions( ${GCC_HYPOT_FLAGS} )
-
-# Add the ms win flag
-set(GCC_MS64_FLAGS "-D MS_WIN64")
-add_definitions( ${GCC_HYPOT_FLAGS} )
+set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
 
 set(WHISPERER_FILES
         src/Game/Core/Event.cpp
