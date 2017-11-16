@@ -15,30 +15,22 @@ int main()
 {
     py::scoped_interpreter guard{};
 
-    PyRun_SimpleString("import sys;print(sys.version)");
-    try
-    {
-        std::cout << "Initializing server..." << std::endl;
-        auto* server = new Server(8888);
-        std::cout << "Starting server..." << std::endl;
-        server->Start();
-        std::cout << "Server started!" << std::endl;
+    std::cout << "Python: " << Py_GetVersion() << std::endl;
 
-        // Exit if the user enters quit
-        std::string line;
-        while (std::getline(std::cin, line) && line != "quit")
-        {
-            std::cout << "Unknown command: '" << line << "'" << std::endl;
-        }
+    std::cout << "Initializing server..." << std::endl;
+    auto* server = new Server(8888);
+    std::cout << "Starting server..." << std::endl;
+    server->Start();
+    std::cout << "Server started!" << std::endl;
 
-        std::cout << "Shutting down..." << std::endl;
-        server->Stop();
-        std::cout << "Bye!" << std::endl;
-    }
-    catch (std::exception& e)
+    // Exit if the user enters quit
+    std::string line;
+    while (std::getline(std::cin, line) && line != "quit")
     {
-        std::cerr << e.what() << std::endl;
+        std::cout << "Unknown command: '" << line << "'" << std::endl;
     }
 
-    Py_Finalize();
+    std::cout << "Shutting down..." << std::endl;
+    server->Stop();
+    std::cout << "Bye!" << std::endl;
 }
