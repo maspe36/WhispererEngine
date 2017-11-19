@@ -11,15 +11,16 @@
 class Version
 {
 public:
-    int major, minor, revision, build;
-
     bool operator < (const Version& other);
-    bool operator == (const Version& other);
 
+    bool operator == (const Version& other);
     std::string toString();
 
-    ~Version();
     explicit Version(std::string version);
+    ~Version();
+
+private:
+    int _major, _minor, _revision, _build;
 };
 
 

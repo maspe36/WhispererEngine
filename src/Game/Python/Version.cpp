@@ -8,41 +8,41 @@
 
 bool Version::operator < (const Version &other)
 {
-    if (major < other.major)
+    if (_major < other._major)
         return true;
-    if (minor < other.minor)
+    if (_minor < other._minor)
         return true;
-    if (revision < other.revision)
+    if (_revision < other._revision)
         return true;
-    if (build < other.build)
+    if (_build < other._build)
         return true;
     return false;
 }
 
 bool Version::operator == (const Version &other)
 {
-    return major == other.major
-           && minor == other.minor
-           && revision == other.revision
-           && build == other.build;
+    return _major == other._major
+           && _minor == other._minor
+           && _revision == other._revision
+           && _build == other._build;
 }
 
 Version::Version(std::string version)
-        : major(0), minor(0), revision(0), build(0)
+        : _major(0), _minor(0), _revision(0), _build(0)
 {
     if(0 > version.length() > 4)
     {
         throw std::runtime_error("Invalid python version - " + version);
     }
 
-    std::sscanf(version.c_str(), "%d.%d.%d.%d", &major, &minor, &revision, &build); // NOLINT
+    std::sscanf(version.c_str(), "%d.%d.%d.%d", &_major, &_minor, &_revision, &_build); // NOLINT
 }
 
 std::string Version::toString()
 {
-    return std::to_string(major) + "." +
-            std::to_string(minor) + '.' +
-            std::to_string(revision);
+    return std::to_string(_major) + "." +
+            std::to_string(_minor) + '.' +
+            std::to_string(_revision);
 }
 
 Version::~Version()
