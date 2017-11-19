@@ -24,7 +24,7 @@ TEST_CASE("Create factory")
 
     SECTION("Verify expected python version")
     {
-        std::string expectedVersion = "3.6.4";
+        std::string expectedVersion = "3.6.3";
         bool versionCheck = Version(expectedVersion) == factory->version;
 
         if (!versionCheck)
