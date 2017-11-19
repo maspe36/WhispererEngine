@@ -48,7 +48,7 @@ link_libraries(${Boost_LIBRARIES})
 set(PYBIND11_CPP_STANDARD -std=c++17)
 #pybind11_add_module(<module name> [<module source files>, ...])
 pybind11_add_module(Whisperer
-        src/PythonModule.cpp
+        src/Game/Python/Module.cpp
         src/Game/Core/Card.cpp
         src/Game/Derived/Card/Constant.cpp
         src/Game/Core/Mana.cpp)
@@ -119,11 +119,8 @@ set(WHISPERER_FILES
         src/Game/Derived/Event/PlayerEvents/SelectionEvent.cpp
         include/Game/Derived/Event/PlayerEvents/SelectionEvent.h
 
-        src/Game/PythonInterface/Factory.cpp
-        include/Game/PythonInterface/Factory.h
-
-        src/Game/PythonInterface/Converter.cpp
-        include/Game/PythonInterface/Converter.h
+        src/Game/Python/Factory.cpp
+        include/Game/Python/Factory.h
 
         src/Network/Client.cpp
         include/Network/Client.h

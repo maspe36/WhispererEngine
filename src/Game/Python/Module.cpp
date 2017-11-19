@@ -7,7 +7,7 @@
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Effect.h"
 #include "../../../include/Game/Core/Modifier.h"
-#include "../include/Game/Derived/Card/Constant.h"
+#include "../../../include/Game/Derived/Card/Constant.h"
 
 #include <pybind11/pybind11.h>
 
