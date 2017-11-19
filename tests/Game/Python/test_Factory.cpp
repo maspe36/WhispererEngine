@@ -10,11 +10,6 @@ TEST_CASE("Create factory")
 {
     auto* factory = new Factory();
 
-    SECTION("Verify creation")
-    {
-        REQUIRE_FALSE(factory == nullptr);
-    }
-
     SECTION("Verify minimum python version")
     {
         std::string minimumVersion = "2.7";

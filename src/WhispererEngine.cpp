@@ -11,8 +11,6 @@
 
 int main()
 {
-    auto * factor = new Factory();
-
     std::cout << "Initializing server..." << std::endl;
     auto* server = new Server(8888);
     std::cout << "Starting server..." << std::endl;
