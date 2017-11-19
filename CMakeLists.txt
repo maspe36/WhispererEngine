@@ -6,8 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add the hypot flag
 set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
-set(FPIC_FLAG "-fPIC")
-add_definitions(${GCC_HYPOT_FLAGS} ${FPIC_FLAG})
+add_definitions(${GCC_HYPOT_FLAGS} )
 
 # Determine platform specific libs
 if(WIN32)
