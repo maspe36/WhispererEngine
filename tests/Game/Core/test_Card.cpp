@@ -3,9 +3,10 @@
 //
 
 #include "../../../build/catch-src/include/catch.hpp"
+
 #include "../../../include/Game/Core/Mana.h"
 #include "../../../include/Game/Core/Card.h"
-#include <iostream>
+
 #include <pybind11/embed.h>
 
 namespace py = pybind11;
