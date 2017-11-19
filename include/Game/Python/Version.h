@@ -20,7 +20,7 @@ public:
     ~Version();
 
 private:
-    int _major, _minor, _revision, _build;
+    int m_major, m_minor, m_revision, m_build;
 };
 
 
