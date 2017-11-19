@@ -38,5 +38,12 @@ Version::Version(std::string version)
     std::sscanf(version.c_str(), "%d.%d.%d.%d", &major, &minor, &revision, &build); // NOLINT
 }
 
+std::string Version::toString()
+{
+    return std::to_string(major) + "." +
+            std::to_string(minor) + '.' +
+            std::to_string(revision);
+}
+
 Version::~Version()
 = default;

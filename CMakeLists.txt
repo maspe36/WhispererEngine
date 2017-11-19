@@ -122,6 +122,9 @@ set(WHISPERER_FILES
         src/Game/Python/Factory.cpp
         include/Game/Python/Factory.h
 
+        src/Game/Python/Version.cpp
+        include/Game/Python/Version.h
+
         src/Network/Client.cpp
         include/Network/Client.h
 
@@ -139,7 +142,8 @@ target_link_libraries(WhispererEngine PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} $
 set(TEST_FILES
         ${WHISPERER_FILES}
         tests/CatchMain.cpp
-        tests/Game/Core/test_Card.cpp)
+        tests/Game/Core/test_Card.cpp
+        tests/Game/Python/test_Factory.cpp)
 
 add_executable(WhispererEngineTests ${TEST_FILES})
 target_include_directories(WhispererEngineTests PRIVATE ${Boost_INCLUDE_DIRS})

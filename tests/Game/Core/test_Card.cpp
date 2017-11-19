@@ -25,7 +25,7 @@ TEST_CASE("Get C++ card from python")
 
     auto *cppCard = card.cast<Card*>();
 
-    REQUIRE(cppCard != nullptr);
+    REQUIRE_FALSE(cppCard == nullptr);
     REQUIRE(cppCard->name == name);
     REQUIRE(cppCard->text == text);
     REQUIRE(cppCard->mana == mana);

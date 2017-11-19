@@ -16,6 +16,8 @@ public:
     bool operator < (const Version& other);
     bool operator == (const Version& other);
 
+    std::string toString();
+
     ~Version();
     explicit Version(std::string version);
 };
