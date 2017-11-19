@@ -8,21 +8,22 @@
 
 TEST_CASE("Create factory")
 {
+    std::shared_ptr<Factory> factory = std::make_shared<Factory>();
+
+    SECTION("Verify creation")
+    {
+        REQUIRE_FALSE(factory == nullptr);
+    }
+
     SECTION("Verify minimum python version")
     {
-        auto* factory = new Factory();
-
         std::string minimumVersion = "2.7";
         bool versionCheck = Version(minimumVersion) < factory->version;
         REQUIRE(versionCheck);
-
-        delete factory;
     }
 
     SECTION("Verify expected python version")
     {
-        auto* factory = new Factory();
-
         std::string expectedVersion = "3.6.3";
         bool versionCheck = Version(expectedVersion) == factory->version;
 
@@ -31,7 +32,5 @@ TEST_CASE("Create factory")
             FAIL_CHECK("Unexpected python version, expected " + expectedVersion +
                                " but factory's interpreter is running " + factory->version.toString());
         }
-
-        delete factory;
     }
 }
