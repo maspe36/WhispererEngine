@@ -4,7 +4,6 @@
 
 #include "../include/Game/Core/Game.h"
 #include "../include/Game/Core/Player.h"
-#include "../include/Game/Python/Factory.h"
 #include "../include/Network/Server.h"
 
 #include <iostream>
