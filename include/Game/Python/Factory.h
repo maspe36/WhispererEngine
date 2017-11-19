@@ -6,6 +6,8 @@
 #define WHISPERERENGINE_FACTORY_H
 
 
+#include "../../../include/Game/Python/Version.h"
+
 #include <pybind11/embed.h>
 
 namespace py = pybind11;
@@ -20,12 +22,17 @@ class Card;
 class Factory
 {
 public:
+    Version version;
+
     Card* createCard(std::string name);
 
     Factory();
     ~Factory();
+
 private:
     py::scoped_interpreter interpreter;
+
+    void updateVersion();
 };
 #pragma GCC visibility pop
 
