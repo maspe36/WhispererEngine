@@ -7,16 +7,9 @@
 #include "../include/Network/Server.h"
 
 #include <iostream>
-#include <pybind11/embed.h>
-
-namespace py = pybind11;
 
 int main()
 {
-    py::scoped_interpreter guard{};
-
-    std::cout << "Python: " << Py_GetVersion() << std::endl;
-
     std::cout << "Initializing server..." << std::endl;
     auto* server = new Server(8888);
     std::cout << "Starting server..." << std::endl;
