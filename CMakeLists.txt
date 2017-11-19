@@ -4,9 +4,9 @@ project(WhispererEngine)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add the hypot flag
-set(GCC_HYPOT_FLAGS "-D_hypot=hypot")
-add_definitions(${GCC_HYPOT_FLAGS} )
+# Add the compiler flag
+set(HYPOT_FLAG "-D_hypot=hypot")
+add_definitions(${HYPOT_FLAG})
 
 # Determine platform specific libs
 if(WIN32)
