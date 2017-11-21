@@ -11,7 +11,7 @@ Card *Factory::createCard(std::string name)
 }
 
 Factory::Factory()
-        : version(""), interpreter{}
+        : version("")
 {
     std::cout << "Factory Started" << std::endl;
     std::cout << "Using Python: " << Py_GetVersion() << std::endl;

@@ -26,7 +26,7 @@ public:
     ~Factory();
 
 private:
-    py::scoped_interpreter interpreter;
+    py::scoped_interpreter interpreter{};
 
     void updateVersion();
 };
