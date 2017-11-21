@@ -8,11 +8,12 @@
 
 #include "../../../include/Game/Python/Version.h"
 
-#include <pybind11/embed.h>
-
-namespace py = pybind11;
-
 class Card;
+
+namespace pybind11
+{
+    class scoped_interpreter;
+};
 
 /* Hanldes all python card creation. */
 class Factory
@@ -26,7 +27,7 @@ public:
     ~Factory();
 
 private:
-    py::scoped_interpreter interpreter{};
+    pybind11::scoped_interpreter* interpreter;
 
     void updateVersion();
 };

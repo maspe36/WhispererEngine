@@ -3,12 +3,12 @@
 //
 
 #include "../../../build/catch-src/include/catch.hpp"
-
 #include "../../../include/Game/Python/Factory.h"
 
 TEST_CASE("Create factory")
 {
-    std::shared_ptr<Factory> factory = std::make_shared<Factory>();
+    auto* factory = new Factory();
+    delete factory;
 //
 //    SECTION("Verify creation")
 //    {
