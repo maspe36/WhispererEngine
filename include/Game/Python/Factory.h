@@ -14,10 +14,6 @@ namespace py = pybind11;
 
 class Card;
 
-/* Ignore the visibility warning from gcc
- * caused by having a library type as a class member */
-#pragma GCC visibility push(hidden)
-
 /* Hanldes all python card creation. */
 class Factory
 {
@@ -34,7 +30,6 @@ private:
 
     void updateVersion();
 };
-#pragma GCC visibility pop
 
 
 #endif //WHISPERERENGINE_FACTORY_H
