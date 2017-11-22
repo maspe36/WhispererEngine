@@ -7,30 +7,29 @@
 
 TEST_CASE("Create factory")
 {
-    auto* factory = new Factory();
-    delete factory;
-//
-//    SECTION("Verify creation")
-//    {
-//        REQUIRE_FALSE(factory == nullptr);
-//    }
-//
-//    SECTION("Verify minimum python version")
-//    {
-//        std::string minimumVersion = "2.7";
-//        bool versionCheck = Version(minimumVersion) < factory->version;
-//        REQUIRE(versionCheck);
-//    }
-//
-//    SECTION("Verify expected python version")
-//    {
-//        std::string expectedVersion = "3.6.3";
-//        bool versionCheck = Version(expectedVersion) == factory->version;
-//
-//        if (!versionCheck)
-//        {
-//            FAIL_CHECK("Unexpected python version, expected " + expectedVersion +
-//                               " but factory's interpreter is running " + factory->version.toString());
-//        }
-//    }
+    std::shared_ptr<Factory> factory = std::make_shared<Factory>();
+
+    SECTION("Verify creation")
+    {
+        REQUIRE_FALSE(factory == nullptr);
+    }
+
+    SECTION("Verify minimum python version")
+    {
+        std::string minimumVersion = "2.7";
+        bool versionCheck = Version(minimumVersion) < factory->version;
+        REQUIRE(versionCheck);
+    }
+
+    SECTION("Verify expected python version")
+    {
+        std::string expectedVersion = "3.6.3";
+        bool versionCheck = Version(expectedVersion) == factory->version;
+
+        if (!versionCheck)
+        {
+            FAIL_CHECK("Unexpected python version, expected " + expectedVersion +
+                               " but factory's interpreter is running " + factory->version.toString());
+        }
+    }
 }
