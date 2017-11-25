@@ -27,16 +27,16 @@ int main()
     {
         if (line == "memes")
         {
-            std::shared_ptr<Card> card = factory.createCard("Azar");
+            Card card = factory.createCard("Azar");
 
-            std::cout << "name: " << card->name << std::endl;
-            std::cout << "text: " << card->text << std::endl;
-            std::cout << "black: " << card->mana->black << std::endl;
-            std::cout << "blue: " << card->mana->blue << std::endl;
-            std::cout << "brown: " << card->mana->brown << std::endl;
-            std::cout << "red: " << card->mana->red << std::endl;
-            std::cout << "green: " << card->mana->green << std::endl;
-            std::cout << "white: " << card->mana->white << std::endl;
+            std::cout << "name: " << card.name << std::endl;
+            std::cout << "text: " << card.text << std::endl;
+            std::cout << "black: " << card.mana->black << std::endl;
+            std::cout << "blue: " << card.mana->blue << std::endl;
+            std::cout << "brown: " << card.mana->brown << std::endl;
+            std::cout << "red: " << card.mana->red << std::endl;
+            std::cout << "green: " << card.mana->green << std::endl;
+            std::cout << "white: " << card.mana->white << std::endl;
         }
         std::cout << "Unknown command: '" << line << "'" << std::endl;
     }

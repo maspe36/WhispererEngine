@@ -4,11 +4,11 @@
 
 #include <iostream>
 #include "../../../build/catch-src/include/catch.hpp"
+
 #include "../../../include/Game/Python/Factory.h"
 #include "../../../include/Game/Python/Version.h"
 #include "../../../include/Game/Derived/Card/Creature.h"
 #include "../../../include/Game/Core/Mana.h"
-#include "../../../include/Game/Core/Card.h"
 
 TEST_CASE("Create factory")
 {
@@ -18,7 +18,7 @@ TEST_CASE("Create factory")
     {
         std::string minimumVersion = "2.7";
         Version version(minimumVersion);
-        bool versionCheck =version < *factory.version;
+        bool versionCheck = version < *factory.version;
         REQUIRE(versionCheck);
     }
 
