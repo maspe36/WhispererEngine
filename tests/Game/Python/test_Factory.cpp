@@ -42,15 +42,15 @@ TEST_CASE("Create a card")
 
     SECTION("Create a card")
     {
-        std::shared_ptr<Card> creature = factory.createCard("Azar");
-        REQUIRE(creature->name == "Azar");
-        REQUIRE(creature->text == "The first Whisperer card!");
-        REQUIRE(creature->mana->black == 0);
-        REQUIRE(creature->mana->blue == 0);
-        REQUIRE(creature->mana->brown == 0);
-        REQUIRE(creature->mana->green == 0);
-        REQUIRE(creature->mana->red == 1);
-        REQUIRE(creature->mana->white == 0);
+        Card card = factory.createCard("Azar");
+        REQUIRE(card.name == "Azar");
+        REQUIRE(card.text == "The first Whisperer card!");
+        REQUIRE(card.mana->black == 0);
+        REQUIRE(card.mana->blue == 0);
+        REQUIRE(card.mana->brown == 0);
+        REQUIRE(card.mana->green == 0);
+        REQUIRE(card.mana->red == 1);
+        REQUIRE(card.mana->white == 0);
         std::cout << "Done testing" << std::endl;
     }
 }
