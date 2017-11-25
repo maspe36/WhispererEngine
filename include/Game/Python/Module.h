@@ -32,7 +32,12 @@ PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
 
     py::class_<Mana> (m, "Mana")
             .def(py::init<const int &, const int &, const int &, const int &, const int &, const int &>(),
-                 py::arg("brown") = 0, py::arg("black") = 0, py::arg("blue") = 0, py::arg("green") = 0, py::arg("red") = 0, py::arg("white") = 0)
+                 py::arg("black") = 0,
+                 py::arg("blue") = 0,
+                 py::arg("brown") = 0,
+                 py::arg("green") = 0,
+                 py::arg("red") = 0,
+                 py::arg("white") = 0)
             .def_readwrite("black", &Mana::black)
             .def_readwrite("blue", &Mana::blue)
             .def_readwrite("brown", &Mana::brown)
