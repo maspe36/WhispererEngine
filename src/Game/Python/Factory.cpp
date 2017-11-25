@@ -4,6 +4,7 @@
 
 #include "../../../include/Game/Python/Module.h"
 #include "../../../include/Game/Python/Factory.h"
+#include "../../../include/Game/Python/Version.h"
 #include "../../../include/Game/Core/Card.h"
 #include <iostream>
 
@@ -22,7 +23,7 @@ std::shared_ptr<Card> Factory::createCard(const std::string name)
 }
 
 Factory::Factory()
-        : version(""), interpreter(new py::scoped_interpreter{})
+        : version(nullptr), interpreter(new py::scoped_interpreter{})
 {
     std::cout << "Factory Started" << std::endl;
     std::cout << "Using Python: " << Py_GetVersion() << std::endl;
@@ -35,6 +36,7 @@ Factory::Factory()
 Factory::~Factory()
 {
     delete interpreter;
+    delete version;
 }
 
 /* Once the interpreter is started, automatically detect and fill the version */
@@ -44,7 +46,5 @@ void Factory::updateVersion()
     auto python_version = platform.attr("python_version")();
 
     auto version_string = python_version.cast<std::__cxx11::string>();
-    version = Version(version_string);
+    version = new Version(version_string);
 }
-
-
