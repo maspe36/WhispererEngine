@@ -9,7 +9,6 @@
 #include "../Core/Modifier.h"
 #include "../Derived/Card/Constant.h"
 
-#include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
 
 namespace py = pybind11;

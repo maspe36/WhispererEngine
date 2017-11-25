@@ -20,8 +20,8 @@ class Card
 public:
     std::string name;
     std::string text;
-    Mana *mana;
-    Player *player;
+    Mana* mana;
+    Player* player;
     std::vector<Effect*> effects;
     std::vector<Modifier*> modifiers;
 
