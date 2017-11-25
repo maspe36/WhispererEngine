@@ -21,7 +21,7 @@ class Factory
 public:
     Version version;
 
-    Card* createCard(std::string name);
+    std::shared_ptr<Card> createCard(std::string name);
 
     Factory();
     ~Factory();

@@ -6,6 +6,7 @@
 
 #include "../../../include/Game/Core/Mana.h"
 #include "../../../include/Game/Core/Card.h"
+#include "../../../include/Game/Python/Factory.h"
 
 #include <pybind11/embed.h>
 
@@ -13,7 +14,7 @@ namespace py = pybind11;
 
 TEST_CASE("Get C++ card from python")
 {
-    py::scoped_interpreter guard{};
+    Factory factory;
 
     py::module whispererModule = py::module::import("Whisperer");
 
