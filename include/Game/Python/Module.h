@@ -2,18 +2,19 @@
 // Created by Sam Privett on 11/13/2017.
 //
 
-#include "../../../include/Game/Core/Card.h"
-#include "../../../include/Game/Core/Mana.h"
-#include "../../../include/Game/Core/Player.h"
-#include "../../../include/Game/Core/Effect.h"
-#include "../../../include/Game/Core/Modifier.h"
-#include "../../../include/Game/Derived/Card/Constant.h"
+#include "../Core/Card.h"
+#include "../Core/Mana.h"
+#include "../Core/Player.h"
+#include "../Core/Effect.h"
+#include "../Core/Modifier.h"
+#include "../Derived/Card/Constant.h"
 
 #include <pybind11/pybind11.h>
+#include <pybind11/embed.h>
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(Whisperer, m) {
+PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
     py::class_<Card> (m, "Card")
         .def(py::init<const std::string &, const std::string &, Mana*>(),
             py::arg("name"), py::arg("text"), py::arg("mana"))
@@ -32,7 +33,7 @@ PYBIND11_MODULE(Whisperer, m) {
 
     py::class_<Mana> (m, "Mana")
             .def(py::init<const int &, const int &, const int &, const int &, const int &, const int &>(),
-                 py::arg("black"), py::arg("blue"), py::arg("brown"), py::arg("green"), py::arg("red"), py::arg("white"))
+                 py::arg("brown") = 0, py::arg("black") = 0, py::arg("blue") = 0, py::arg("green") = 0, py::arg("red") = 0, py::arg("white") = 0)
             .def_readwrite("black", &Mana::black)
             .def_readwrite("blue", &Mana::blue)
             .def_readwrite("brown", &Mana::brown)
