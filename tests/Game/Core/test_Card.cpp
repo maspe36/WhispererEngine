@@ -19,7 +19,7 @@ TEST_CASE("Get C++ card from python")
     py::module whispererModule = py::module::import("Whisperer");
 
     // Construct a red card called 'Fire Boy' that costs 1 red mana
-    auto* mana = new Mana(0, 0, 0, 0, 1, 0);
+    Mana mana(0, 0, 0, 0, 1, 0);
     const std::string name = "Fire Boy";
     const std::string text = "A fired boy";
     py::object card = whispererModule.attr("Card")(name, text, mana);
@@ -29,5 +29,10 @@ TEST_CASE("Get C++ card from python")
     REQUIRE_FALSE(cppCard == nullptr);
     REQUIRE(cppCard->name == name);
     REQUIRE(cppCard->text == text);
-    REQUIRE(cppCard->mana == mana);
+    REQUIRE(cppCard->mana.black == 0);
+    REQUIRE(cppCard->mana.blue == 0);
+    REQUIRE(cppCard->mana.brown == 0);
+    REQUIRE(cppCard->mana.green == 0);
+    REQUIRE(cppCard->mana.red == 1);
+    REQUIRE(cppCard->mana.white == 0);
 }
