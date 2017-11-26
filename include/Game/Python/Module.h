@@ -15,7 +15,7 @@ namespace py = pybind11;
 
 PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
     py::class_<Card> (m, "Card")
-        .def(py::init<const std::string &, const std::string &, Mana*>(),
+        .def(py::init<const std::string &, const std::string &, const Mana &>(),
             py::arg("name"), py::arg("text"), py::arg("mana"))
         .def_readwrite("name", &Card::name)
         .def_readwrite("text", &Card::text)
@@ -27,7 +27,7 @@ PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
         .def("addModifier", &Card::addModifier);
 
     py::class_<Constant, Card> (m, "Constant")
-        .def(py::init<const std::string &, const std::string &, Mana*>(),
+        .def(py::init<const std::string &, const std::string &, const Mana &>(),
              py::arg("name"), py::arg("text"), py::arg("mana"));
 
     py::class_<Mana> (m, "Mana")

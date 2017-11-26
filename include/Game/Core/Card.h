@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include "Mana.h"
 
 class Effect;
 class Player;
@@ -20,7 +21,7 @@ class Card
 public:
     std::string name;
     std::string text;
-    Mana* mana;
+    Mana mana;
     Player* player;
     std::vector<Effect*> effects;
     std::vector<Modifier*> modifiers;
@@ -28,7 +29,7 @@ public:
     void addEffect(Effect *effect);
     void addModifier(Modifier *modifier);
 
-    Card(std::string name, std::string text, Mana *mana);
+    Card(std::string name, std::string text, Mana mana);
 
     virtual ~Card();
 };

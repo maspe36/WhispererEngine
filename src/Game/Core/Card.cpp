@@ -15,7 +15,7 @@ void Card::addModifier(Modifier *modifier)
     modifiers.push_back(modifier);
 }
 
-Card::Card(std::string name, std::string text, Mana *mana)
+Card::Card(std::string name, std::string text, Mana mana)
         : name(std::move(name)), text(std::move(text)), mana(mana)
 {
 }
