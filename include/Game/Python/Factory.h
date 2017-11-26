@@ -6,8 +6,10 @@
 #define WHISPERERENGINE_FACTORY_H
 
 
-#include "../../../include/Game/Core/Card.h"
+#include <iostream>
+#include <memory>
 
+class Card;
 class Version;
 
 namespace pybind11
@@ -21,7 +23,7 @@ class Factory
 public:
     Version* version;
 
-    Card createCard(std::string name);
+    std::shared_ptr<Card> createCard(const std::string &name);
 
     Factory();
     ~Factory();
