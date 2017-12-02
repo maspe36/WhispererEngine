@@ -8,6 +8,7 @@
 #include "../Core/Effect.h"
 #include "../Core/Modifier.h"
 #include "../Derived/Card/Constant.h"
+#include "../Derived/Card/Creature.h"
 
 #include <pybind11/embed.h>
 
@@ -29,6 +30,14 @@ PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
     py::class_<Constant, Card> (m, "Constant")
         .def(py::init<const std::string &, const std::string &, const Mana &>(),
              py::arg("name"), py::arg("text"), py::arg("mana"));
+
+    py::class_<Creature, Card> (m, "Creature")
+            .def(py::init<const std::string &, const std::string &, const Mana &, const int &, const int &>(),
+                 py::arg("name"), py::arg("text"), py::arg("mana"), py::arg("attackStat"), py::arg("defenseStat"))
+            .def_readwrite("attackStat", &Creature::attackStat)
+            .def_readwrite("defenseStat", &Creature::defenseStat)
+            .def_readwrite("attacks", &Creature::attacks)
+            .def_readwrite("remainingAttacks", &Creature::remainingAttacks);
 
     py::class_<Mana> (m, "Mana")
             .def(py::init<const int &, const int &, const int &, const int &, const int &, const int &>(),

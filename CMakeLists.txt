@@ -46,15 +46,19 @@ link_libraries(${Boost_LIBRARIES})
 
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
+
 #pybind11_add_module(<module name> [<module source files>, ...])
 pybind11_add_module(Whisperer
         include/Game/Python/Module.h
         src/Game/Core/Card.cpp
+        src/Game/Core/Mana.cpp
         src/Game/Derived/Card/Constant.cpp
-        src/Game/Core/Mana.cpp)
+        src/Game/Derived/Card/Creature.cpp)
 
+# Define the default libraries to include with the targets
 set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
 
+# All the headers and source code for classes used in the core game
 set(WHISPERER_FILES
         src/Game/Core/Event.cpp
         include/Game/Core/Event.h
@@ -131,20 +135,24 @@ set(WHISPERER_FILES
         src/Network/Server.cpp
         include/Network/Server.h)
 
+# All source files and the entry point
 set(SOURCE_FILES
         src/WhispererEngine.cpp
         ${WHISPERER_FILES})
 
+# Define the WhispererEngine target
 add_executable(WhispererEngine ${SOURCE_FILES})
 target_include_directories(WhispererEngine PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(WhispererEngine PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
+# All headers and source files for the game, with the unit tests, and the catch main
 set(TEST_FILES
         ${WHISPERER_FILES}
         tests/CatchMain.cpp
         tests/Game/Core/test_Card.cpp
         tests/Game/Python/test_Factory.cpp)
 
+# Define the WhispererEngineTests target
 add_executable(WhispererEngineTests ${TEST_FILES})
 target_include_directories(WhispererEngineTests PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(WhispererEngineTests PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} ${CMAKE_THREAD_LIBS_INIT})
