@@ -17,7 +17,7 @@ public:
     int attacks;
     int remainingAttacks;
 
-    Creature(std::string name, std::string text, Mana *mana, int attackStat, int defenseStat);
+    Creature(std::string name, std::string text, Mana mana, int attackStat, int defenseStat);
     ~Creature();
 };
 
