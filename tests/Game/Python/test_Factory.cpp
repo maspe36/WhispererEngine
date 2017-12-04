@@ -35,22 +35,3 @@ TEST_CASE("Create factory")
         }
     }
 }
-
-TEST_CASE("Create a card")
-{
-    Factory factory;
-
-    SECTION("Create a card")
-    {
-        std::shared_ptr<Card> card = factory.createCard("Azar");
-        REQUIRE(card->name == "Azar");
-        REQUIRE(card->text == "The first Whisperer card!");
-        REQUIRE(card->mana.black == 0);
-        REQUIRE(card->mana.blue == 0);
-        REQUIRE(card->mana.brown == 0);
-        REQUIRE(card->mana.green == 0);
-        REQUIRE(card->mana.red == 1);
-        REQUIRE(card->mana.white == 0);
-        std::cout << "Done testing" << std::endl;
-    }
-}
