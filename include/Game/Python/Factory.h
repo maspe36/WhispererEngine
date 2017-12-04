@@ -15,6 +15,7 @@ class Version;
 namespace pybind11
 {
     class scoped_interpreter;
+    class object;
 };
 
 /* Hanldes all python card creation. */
@@ -23,7 +24,7 @@ class Factory
 public:
     Version* version;
 
-    std::shared_ptr<Card> createCard(const std::string &name);
+    pybind11::object createCard(const std::string &name);
 
     Factory();
     ~Factory();

@@ -6,18 +6,15 @@
 #include "../../../include/Game/Python/Module.h"
 #include "../../../include/Game/Python/Version.h"
 
-#include <pybind11/embed.h>
-
 namespace py = pybind11;
 
-std::shared_ptr<Card> Factory::createCard(const std::string &name)
+py::object Factory::createCard(const std::string &name)
 {
     py::module cardModule = py::module::import(name.c_str());
     cardModule.reload();
-    py::object card = cardModule.attr(name.c_str())();
+    py::object pyCard = cardModule.attr(name.c_str())();
 
-    std::shared_ptr<Card> cppCard = std::make_shared<Card>(card.cast<Card>());
-    return cppCard;
+    return pyCard;
 }
 
 Factory::Factory()
