@@ -10,6 +10,9 @@
 #include "../include/Game/Core/Mana.h"
 
 #include <iostream>
+#include <pybind11/embed.h>
+
+namespace py = pybind11;
 
 int main()
 {
@@ -27,16 +30,17 @@ int main()
     {
         if (line == "memes")
         {
-            std::shared_ptr<Card> card = factory.createCard("Azar");
+            py::object card = factory.createCard("Azar");
+            auto base = card.cast<Card*>();
 
-            std::cout << "name: " << card->name << std::endl;
-            std::cout << "text: " << card->text << std::endl;
-            std::cout << "black: " << card->mana.black << std::endl;
-            std::cout << "blue: " << card->mana.blue << std::endl;
-            std::cout << "brown: " << card->mana.brown << std::endl;
-            std::cout << "red: " << card->mana.red << std::endl;
-            std::cout << "green: " << card->mana.green << std::endl;
-            std::cout << "white: " << card->mana.white << std::endl;
+            std::cout << "name: " << base->name << std::endl;
+            std::cout << "text: " << base->text << std::endl;
+            std::cout << "black: " << base->mana.black << std::endl;
+            std::cout << "blue: " << base->mana.blue << std::endl;
+            std::cout << "brown: " << base->mana.brown << std::endl;
+            std::cout << "red: " << base->mana.red << std::endl;
+            std::cout << "green: " << base->mana.green << std::endl;
+            std::cout << "white: " << base->mana.white << std::endl;
         }
         std::cout << "Unknown command: '" << line << "'" << std::endl;
     }
