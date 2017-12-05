@@ -16,6 +16,8 @@ public:
     int red;
     int white;
 
+    bool operator == (const Mana& other) const;
+
     void payMana(Mana *mana);
 
     Mana(int black, int blue, int brown, int green, int red, int white);

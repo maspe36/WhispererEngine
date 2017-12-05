@@ -4,6 +4,15 @@
 
 #include "../../../include/Game/Core/Mana.h"
 
+bool Mana::operator == (const Mana &other) const
+{
+    return black == other.black
+           && blue == other.blue
+           && brown == other.brown
+           && green == other.green
+           && red == other.red
+           && white == other.white;
+}
 
 void Mana::payMana(Mana *mana)
 {
