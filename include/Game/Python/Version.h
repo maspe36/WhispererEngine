@@ -11,9 +11,9 @@
 class Version
 {
 public:
-    bool operator < (const Version& other);
+    bool operator < (const Version& other) const;
+    bool operator == (const Version& other) const;
 
-    bool operator == (const Version& other);
     std::string toString();
 
     explicit Version(std::string version);

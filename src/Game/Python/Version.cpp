@@ -6,7 +6,7 @@
 
 #include <stdexcept>
 
-bool Version::operator < (const Version &other)
+bool Version::operator < (const Version &other) const
 {
     if (m_major < other.m_major)
         return true;
@@ -19,7 +19,7 @@ bool Version::operator < (const Version &other)
     return false;
 }
 
-bool Version::operator == (const Version &other)
+bool Version::operator == (const Version &other) const
 {
     return m_major == other.m_major
            && m_minor == other.m_minor
