@@ -150,7 +150,8 @@ set(TEST_FILES
         ${WHISPERER_FILES}
         tests/CatchMain.cpp
         tests/Game/Core/test_Card.cpp
-        tests/Game/Python/test_Factory.cpp)
+        tests/Game/Python/test_Factory.cpp
+        tests/Game/Python/test_Integration.cpp)
 
 # Define the WhispererEngineTests target
 add_executable(WhispererEngineTests ${TEST_FILES})

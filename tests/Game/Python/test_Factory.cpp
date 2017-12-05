@@ -7,8 +7,6 @@
 
 #include "../../../include/Game/Python/Factory.h"
 #include "../../../include/Game/Python/Version.h"
-#include "../../../include/Game/Derived/Card/Creature.h"
-#include "../../../include/Game/Core/Mana.h"
 
 TEST_CASE("Create factory")
 {
