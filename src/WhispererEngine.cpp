@@ -8,6 +8,7 @@
 #include "../include/Game/Python/Factory.h"
 #include "../include/Game/Core/Card.h"
 #include "../include/Game/Core/Mana.h"
+#include "../include/Game/Derived/Card/Creature.h"
 
 #include <iostream>
 #include <pybind11/embed.h>
@@ -32,15 +33,18 @@ int main()
         {
             py::object card = factory.createCard("Azar");
             auto base = card.cast<Card*>();
+            auto creature = dynamic_cast<Creature*>(base);
 
-            std::cout << "name: " << base->name << std::endl;
-            std::cout << "text: " << base->text << std::endl;
-            std::cout << "black: " << base->mana.black << std::endl;
-            std::cout << "blue: " << base->mana.blue << std::endl;
-            std::cout << "brown: " << base->mana.brown << std::endl;
-            std::cout << "red: " << base->mana.red << std::endl;
-            std::cout << "green: " << base->mana.green << std::endl;
-            std::cout << "white: " << base->mana.white << std::endl;
+            std::cout << "Name: " << creature->name << std::endl;
+            std::cout << "Text: " << creature->text << std::endl;
+            std::cout << "Attack: " << creature->attackStat << std::endl;
+            std::cout << "Defense: " << creature->defenseStat << std::endl;
+            std::cout << "Black: " << creature->mana.black << std::endl;
+            std::cout << "Blue: " << creature->mana.blue << std::endl;
+            std::cout << "Brown: " << creature->mana.brown << std::endl;
+            std::cout << "Red: " << creature->mana.red << std::endl;
+            std::cout << "Green: " << creature->mana.green << std::endl;
+            std::cout << "White: " << creature->mana.white << std::endl;
         }
         std::cout << "Unknown command: '" << line << "'" << std::endl;
     }

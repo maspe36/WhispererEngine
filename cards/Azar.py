@@ -1,9 +1,11 @@
-from Whisperer import Card, Mana
+from Whisperer import Creature, Mana
 
 
-class Azar(Card):
+class Azar(Creature):
     def __init__(self):
         name = "Azar"
         text = "The first Whisperer card!"
         mana = Mana(red=1)
-        super().__init__(name, text, mana)
+        attack = 1
+        defense = 1
+        super().__init__(name, text, mana, attack, defense)
