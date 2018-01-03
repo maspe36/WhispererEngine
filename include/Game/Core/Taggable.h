@@ -12,9 +12,10 @@
 class Taggable
 {
 public:
+    const std::string tag;
+
     Taggable();
     virtual ~Taggable();
-    const std::string tag;
 };
 
 
