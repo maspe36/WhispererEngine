@@ -7,7 +7,7 @@
 
 
 #include "../../Network/Client.h"
-#include "Taggable.h"
+#include "Exportable.h"
 
 #include <string>
 #include <vector>
@@ -18,7 +18,7 @@ class Game;
 class Mana;
 
 /* Represents a single player. */
-class Player: public Taggable
+class Player: public Exportable
 {
 public:
     std::string name;

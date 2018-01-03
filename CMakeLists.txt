@@ -52,7 +52,7 @@ pybind11_add_module(Whisperer
         include/Game/Python/Module.h
         src/Game/Core/Card.cpp
         src/Game/Core/Mana.cpp
-        src/Game/Core/Taggable.cpp
+        src/Game/Core/Exportable.cpp
         src/Game/Derived/Card/Constant.cpp
         src/Game/Derived/Card/Creature.cpp)
 
@@ -61,9 +61,6 @@ set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
 
 # All the headers and source code for classes used in the core game
 set(WHISPERER_FILES
-        src/Game/Core/Event.cpp
-        include/Game/Core/Event.h
-
         src/Game/Core/Modifier.cpp
         include/Game/Core/Modifier.h
 
@@ -76,6 +73,12 @@ set(WHISPERER_FILES
         src/Game/Core/Effect.cpp
         include/Game/Core/Effect.h
 
+        src/Game/Core/Event.cpp
+        include/Game/Core/Event.h
+
+        src/Game/Core/Exportable.cpp
+        include/Game/Core/Exportable.h
+
         src/Game/Core/Game.cpp
         include/Game/Core/Game.h
 
@@ -84,9 +87,6 @@ set(WHISPERER_FILES
 
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
-
-        src/Game/Core/Taggable.cpp
-        include/Game/Core/Taggable.h
 
         src/Game/Derived/Card/Constant.cpp
         include/Game/Derived/Card/Constant.h
