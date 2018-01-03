@@ -36,6 +36,7 @@ int main()
             auto creature = dynamic_cast<Creature*>(base);
 
             std::cout << "Name: " << creature->name << std::endl;
+            std::cout << "Tag: " << creature->tag << std::endl;
             std::cout << "Text: " << creature->text << std::endl;
             std::cout << "Attack: " << creature->attackStat << std::endl;
             std::cout << "Defense: " << creature->defenseStat << std::endl;
