@@ -75,7 +75,6 @@ void Server::OnAccept(Client::pointer newClient, const boost::system::error_code
     {
         clients.push_back(newClient);
         newClient->Start(this);
-        std::cout << "Client connected!" << std::endl;
     }
     // pesudo recursive
     Listen();

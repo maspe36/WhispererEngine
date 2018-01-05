@@ -45,7 +45,7 @@ int main()
         }
         else if (line == "list")
         {
-            std::cout << server->clients.size() << " clients connected" << std::endl;
+            std::cout << server->clients.size() << " client(s) connected" << std::endl;
         }
         else
         {
