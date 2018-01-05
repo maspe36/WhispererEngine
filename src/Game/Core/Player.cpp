@@ -6,7 +6,7 @@
 
 #include "../../../include/Game/Core/Player.h"
 
-Player::Player(std::string name, Client::pointer client) : name(std::move(name)), client(std::move(client))
+Player::Player(Client::pointer client) : client(std::move(client))
 {
 }
 

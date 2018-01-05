@@ -17,12 +17,8 @@ namespace py = pybind11;
 
 int main()
 {
-    std::cout << "Initializing server..." << std::endl;
     auto* server = new Server(8888);
-    std::cout << "Starting server..." << std::endl;
     server->Start();
-    std::cout << "Server started!" << std::endl;
-
     Factory factory;
 
     // Exit if the user enters quit
@@ -47,7 +43,14 @@ int main()
             std::cout << "Green: " << creature->mana.green << std::endl;
             std::cout << "White: " << creature->mana.white << std::endl;
         }
-        std::cout << "Unknown command: '" << line << "'" << std::endl;
+        else if (line == "list")
+        {
+            std::cout << server->clients.size() << " clients connected" << std::endl;
+        }
+        else
+        {
+            std::cout << "Unknown command: '" << line << "'" << std::endl;
+        }
     }
 
     std::cout << "Shutting down..." << std::endl;
