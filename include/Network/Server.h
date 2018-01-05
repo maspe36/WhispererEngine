@@ -22,6 +22,7 @@ public:
     void WriteAll(std::string data);
     void Start();
     void Stop();
+    void RemoveClient(Client::pointer client);
 
     explicit Server(int port);
 

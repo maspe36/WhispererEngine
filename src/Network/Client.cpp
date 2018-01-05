@@ -48,6 +48,7 @@ void Client::Write(std::string data)
 void Client::Disconnect()
 {
     socket.close();
+    server->RemoveClient(shared_from_this());
     std::cout << "Lost connection to client!" << std::endl;
 }
 
@@ -61,15 +62,26 @@ void Client::Listen(const boost::system::error_code& errorCode)
 {
     if (errorCode == nullptr)
     {
-        std::cout << "Message from " << static_cast<void*>(this) << ": " << GetString(buffer) << std::endl;
-        buffer.consume(buffer.size());
+        std::string message = GetString(buffer);
+        std::cout << "Message from " << static_cast<void*>(this) << ": " << message << std::endl;
 
+        if (message[0] == 'p')
+        {
+            name = message.substr(message.find(":") + 1);
+        }
+
+        emptyBuffer();
         AsyncListen();
     }
     else
     {
         Disconnect();
     }
+}
+
+void Client::emptyBuffer()
+{
+    buffer.consume(buffer.size());
 }
 
 std::string Client::GetString(boost::asio::streambuf& buffer)

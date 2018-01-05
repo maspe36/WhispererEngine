@@ -24,11 +24,15 @@ void Server::Start()
         return;
     }
 
+    std::cout << "Starting server..." << std::endl;
+
     Listen();
 
     thread.reset(new boost::thread(
             boost::bind(&boost::asio::io_service::run, &io_service)
     ));
+
+    std::cout << "Server started!" << std::endl;
 }
 
 void Server::Stop()
@@ -51,6 +55,7 @@ Server::Server(int port)
           acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
                                                               static_cast<unsigned short>(port)))
 {
+    std::cout << "Initializing server..." << std::endl;
 }
 
 void Server::Listen()
@@ -80,4 +85,10 @@ void Server::Close(Client::pointer connection)
 {
     std::cout << "Lost connection to client!" << std::endl;
     connection->GetSocket().close();
+}
+
+void Server::RemoveClient(Client::pointer client)
+{
+    auto newEnd = std::remove(clients.begin(), clients.end(), client);
+    clients.erase(newEnd, clients.end());
 }

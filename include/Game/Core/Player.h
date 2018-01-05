@@ -30,7 +30,7 @@ public:
     Board *board;
     std::vector<Card*> hand;
 
-    Player(std::string name, Client::pointer client);
+    Player(Client::pointer client);
     ~Player();
 };
 
