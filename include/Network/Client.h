@@ -9,6 +9,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/bind/bind.hpp>
 #include <vector>
 
 class Player;
@@ -32,7 +33,7 @@ public:
     void Start(Server* server);
     void Write(std::string data);
     void Disconnect();
-    void AsyncListen();
+    void AsyncListen(void (Client::*func)(const boost::system::error_code&));
     void Listen(const boost::system::error_code & errorCode);
 
 private:

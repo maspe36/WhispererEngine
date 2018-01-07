@@ -8,8 +8,6 @@
 #include "../../include/Game/Core/Player.h"
 
 #include <iostream>
-#include <boost/bind/bind.hpp>
-
 
 typedef boost::shared_ptr<Client> pointer;
 
@@ -30,9 +28,8 @@ void Client::Start(Server* server)
     Write("Connected!");
     this->server->WriteAll("New Client");
 
-    AsyncListen();
-
     std::cout << "Listening for messages from client..." << std::endl;
+    AsyncListen(&Client::Listen);
 }
 
 void Client::Write(std::string data)
@@ -52,10 +49,10 @@ void Client::Disconnect()
     std::cout << "Lost connection to client!" << std::endl;
 }
 
-void Client::AsyncListen()
+void Client::AsyncListen(void (Client::*func)(const boost::system::error_code&))
 {
     boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(&Client::Listen, shared_from_this(), boost::asio::placeholders::error));
+                                  boost::bind(func, shared_from_this(), boost::asio::placeholders::error));
 }
 
 void Client::Listen(const boost::system::error_code& errorCode)
@@ -71,7 +68,7 @@ void Client::Listen(const boost::system::error_code& errorCode)
         }
 
         emptyBuffer();
-        AsyncListen();
+        AsyncListen(&Client::Listen);
     }
     else
     {
