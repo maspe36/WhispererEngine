@@ -45,6 +45,13 @@ int main()
         }
         else if (line == "list")
         {
+            for(const auto &client : server->clients)
+            {
+                if (!client->name.empty())
+                {
+                    std::cout << client->name << std::endl;
+                }
+            }
             std::cout << server->clients.size() << " client(s) connected" << std::endl;
         }
         else
