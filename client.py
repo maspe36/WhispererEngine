@@ -11,7 +11,7 @@ def listen():
     while 1:
         data = sock.recv(4096)
         if data:
-            print(data.decode(ENCODING))
+            print("Server: " + data.decode(ENCODING))
         else:
             print('\nDisconnected from server')
             sys.exit()
