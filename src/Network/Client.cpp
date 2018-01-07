@@ -26,10 +26,10 @@ void Client::Start(Server* server)
 {
     this->server = server;
     Write("Connected!");
-    this->server->WriteAll("New Client");
 
-    std::cout << "Listening for messages from client..." << std::endl;
-    AsyncListen(&Client::Listen);
+    listening = true;
+    Write("What is your name?");
+    AsyncListen(&Client::setName);
 }
 
 void Client::Write(std::string data)
@@ -49,26 +49,19 @@ void Client::Disconnect()
     std::cout << "Lost connection to client!" << std::endl;
 }
 
-void Client::AsyncListen(void (Client::*func)(const boost::system::error_code&))
+void Client::AsyncListen(void (Client::*callback)())
 {
     boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(func, shared_from_this(), boost::asio::placeholders::error));
+                                  boost::bind(&Client::Listen, shared_from_this(),
+                                              boost::asio::placeholders::error, callback));
 }
 
-void Client::Listen(const boost::system::error_code& errorCode)
+void Client::Listen(const boost::system::error_code& errorCode, void (Client::*callback)())
 {
-    if (errorCode == nullptr)
+    if (errorCode == nullptr && listening)
     {
-        std::string message = GetString(buffer);
-        std::cout << "Message from " << static_cast<void*>(this) << ": " << message << std::endl;
-
-        if (message[0] == 'p')
-        {
-            name = message.substr(message.find(":") + 1);
-        }
-
-        emptyBuffer();
-        AsyncListen(&Client::Listen);
+        (*this.*callback)();
+        AsyncListen(&Client::printMessage);
     }
     else
     {
@@ -79,6 +72,22 @@ void Client::Listen(const boost::system::error_code& errorCode)
 void Client::emptyBuffer()
 {
     buffer.consume(buffer.size());
+}
+
+void Client::setName()
+{
+    std::string message = GetString(buffer);
+    name = message;
+    emptyBuffer();
+
+    std::cout << "'" << name << "' has connected!" << std::endl;
+}
+
+void Client::printMessage()
+{
+    std::string message = GetString(buffer);
+    std::cout << "Message from " << static_cast<void*>(this) << ": " << message << std::endl;
+    emptyBuffer();
 }
 
 std::string Client::GetString(boost::asio::streambuf& buffer)

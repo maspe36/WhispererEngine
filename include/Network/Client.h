@@ -33,8 +33,8 @@ public:
     void Start(Server* server);
     void Write(std::string data);
     void Disconnect();
-    void AsyncListen(void (Client::*func)(const boost::system::error_code&));
-    void Listen(const boost::system::error_code & errorCode);
+    void AsyncListen(void (Client::*func)());
+    void Listen(const boost::system::error_code & errorCode, void (Client::*func)());
 
 private:
     std::string delimiter;
@@ -43,6 +43,8 @@ private:
 
     static std::string GetString(boost::asio::streambuf& buffer);
     void emptyBuffer();
+    void setName();
+    void printMessage();
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
 
     explicit Client(boost::asio::io_service& ioService);
