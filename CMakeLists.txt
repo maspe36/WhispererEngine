@@ -31,6 +31,13 @@ execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
 execute_process(COMMAND "${CMAKE_COMMAND}" --build .
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/pybind11-download")
 
+# Download rapidjson
+configure_file(libs/rapidjson/CMakeLists.txt rapidjson-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/rapidjson-download")
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/rapidjson-download")
+
 # Include downloaded directories
 include_directories(${CMAKE_BINARY_DIR}/catch-src)
 add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
