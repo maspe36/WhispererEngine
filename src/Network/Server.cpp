@@ -60,34 +60,41 @@ Server::Server(int port)
 
 void Server::Listen()
 {
-    Client::pointer NewClient =
-            Client::Create(acceptor.get_io_service());
+    Client::pointer client = Client::Create(acceptor.get_io_service());
 
     // Calls OnAccept when a connection happens
-    acceptor.async_accept(NewClient->GetSocket(),
-                          boost::bind(&Server::OnAccept, this, NewClient,
+    acceptor.async_accept(client->GetSocket(),
+                          boost::bind(&Server::OnAccept, this, client,
                                       boost::asio::placeholders::error));
 }
 
-void Server::OnAccept(Client::pointer newClient, const boost::system::error_code & error)
+void Server::OnAccept(Client::pointer client, const boost::system::error_code & error)
 {
     if (!error)
     {
-        clients.push_back(newClient);
-        newClient->Start(this);
+        std::cout << "Connection from " << client->GetAddress() << std::endl;
+        client->Start(this);
     }
+
     // pesudo recursive
     Listen();
 }
 
-void Server::Close(Client::pointer connection)
+void Server::Close(Client::pointer client)
 {
-    std::cout << "Lost connection to client!" << std::endl;
-    connection->GetSocket().close();
+    std::cout << "Closing connection from " << client->name << std::endl;
+    client->GetSocket().close();
+}
+
+void Server::AddClient(Client::pointer client)
+{
+    clients.push_back(client);
+    std::cout << "'" << client->name << "' has connected from " << client->GetAddress() << "!" << std::endl;
 }
 
 void Server::RemoveClient(Client::pointer client)
 {
+    Close(client);
     auto newEnd = std::remove(clients.begin(), clients.end(), client);
     clients.erase(newEnd, clients.end());
 }

@@ -29,6 +29,7 @@ public:
 
     static pointer Create(boost::asio::io_service& ioService);
     boost::asio::ip::tcp::socket& GetSocket();
+    std::string GetAddress();
 
     void Start(Server* server);
     void Write(std::string data);
@@ -43,7 +44,7 @@ private:
 
     static std::string GetString(boost::asio::streambuf& buffer);
     void emptyBuffer();
-    void setName();
+    void authenticateClient();
     void printMessage();
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
 
