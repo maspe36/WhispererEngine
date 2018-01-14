@@ -15,19 +15,15 @@
 
 namespace py = pybind11;
 
-int main()
-{
-    auto* server = new Server(8888);
-    server->Start();
-    Factory factory;
 
-    // Exit if the user enters quit
-    std::string line;
-    while (std::getline(std::cin, line) && line != "quit")
+void commandListen(Server* server, Factory& factory)
+{
+    std::__cxx11::string line;
+    while (getline(std::cin, line) && line != "quit")
     {
         if (line == "memes")
         {
-            py::object card = factory.createCard("Azar");
+            pybind11::object card = factory.createCard("Azar");
             auto base = card.cast<Card*>();
             auto creature = dynamic_cast<Creature*>(base);
 
@@ -63,4 +59,30 @@ int main()
     std::cout << "Shutting down..." << std::endl;
     server->Stop();
     std::cout << "Bye!" << std::endl;
+}
+
+int main(int argc, const char* argv[])
+{
+    bool process = false;
+
+    for(int i = 0; i < argc; ++i)
+    {
+        if(std::string(argv[i]) == "-process")
+        {
+            process = true;
+        }
+    }
+
+    auto* server = new Server(8888);
+    server->Start();
+    Factory factory;
+
+    if (process)
+    {
+        while(true){}
+    }
+    else
+    {
+        commandListen(server, factory);
+    }
 }
