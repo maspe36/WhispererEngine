@@ -22,6 +22,7 @@ public:
     void WriteAll(std::string data);
     void Start();
     void Stop();
+    void AddClient(Client::pointer client);
     void RemoveClient(Client::pointer client);
 
     explicit Server(int port);
@@ -33,7 +34,7 @@ private:
     boost::asio::ip::tcp::acceptor acceptor;
 
     void Listen();
-    void OnAccept(Client::pointer connection, const boost::system::error_code& error);
+    void OnAccept(Client::pointer client, const boost::system::error_code& error);
 
     static void Close(Client::pointer connection);
 };

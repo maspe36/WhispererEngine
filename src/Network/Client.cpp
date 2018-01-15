@@ -22,6 +22,11 @@ boost::asio::ip::tcp::socket & Client::GetSocket()
     return socket;
 }
 
+std::string Client::GetAddress()
+{
+    return shared_from_this()->GetSocket().remote_endpoint().address().to_string();
+}
+
 void Client::Start(Server* server)
 {
     this->server = server;
@@ -29,7 +34,7 @@ void Client::Start(Server* server)
 
     listening = true;
     Write("What is your name?");
-    AsyncListen(&Client::setName);
+    AsyncListen(&Client::authenticateClient);
 }
 
 void Client::Write(std::string data)
@@ -74,13 +79,13 @@ void Client::emptyBuffer()
     buffer.consume(buffer.size());
 }
 
-void Client::setName()
+void Client::authenticateClient()
 {
     std::string message = GetString(buffer);
     name = message;
     emptyBuffer();
 
-    std::cout << "'" << name << "' has connected!" << std::endl;
+    server->AddClient(shared_from_this());
 }
 
 void Client::printMessage()
@@ -109,3 +114,4 @@ Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
 {
 }
+
