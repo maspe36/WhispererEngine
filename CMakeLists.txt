@@ -41,7 +41,7 @@ execute_process(COMMAND "${CMAKE_COMMAND}" --build .
 # Include downloaded directories
 include_directories(${CMAKE_BINARY_DIR}/catch-src)
 add_subdirectory(${CMAKE_BINARY_DIR}/pybind11-src)
-include_directories(${CMAKE_BINARY_DIR}/rapidjson-src)
+add_subdirectory(${CMAKE_BINARY_DIR}/rapidjson-src)
 
 set(Boost_USE_STATIC_LIBS        ON)
 set(Boost_USE_MULTITHREADED      ON)
