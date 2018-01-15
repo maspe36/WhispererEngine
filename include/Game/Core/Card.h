@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include "Mana.h"
-#include "Exportable.h"
+#include "../Utilities/Taggable.h"
 
 class Effect;
 class Player;
@@ -17,7 +17,7 @@ class Mana;
 class Modifier;
 
 /* Represents a single card. */
-class Card: public Exportable
+class Card: public Taggable
 {
 public:
     std::string name;

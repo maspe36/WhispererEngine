@@ -60,7 +60,7 @@ pybind11_add_module(Whisperer
         include/Game/Python/Module.h
         src/Game/Core/Card.cpp
         src/Game/Core/Mana.cpp
-        src/Game/Core/Exportable.cpp
+        src/Game/Utilities/Taggable.cpp
         src/Game/Derived/Card/Constant.cpp
         src/Game/Derived/Card/Creature.cpp)
 
@@ -83,9 +83,6 @@ set(WHISPERER_FILES
 
         src/Game/Core/Event.cpp
         include/Game/Core/Event.h
-
-        src/Game/Core/Exportable.cpp
-        include/Game/Core/Exportable.h
 
         src/Game/Core/Game.cpp
         include/Game/Core/Game.h
@@ -145,7 +142,13 @@ set(WHISPERER_FILES
         include/Network/Client.h
 
         src/Network/Server.cpp
-        include/Network/Server.h)
+        include/Network/Server.h
+
+        src/Game/Utilities/Exportable.cpp
+        include/Game/Utilities/Exportable.h
+
+        src/Game/Utilities/Taggable.cpp
+        include/Game/Utilities/Taggable.h)
 
 # All source files and the entry point
 set(SOURCE_FILES
