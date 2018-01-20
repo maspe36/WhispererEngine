@@ -2,17 +2,13 @@
 // Created by Sam on 9/25/2017.
 //
 
-//#include "../include/Network/Exportable.h"
-#include "../include/Network/Message.h"
-#include "../include/Game/Core/Player.h"
 #include "../include/Game/Core/Card.h"
 #include "../include/Game/Core/Game.h"
-#include "../include/Network/Server.h"
+#include "../include/Game/Core/Player.h"
 #include "../include/Game/Python/Factory.h"
-#include "../include/Game/Core/Mana.h"
 #include "../include/Game/Derived/Card/Creature.h"
+#include "../include/Network/Server.h"
 
-#include <iostream>
 #include <pybind11/embed.h>
 
 namespace py = pybind11;
@@ -51,11 +47,6 @@ void commandListen(Server* server, Factory& factory)
                 }
             }
             std::cout << server->clients.size() << " client(s) connected" << std::endl;
-        }
-        else if (line == "json")
-        {
-            Message message("Authentication", "What is your name?");
-            std::cout << message.getJSON() << std::endl;
         }
         else
         {
