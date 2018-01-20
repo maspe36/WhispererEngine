@@ -13,7 +13,6 @@
 
 class Effect;
 class Player;
-class Mana;
 class Modifier;
 
 /* Represents a single card. */
