@@ -23,7 +23,7 @@ Exportable::Exportable()
     document.SetObject();
 }
 
-Value Exportable::getValue(std::string data)
+Value Exportable::getValue(std::string& data)
 {
     auto& allocator = document.GetAllocator();
 

@@ -17,7 +17,7 @@ public:
 
     virtual void buildJSON();
     std::string exportJSON();
-    Value getValue(std::string data);
+    Value getValue(std::string& data);
 
     Exportable();
     virtual ~Exportable();
