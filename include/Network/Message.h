@@ -16,7 +16,6 @@ public:
     std::string data;
 
     void buildJSON();
-    std::string getJSON();
 
     Message(std::string type, std::string data);
     Message();

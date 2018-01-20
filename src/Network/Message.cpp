@@ -16,11 +16,6 @@ void Message::buildJSON()
     document.AddMember("data", val, allocator);
 }
 
-std::string Message::getJSON()
-{
-    return exportJSON();
-}
-
 Message::Message(std::string type, std::string data)
         : type(std::move(type)), data(std::move(data))
 {
