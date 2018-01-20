@@ -18,7 +18,7 @@ public:
     void buildJSON();
 
     Message(std::string type, std::string data);
-    Message();
+    Message(std::string json);
     ~Message();
 };
 

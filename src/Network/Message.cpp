@@ -22,8 +22,12 @@ Message::Message(std::string type, std::string data)
     buildJSON();
 }
 
-Message::Message()
-= default;
+Message::Message(std::string json)
+{
+    document.Parse(json.c_str());
+    type = document["type"].GetString();
+    data = document["data"].GetString();
+}
 
 Message::~Message()
 = default;
