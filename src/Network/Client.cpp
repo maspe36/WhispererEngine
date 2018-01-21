@@ -87,6 +87,7 @@ void Client::authenticateClient()
     emptyBuffer();
 
     server->AddClient(shared_from_this());
+    Write(Message("success", "successfully authenticated").exportJSON());
 }
 
 void Client::printMessage()
@@ -94,6 +95,9 @@ void Client::printMessage()
     std::string message = GetString(buffer);
     std::cout << "Message from " << name << ": " << message << std::endl;
     emptyBuffer();
+
+    // Echo the message to the client
+    Write(message);
 }
 
 std::string Client::GetString(boost::asio::streambuf& buffer)
