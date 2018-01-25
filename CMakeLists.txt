@@ -147,9 +147,6 @@ set(WHISPERER_FILES
         src/Network/Server.cpp
         include/Network/Server.h
 
-        src/Game/Utilities/Exportable.cpp
-        include/Game/Utilities/Exportable.h
-
         src/Game/Utilities/Taggable.cpp
         include/Game/Utilities/Taggable.h)
 
