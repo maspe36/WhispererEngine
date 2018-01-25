@@ -4,26 +4,52 @@
 
 #include "../../../build/catch-src/include/catch.hpp"
 #include "../../../include/Network/Message.h"
+#include <iostream>
 
 
-TEST_CASE("Verify JSON format")
+TEST_CASE("Build JSON")
 {
-    std::string correctJSON = R"({"type":"test","data":"Does this test pass?"})";
+    std::string typeKey = "type";
+    std::string typeValue = "Test";
+    std::string dataKey = "data";
+    std::string dataMemberKey = "name";
+    std::string dataMemberValue = "Sam";
 
-    Message message("test", "Does this test pass?");
-    std::string createdJSON = message.exportJSON();
+    // {"type":"Test","data":{"name":"Sam"}}
+    std::string json = "{\"" + typeKey + "\":\"" + typeValue +
+            "\",\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +"\"}}";
 
-    REQUIRE(correctJSON == createdJSON);
+    Message message("Test");
+    message.addDataMember("name", "Sam");
+    std::string result = message.getJSON();
+    std::string type = message.getMember("type");
+    std::string name = message.getDataMember("name");
+
+    REQUIRE(type == typeValue);
+    REQUIRE(dataMemberValue == name);
+    REQUIRE(result == json);
 }
 
-TEST_CASE("Parsing JSON")
+TEST_CASE("Parse JSON")
 {
-    std::string type = "test";
-    std::string data = "Does this test pass?";
-    std::string correctJSON = R"({"type":")" + type + R"(","data":")" + data + R"("})";
+    std::string typeKey = "type";
+    std::string typeValue = "Test";
+    std::string dataKey = "data";
+    std::string dataMemberKey = "name";
+    std::string dataMemberValue = "Sam";
 
-    Message message(correctJSON);
+    // {"type":"Test","data":{"name":"Sam"}}
+    std::string json = "{\"" + typeKey + "\":\"" + typeValue +
+                       "\",\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +"\"}}";
 
-    REQUIRE(message.type == type);
-    REQUIRE(message.data == data);
+    Message loaded;
+    loaded.loadJSON(json);
+
+    std::string result = loaded.getJSON();
+    std::string type = loaded.getMember("type");
+    std::string name = loaded.getDataMember("name");
+    
+    REQUIRE(type == typeValue);
+    REQUIRE(name == dataMemberValue);
+    REQUIRE(result == json);
 }
