@@ -6,20 +6,31 @@
 #define WHISPERERENGINE_MESSAGE_H
 
 #include <string>
-#include "../Game/Utilities/Exportable.h"
+#include <include/rapidjson/document.h>
 
+using namespace rapidjson;
 
-class Message: public Exportable
+class Message
 {
 public:
-    std::string type;
-    std::string data;
+    std::string typeKey;
+    std::string dataKey;
 
-    void buildJSON();
+    std::string getJSON();
+    std::string getMember(std::string key);
+    std::string getDataMember(std::string key);
+    void loadJSON(std::string json);
+    void addMember(std::string key, std::string value);
+    void addDataMember(std::string key, std::string value);
 
-    Message(std::string type, std::string data);
-    Message(std::string json);
+    explicit Message(std::string type);
+    Message();
     ~Message();
+
+private:
+    Document document;
+
+    void initializeData();
 };
 
 

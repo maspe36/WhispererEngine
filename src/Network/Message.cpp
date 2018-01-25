@@ -3,30 +3,102 @@
 //
 
 #include "../../include/Network/Message.h"
+#include <include/rapidjson/stringbuffer.h>
+#include <include/rapidjson/writer.h>
+#include <utility>
 
 
-void Message::buildJSON()
+std::string Message::getMember(std::string key)
+{
+    std::string member;
+
+    Value::ConstMemberIterator itr = document.FindMember(key.c_str());
+
+    if (itr != document.MemberEnd())
+    {
+        member = itr->value.GetString();
+    }
+
+    return member;
+}
+
+std::string Message::getDataMember(std::string key)
+{
+    std::string member;
+
+    Value::ConstMemberIterator itr = document[dataKey.c_str()].FindMember(key.c_str());
+
+    if (itr != document[dataKey.c_str()].MemberEnd())
+    {
+        member = itr->value.GetString();
+    }
+
+    return member;
+}
+
+void Message::loadJSON(std::string json)
+{
+    document.Parse(json.c_str());
+}
+
+void Message::addMember(std::string key, std::string value)
 {
     auto& allocator = document.GetAllocator();
 
-    Value val = getValue(type);
-    document.AddMember("type", val, allocator);
+    Value valKey(key.c_str(), allocator);
+    Value valVal(value.c_str(), allocator);
 
-    val = getValue(data);
-    document.AddMember("data", val, allocator);
+    document.AddMember(valKey.Move(),
+                       valVal.Move(),
+                       allocator);
 }
 
-Message::Message(std::string type, std::string data)
-        : type(std::move(type)), data(std::move(data))
+void Message::addDataMember(std::string key, std::string value)
 {
-    buildJSON();
+    auto& allocator = document.GetAllocator();
+
+    Value valKey(key.c_str(), allocator);
+    Value valVal(value.c_str(), allocator);
+
+    document[dataKey.c_str()].AddMember(valKey.Move(),
+                                        valVal.Move(),
+                                        allocator);
 }
 
-Message::Message(std::string json)
+std::string Message::getJSON()
 {
-    document.Parse(json.c_str());
-    type = document["type"].GetString();
-    data = document["data"].GetString();
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    return buffer.GetString();
+}
+
+Message::Message(std::string type)
+        : typeKey("type"), dataKey("data")
+{
+    document.SetObject();
+
+    addMember(typeKey, std::move(type));
+    initializeData();
+}
+
+void Message::initializeData()
+{
+    auto& allocator = document.GetAllocator();
+
+    Value data;
+    data.SetObject();
+
+    Value valKey(dataKey.c_str(), allocator);
+
+    document.AddMember(valKey, data, allocator);
+}
+
+Message::Message()
+{
+    document.SetObject();
+    initializeData();
 }
 
 Message::~Message()
