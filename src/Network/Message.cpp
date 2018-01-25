@@ -26,9 +26,11 @@ std::string Message::getDataMember(std::string key)
 {
     std::string member;
 
-    Value::ConstMemberIterator itr = document[dataKey.c_str()].FindMember(key.c_str());
+    // For some reason using dataKey.c_str() when loading
+    // the document from parsed JSON causes it to error out
+    Value::ConstMemberIterator itr = document["data"].FindMember(key.c_str());
 
-    if (itr != document[dataKey.c_str()].MemberEnd())
+    if (itr != document["data"].MemberEnd())
     {
         member = itr->value.GetString();
     }

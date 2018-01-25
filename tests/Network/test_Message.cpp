@@ -42,13 +42,13 @@ TEST_CASE("Parse JSON")
     std::string json = "{\"" + typeKey + "\":\"" + typeValue +
                        "\",\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +"\"}}";
 
-    Message loaded;
-    loaded.loadJSON(json);
+    Message message;
+    message.loadJSON(json);
 
-    std::string result = loaded.getJSON();
-    std::string type = loaded.getMember("type");
-    std::string name = loaded.getDataMember("name");
-    
+    std::string result = message.getJSON();
+    std::string type = message.getMember("type");
+    std::string name = message.getDataMember("name");
+
     REQUIRE(type == typeValue);
     REQUIRE(name == dataMemberValue);
     REQUIRE(result == json);
