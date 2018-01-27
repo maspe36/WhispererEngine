@@ -7,6 +7,7 @@
 #include "../../include/Game/Core/Game.h"
 #include "../../include/Game/Core/Player.h"
 #include "../../include/Network/Message.h"
+#include "../../include/Network/Derived/AuthMessage.h"
 
 #include <iostream>
 
@@ -31,10 +32,10 @@ std::string Client::GetAddress()
 void Client::Start(Server* server)
 {
     this->server = server;
-    Write(Message("success", "Connected!").exportJSON());
+    Write(Message("success").getJSON());
 
     listening = true;
-    Write(Message("authentication", "What is your name?").exportJSON());
+    Write(Message("authentication").getJSON());
     AsyncListen(&Client::authenticateClient);
 }
 
@@ -82,12 +83,16 @@ void Client::emptyBuffer()
 
 void Client::authenticateClient()
 {
-    std::string message = GetString(buffer);
-    name = message;
+    std::string json = GetString(buffer);
+
+    AuthMessage authMessage(json);
+    name = authMessage.name;
+    clientID = authMessage.clientID;
+
     emptyBuffer();
 
     server->AddClient(shared_from_this());
-    Write(Message("success", "successfully authenticated").exportJSON());
+    Write(Message("success").getJSON());
 }
 
 void Client::printMessage()

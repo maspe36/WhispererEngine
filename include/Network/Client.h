@@ -23,6 +23,7 @@ public:
     typedef boost::shared_ptr<Client> pointer;
 
     std::string name;
+    std::string clientID;
     Player* player;
     Server* server;
     bool listening;
