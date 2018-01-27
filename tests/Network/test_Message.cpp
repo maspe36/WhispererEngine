@@ -4,6 +4,7 @@
 
 #include "../../../build/catch-src/include/catch.hpp"
 #include "../../../include/Network/Message.h"
+#include "../../include/Network/Derived/AuthMessage.h"
 #include <iostream>
 
 
@@ -52,4 +53,36 @@ TEST_CASE("Parse JSON")
     REQUIRE(type == typeValue);
     REQUIRE(name == dataMemberValue);
     REQUIRE(result == json);
+}
+
+TEST_CASE("Missing Key")
+{
+    std::string json = R"({"type":"test","data":{}})";
+    std::string expectedException = R"(The key 'name' doesn't exist on the JSON document)";
+
+    try
+    {
+        AuthMessage message(json);
+    }
+    catch(const std::invalid_argument &ex)
+    {
+        std::cout << ex.what() << std::endl;
+        REQUIRE(ex.what() == expectedException);
+    }
+}
+
+TEST_CASE("Empty Value")
+{
+    std::string json = R"({"type":"test","data":{"name":"","clientID":""}})";
+    std::string expectedException = R"(The key 'name' exists but the value is empty)";
+
+    try
+    {
+        AuthMessage message(json);
+    }
+    catch(const std::invalid_argument &ex)
+    {
+        std::cout << ex.what() << std::endl;
+        REQUIRE(ex.what() == expectedException);
+    }
 }
