@@ -147,8 +147,8 @@ set(WHISPERER_FILES
         src/Network/Server.cpp
         include/Network/Server.h
 
-        include/Network/Derived/AuthMessage.cpp
         include/Network/Derived/AuthMessage.h
+        src/Network/Derived/AuthMessage.cpp
 
         src/Game/Utilities/Taggable.cpp
         include/Game/Utilities/Taggable.h)

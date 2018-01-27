@@ -2,7 +2,7 @@
 // Created by Sam on 1/27/2018.
 //
 
-#include "AuthMessage.h"
+#include "../../../include/Network/Derived/AuthMessage.h"
 
 #include <utility>
 
