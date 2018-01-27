@@ -10,32 +10,16 @@
 
 std::string Message::getMember(std::string key)
 {
-    std::string member;
+    std::string message = getValue(false, std::move(key));
 
-    Value::ConstMemberIterator itr = document.FindMember(key.c_str());
-
-    if (itr != document.MemberEnd())
-    {
-        member = itr->value.GetString();
-    }
-
-    return member;
+    return message;
 }
 
 std::string Message::getDataMember(std::string key)
 {
-    std::string member;
+    std::string message = getValue(true, std::move(key));
 
-    // For some reason using dataKey.c_str() when loading
-    // the document from parsed JSON causes it to error out
-    Value::ConstMemberIterator itr = document["data"].FindMember(key.c_str());
-
-    if (itr != document["data"].MemberEnd())
-    {
-        member = itr->value.GetString();
-    }
-
-    return member;
+    return message;
 }
 
 void Message::loadJSON(std::string json)
@@ -85,6 +69,15 @@ Message::Message(std::string type)
     initializeData();
 }
 
+Message::Message()
+{
+    document.SetObject();
+    initializeData();
+}
+
+Message::~Message()
+= default;
+
 void Message::initializeData()
 {
     auto& allocator = document.GetAllocator();
@@ -97,11 +90,38 @@ void Message::initializeData()
     document.AddMember(valKey, data, allocator);
 }
 
-Message::Message()
+std::string Message::getValue(bool isData, std::string key)
 {
-    document.SetObject();
-    initializeData();
-}
+    Value* doc;
+    if (isData)
+    {
+        // For some reason using dataKey.c_str() when loading
+        // the document from parsed JSON causes it to error out
+        doc = &document["data"];
+    }
+    else
+    {
+        doc = &document;
+    }
 
-Message::~Message()
-= default;
+    std::string member;
+
+    Value::ConstMemberIterator itr = doc->FindMember(key.c_str());
+
+    if (itr != doc->MemberEnd())
+    {
+        member = itr->value.GetString();
+
+        if (member.empty())
+        {
+            throw std::invalid_argument("The key '" + key + "' exists but the value is empty");
+        }
+    }
+
+    if (member.empty())
+    {
+        throw std::invalid_argument("The key '" + key + "' doesn't exist on the JSON document");
+    }
+
+    return member;
+}

@@ -31,6 +31,7 @@ private:
     Document document;
 
     void initializeData();
+    std::string getValue(bool isData, std::string key);
 };
 
 
