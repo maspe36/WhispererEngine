@@ -25,7 +25,7 @@ public:
 
     explicit Message(std::string type);
     Message();
-    ~Message();
+    virtual ~Message();
 
 private:
     Document document;
