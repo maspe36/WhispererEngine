@@ -32,11 +32,11 @@ std::string Client::GetAddress()
 void Client::Start(Server* server)
 {
     this->server = server;
-    Write(Message("success").getJSON());
+    Write(Message::success());
 
     listening = true;
-    Write(Message("authentication").getJSON());
-    AsyncListen(&Client::authenticateClient);
+    Write(Message::auth());
+    AsyncListen(&Client::authenticationHandler);
 }
 
 void Client::Write(std::string data)
@@ -56,19 +56,29 @@ void Client::Disconnect()
     std::cout << "Lost connection to client!" << std::endl;
 }
 
-void Client::AsyncListen(void (Client::*callback)())
+void Client::AsyncListen(clientFunc callback)
 {
     boost::asio::async_read_until(socket, buffer, delimiter,
                                   boost::bind(&Client::Listen, shared_from_this(),
                                               boost::asio::placeholders::error, callback));
 }
 
-void Client::Listen(const boost::system::error_code& errorCode, void (Client::*callback)())
+void Client::Listen(const boost::system::error_code& errorCode, clientFunc callback)
 {
     if (errorCode == nullptr && listening)
     {
-        (*this.*callback)();
-        AsyncListen(&Client::printMessage);
+        try
+        {
+            (*this.*callback)();
+        }
+        catch(const std::invalid_argument& e)
+        {
+            Write(Message::fail(e.what()));
+        }
+        catch(...)
+        {
+            Write(Message::fail());
+        }
     }
     else
     {
@@ -81,7 +91,7 @@ void Client::emptyBuffer()
     buffer.consume(buffer.size());
 }
 
-void Client::authenticateClient()
+void Client::authenticationHandler()
 {
     std::string json = GetString(buffer);
 
@@ -89,21 +99,31 @@ void Client::authenticateClient()
     name = authMessage.name;
     clientID = authMessage.clientID;
 
-    emptyBuffer();
-
     server->AddClient(shared_from_this());
-    Write(Message("success").getJSON());
+    Write(Message::success());
+
+    AsyncListen(&Client::serverHandler);
 }
 
-void Client::printMessage()
+void Client::serverHandler()
 {
-    std::string message = GetString(buffer);
-    std::cout << "Message from " << name << ": " << message << std::endl;
-    emptyBuffer();
+    std::string data = GetString(buffer);
+    Message message;
+    message.loadJSON(data);
 
-    // Echo the message to the client
-    Write(message);
+    std::string type = message.getType();
+
+    AsyncListen(&Client::serverHandler);
 }
+
+void Client::gameHandler()
+{
+    std::string data = GetString(buffer);
+    std::cout << "From " << name << ": " << data << std::endl;
+
+    AsyncListen(&Client::gameHandler);
+}
+
 
 std::string Client::GetString(boost::asio::streambuf& buffer)
 {
@@ -111,6 +131,8 @@ std::string Client::GetString(boost::asio::streambuf& buffer)
     std::string data(
             boost::asio::buffers_begin(bufs),
             boost::asio::buffers_begin(bufs) + buffer.size());
+
+    emptyBuffer();
 
     // Return everything except the last character delimeter
     return data.substr(0, data.size() - 1);
@@ -124,4 +146,3 @@ Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
 {
 }
-

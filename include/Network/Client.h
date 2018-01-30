@@ -21,6 +21,7 @@ class Client
 {
 public:
     typedef boost::shared_ptr<Client> pointer;
+    typedef void (Client::*clientFunc)();
 
     std::string name;
     std::string clientID;
@@ -35,18 +36,20 @@ public:
     void Start(Server* server);
     void Write(std::string data);
     void Disconnect();
-    void AsyncListen(void (Client::*func)());
-    void Listen(const boost::system::error_code & errorCode, void (Client::*func)());
+    void AsyncListen(clientFunc callback);
+    void Listen(const boost::system::error_code& errorCode, clientFunc callback);
 
 private:
     std::string delimiter;
     boost::asio::streambuf buffer;
     boost::asio::ip::tcp::socket socket;
 
-    static std::string GetString(boost::asio::streambuf& buffer);
+    std::string GetString(boost::asio::streambuf& buffer);
     void emptyBuffer();
-    void authenticateClient();
-    void printMessage();
+    void authenticationHandler();
+    void serverHandler();
+    void gameHandler();
+
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
 
     explicit Client(boost::asio::io_service& ioService);

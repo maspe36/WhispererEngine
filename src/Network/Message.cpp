@@ -8,6 +8,20 @@
 #include <utility>
 
 
+std::string Message::getType()
+{
+    return getMember("type");
+}
+
+std::string Message::getJSON()
+{
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    return buffer.GetString();
+}
+
 std::string Message::getMember(std::string key)
 {
     std::string message = getValue(false, std::move(key));
@@ -49,15 +63,6 @@ void Message::addDataMember(std::string key, std::string value)
     document[dataKey.c_str()].AddMember(valKey.Move(),
                                         valVal.Move(),
                                         allocator);
-}
-
-std::string Message::getJSON()
-{
-    StringBuffer buffer;
-    Writer<StringBuffer> writer(buffer);
-    document.Accept(writer);
-
-    return buffer.GetString();
 }
 
 Message::Message(std::string type)
@@ -124,4 +129,30 @@ std::string Message::getValue(bool isData, std::string key)
     }
 
     return member;
+}
+
+const std::string Message::success()
+{
+    return Message("success").getJSON();
+}
+
+const std::string Message::fail()
+{
+    Message message("fail");
+    message.addDataMember("cause", "Unknown error");
+
+    return message.getJSON();
+}
+
+const std::string Message::fail(std::string cause)
+{
+    Message message("fail");
+    message.addDataMember("cause", std::move(cause));
+
+    return message.getJSON();
+}
+
+const std::string Message::auth()
+{
+    return Message("authentication").getJSON();
 }

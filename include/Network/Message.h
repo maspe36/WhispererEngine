@@ -16,12 +16,18 @@ public:
     std::string typeKey;
     std::string dataKey;
 
+    std::string getType();
     std::string getJSON();
     std::string getMember(std::string key);
     std::string getDataMember(std::string key);
     void loadJSON(std::string json);
     void addMember(std::string key, std::string value);
     void addDataMember(std::string key, std::string value);
+
+    static const std::string success();
+    static const std::string fail();
+    static const std::string fail(std::string cause);
+    static const std::string auth();
 
     explicit Message(std::string type);
     Message();
