@@ -150,6 +150,9 @@ set(WHISPERER_FILES
         include/Network/Derived/AuthMessage.h
         src/Network/Derived/AuthMessage.cpp
 
+        src/Network/Derived/QueueMessage.cpp
+        include/Network/Derived/QueueMessage.h
+
         src/Game/Utilities/Taggable.cpp
         include/Game/Utilities/Taggable.h)
 

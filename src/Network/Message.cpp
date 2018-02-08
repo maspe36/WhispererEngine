@@ -8,6 +8,9 @@
 #include <utility>
 
 
+std::string Message::AUTH = "AUTH";
+std::string Message::QUEUE = "QUEUE";
+
 std::string Message::getType()
 {
     return getMember("type");

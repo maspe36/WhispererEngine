@@ -8,8 +8,10 @@
 #include "../../include/Game/Core/Player.h"
 #include "../../include/Network/Message.h"
 #include "../../include/Network/Derived/AuthMessage.h"
+#include "../../include/Network/Derived/QueueMessage.h"
 
 #include <iostream>
+#include <utility>
 
 typedef boost::shared_ptr<Client> pointer;
 
@@ -86,6 +88,19 @@ void Client::Listen(const boost::system::error_code& errorCode, clientFunc callb
     }
 }
 
+std::string Client::GetString(boost::asio::streambuf& buffer)
+{
+    boost::asio::streambuf::const_buffers_type bufs = buffer.data();
+    std::string data(
+            boost::asio::buffers_begin(bufs),
+            boost::asio::buffers_begin(bufs) + buffer.size());
+
+    emptyBuffer();
+
+    // Return everything except the last character delimeter
+    return data.substr(0, data.size() - 1);
+}
+
 void Client::emptyBuffer()
 {
     buffer.consume(buffer.size());
@@ -113,6 +128,11 @@ void Client::serverHandler()
 
     std::string type = message.getType();
 
+    if (type == Message::QUEUE)
+    {
+        handleQueue(data);
+    }
+
     AsyncListen(&Client::serverHandler);
 }
 
@@ -124,18 +144,21 @@ void Client::gameHandler()
     AsyncListen(&Client::gameHandler);
 }
 
-
-std::string Client::GetString(boost::asio::streambuf& buffer)
+void Client::handleQueue(std::string data)
 {
-    boost::asio::streambuf::const_buffers_type bufs = buffer.data();
-    std::string data(
-            boost::asio::buffers_begin(bufs),
-            boost::asio::buffers_begin(bufs) + buffer.size());
+    QueueMessage qMessage(std::move(data));
+    assemblePlayer();
+    assembleDeck(qMessage.deckID);
+}
 
-    emptyBuffer();
+void Client::assemblePlayer()
+{
+    player = new Player(shared_from_this());
+}
 
-    // Return everything except the last character delimeter
-    return data.substr(0, data.size() - 1);
+void Client::assembleDeck(std::string deckID)
+{
+
 }
 
 void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTransferred) const

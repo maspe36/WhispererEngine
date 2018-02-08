@@ -50,6 +50,10 @@ private:
     void serverHandler();
     void gameHandler();
 
+    void handleQueue(std::string data);
+    void assemblePlayer();
+    void assembleDeck(std::string deckID);
+
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
 
     explicit Client(boost::asio::io_service& ioService);
