@@ -154,7 +154,10 @@ set(WHISPERER_FILES
         include/Network/Derived/QueueMessage.h
 
         src/Game/Utilities/Taggable.cpp
-        include/Game/Utilities/Taggable.h)
+        include/Game/Utilities/Taggable.h
+
+        src/Game/Utilities/Database.cpp
+        include/Game/Utilities/Database.h)
 
 # All source files and the entry point
 set(SOURCE_FILES
