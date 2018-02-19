@@ -13,8 +13,8 @@ using namespace rapidjson;
 class Message
 {
 public:
-    static const std::string AUTH;
-    static const std::string QUEUE;
+    static std::string AUTH;
+    static std::string QUEUE;
 
     std::string typeKey;
     std::string dataKey;
