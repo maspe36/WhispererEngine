@@ -52,6 +52,13 @@ find_package(Boost 1.65.1 REQUIRED system thread)
 include_directories(${Boost_INCLUDE_DIRS})
 link_libraries(${Boost_LIBRARIES})
 
+# Find Postgres
+find_package(PostgreSQL 9.6.7 EXACT REQUIRED)
+
+# Inclue and link Postgres
+include_directories(${PostgreSQL_INCLUDE_DIRS})
+link_libraries(${PostgreSQL_LIBRARIES})
+
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
 
@@ -176,6 +183,7 @@ set(TEST_FILES
         tests/Game/Core/test_Card.cpp
         tests/Game/Python/test_Factory.cpp
         tests/Game/Python/test_Integration.cpp
+        tests/Game/Utilities/test_Database.cpp
         tests/Network/test_Message.cpp)
 
 # Define the WhispererEngineTests target

@@ -3,3 +3,13 @@
 //
 
 #include "../../../include/Game/Utilities/Database.h"
+
+Database::Database()
+{
+
+}
+
+Database::~Database()
+{
+
+}

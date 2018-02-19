@@ -5,6 +5,8 @@
 #ifndef WHISPERERENGINE_DATABASE_H
 #define WHISPERERENGINE_DATABASE_H
 
+#include <libpq-fe.h>
+
 
 class Database
 {
