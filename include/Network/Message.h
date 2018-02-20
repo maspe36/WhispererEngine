@@ -6,26 +6,25 @@
 #define WHISPERERENGINE_MESSAGE_H
 
 #include <string>
-#include <include/rapidjson/document.h>
+#include <nlohmann/json.hpp>
 
-using namespace rapidjson;
+using json = nlohmann::json;
 
 class Message
 {
 public:
     static std::string AUTH;
     static std::string QUEUE;
+    static std::string TYPE_KEY;
+    static std::string DATA_KEY;
 
-    std::string typeKey;
-    std::string dataKey;
+    std::string getJSON();
+    void loadJSON(std::string json);
+    void addDataMember(std::string key, std::string value);
 
     std::string getType();
-    std::string getJSON();
     std::string getMember(std::string key);
     std::string getDataMember(std::string key);
-    void loadJSON(std::string json);
-    void addMember(std::string key, std::string value);
-    void addDataMember(std::string key, std::string value);
 
     static const std::string success();
     static const std::string fail();
@@ -37,10 +36,7 @@ public:
     virtual ~Message();
 
 private:
-    Document document;
-
-    void initializeData();
-    std::string getValue(bool isData, std::string key);
+    json rawJSON;
 };
 
 

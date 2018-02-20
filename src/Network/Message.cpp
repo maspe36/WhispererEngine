@@ -3,136 +3,58 @@
 //
 
 #include "../../include/Network/Message.h"
-#include <include/rapidjson/stringbuffer.h>
-#include <include/rapidjson/writer.h>
 #include <utility>
 
 
 std::string Message::AUTH = "AUTH";
 std::string Message::QUEUE = "QUEUE";
-
-std::string Message::getType()
-{
-    return getMember("type");
-}
+std::string Message::TYPE_KEY = "type";
+std::string Message::DATA_KEY = "data";
 
 std::string Message::getJSON()
 {
-    StringBuffer buffer;
-    Writer<StringBuffer> writer(buffer);
-    document.Accept(writer);
-
-    return buffer.GetString();
-}
-
-std::string Message::getMember(std::string key)
-{
-    std::string message = getValue(false, std::move(key));
-
-    return message;
-}
-
-std::string Message::getDataMember(std::string key)
-{
-    std::string message = getValue(true, std::move(key));
-
-    return message;
+    return rawJSON.dump();
 }
 
 void Message::loadJSON(std::string json)
 {
-    document.Parse(json.c_str());
-}
-
-void Message::addMember(std::string key, std::string value)
-{
-    auto& allocator = document.GetAllocator();
-
-    Value valKey(key.c_str(), allocator);
-    Value valVal(value.c_str(), allocator);
-
-    document.AddMember(valKey.Move(),
-                       valVal.Move(),
-                       allocator);
+    rawJSON = json::parse(json);
 }
 
 void Message::addDataMember(std::string key, std::string value)
 {
-    auto& allocator = document.GetAllocator();
+    rawJSON[DATA_KEY][key] = value;
+}
 
-    Value valKey(key.c_str(), allocator);
-    Value valVal(value.c_str(), allocator);
+std::string Message::getType()
+{
+    return rawJSON[TYPE_KEY];
+}
 
-    document[dataKey.c_str()].AddMember(valKey.Move(),
-                                        valVal.Move(),
-                                        allocator);
+std::string Message::getMember(std::string key)
+{
+    return rawJSON[key];
+}
+
+std::string Message::getDataMember(std::string key)
+{
+    return rawJSON[DATA_KEY][key];
 }
 
 Message::Message(std::string type)
-        : typeKey("type"), dataKey("data")
 {
-    document.SetObject();
-
-    addMember(typeKey, std::move(type));
-    initializeData();
+    rawJSON[TYPE_KEY] = type;
+    rawJSON[DATA_KEY] = nullptr;
 }
 
 Message::Message()
 {
-    document.SetObject();
-    initializeData();
+    rawJSON[TYPE_KEY] = "";
+    rawJSON[DATA_KEY] = nullptr;
 }
 
 Message::~Message()
 = default;
-
-void Message::initializeData()
-{
-    auto& allocator = document.GetAllocator();
-
-    Value data;
-    data.SetObject();
-
-    Value valKey(dataKey.c_str(), allocator);
-
-    document.AddMember(valKey, data, allocator);
-}
-
-std::string Message::getValue(bool isData, std::string key)
-{
-    Value* doc;
-    if (isData)
-    {
-        // For some reason using dataKey.c_str() when loading
-        // the document from parsed JSON causes it to error out
-        doc = &document["data"];
-    }
-    else
-    {
-        doc = &document;
-    }
-
-    std::string member;
-
-    Value::ConstMemberIterator itr = doc->FindMember(key.c_str());
-
-    if (itr != doc->MemberEnd())
-    {
-        member = itr->value.GetString();
-
-        if (member.empty())
-        {
-            throw std::invalid_argument("The key '" + key + "' exists but the value is empty");
-        }
-    }
-
-    if (member.empty())
-    {
-        throw std::invalid_argument("The key '" + key + "' doesn't exist on the JSON document");
-    }
-
-    return member;
-}
 
 const std::string Message::success()
 {
@@ -150,7 +72,7 @@ const std::string Message::fail()
 const std::string Message::fail(std::string cause)
 {
     Message message("fail");
-    message.addDataMember("cause", std::move(cause));
+    message.addDataMember("cause",std::move(cause));
 
     return message.getJSON();
 }

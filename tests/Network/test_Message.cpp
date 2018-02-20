@@ -16,9 +16,9 @@ TEST_CASE("Build JSON")
     std::string dataMemberKey = "name";
     std::string dataMemberValue = "Sam";
 
-    // {"type":"Test","data":{"name":"Sam"}}
-    std::string json = "{\"" + typeKey + "\":\"" + typeValue +
-            "\",\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +"\"}}";
+    // {"data":{"name":"Sam"},"type":"Test"}
+    std::string json = "{\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +
+            "\"},\"" + typeKey + "\":\"" + typeValue +"\"}";
 
     Message message("Test");
     message.addDataMember("name", "Sam");
@@ -39,9 +39,9 @@ TEST_CASE("Parse JSON")
     std::string dataMemberKey = "name";
     std::string dataMemberValue = "Sam";
 
-    // {"type":"Test","data":{"name":"Sam"}}
-    std::string json = "{\"" + typeKey + "\":\"" + typeValue +
-                       "\",\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +"\"}}";
+    // {"data":{"name":"Sam"},"type":"Test"}
+    std::string json = "{\"" + dataKey + "\":{\"" + dataMemberKey + "\":\"" + dataMemberValue +
+                       "\"},\"" + typeKey + "\":\"" + typeValue +"\"}";
 
     Message message;
     message.loadJSON(json);
@@ -53,36 +53,4 @@ TEST_CASE("Parse JSON")
     REQUIRE(type == typeValue);
     REQUIRE(name == dataMemberValue);
     REQUIRE(result == json);
-}
-
-TEST_CASE("Missing Key")
-{
-    std::string json = R"({"type":"test","data":{}})";
-    std::string expectedException = R"(The key 'name' doesn't exist on the JSON document)";
-
-    try
-    {
-        AuthMessage message(json);
-    }
-    catch(const std::invalid_argument &ex)
-    {
-        std::cout << ex.what() << std::endl;
-        REQUIRE(ex.what() == expectedException);
-    }
-}
-
-TEST_CASE("Empty Value")
-{
-    std::string json = R"({"type":"test","data":{"name":"","clientID":""}})";
-    std::string expectedException = R"(The key 'name' exists but the value is empty)";
-
-    try
-    {
-        AuthMessage message(json);
-    }
-    catch(const std::invalid_argument &ex)
-    {
-        std::cout << ex.what() << std::endl;
-        REQUIRE(ex.what() == expectedException);
-    }
 }
