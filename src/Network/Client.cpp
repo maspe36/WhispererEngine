@@ -158,7 +158,7 @@ void Client::assemblePlayer()
 
 void Client::assembleDeck(std::string deckID)
 {
-
+    std::vector<std::string> cardIDs = server->database.getDeckCards(std::move(deckID));
 }
 
 void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTransferred) const
