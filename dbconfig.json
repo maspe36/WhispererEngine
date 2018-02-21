@@ -1,0 +1,3 @@
+{
+  "CONNECTION_INFO":"postgresql://74.208.200.101:5432/Whisperer?user=reader"
+}
