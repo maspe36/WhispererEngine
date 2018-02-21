@@ -18,6 +18,7 @@ public:
     json config;
 
     std::vector<std::string> getDeckCards(std::string userID, std::string deckID);
+    std::string formatGetDeckCardsQuery(std::string userID, std::string deckID);
 
     Database();
     ~Database();
@@ -25,9 +26,8 @@ public:
 private:
     std::string CONNECTION_INFO;
     PGconn* connection;
-    PGresult* result;
 
-    std::string formatGetDeckCardsQuery(std::string userID, std::string deckID);
+    PGresult* result;
     void initializeConfig();
     void initializeConnection();
 };

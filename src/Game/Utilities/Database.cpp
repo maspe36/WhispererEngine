@@ -23,6 +23,30 @@ std::vector<std::string> Database::getDeckCards(std::string userID, std::string 
     return rows;
 }
 
+std::string Database::formatGetDeckCardsQuery(std::string userID, std::string deckID)
+{
+    std::ostringstream sqlStream;
+    sqlStream <<    "SELECT \n"
+            "  \"Card\".\"ID\"\n"
+            "FROM \n"
+            "  public.\"Card\", \n"
+            "  public.\"CardToUser\", \n"
+            "  public.\"CardUserToDeck\", \n"
+            "  public.\"Deck\", \n"
+            "  public.\"DeckToUser\", \n"
+            "  public.\"User\"\n"
+            "WHERE \n"
+            "  \"Card\".\"ID\" = \"CardToUser\".\"CardID\" AND\n"
+            "  \"CardUserToDeck\".\"CardUserID\" = \"CardToUser\".\"ID\" AND\n"
+            "  \"CardUserToDeck\".\"DeckID\" = \"Deck\".\"ID\" AND\n"
+            "  \"Deck\".\"ID\" = \"DeckToUser\".\"DeckID\" AND\n"
+            "  \"DeckToUser\".\"UserID\" = \"User\".\"ID\" AND\n"
+            "  \"User\".\"ID\" = \"CardToUser\".\"UserID\" AND \n"
+            "  \"User\".\"ID\" = " << userID << " AND \"Deck\".\"ID\" = " << deckID << ";";
+
+    return sqlStream.str();
+}
+
 Database::Database()
         : result(nullptr)
 {
@@ -34,30 +58,6 @@ Database::Database()
 Database::~Database()
 {
     PQfinish(connection);
-}
-
-std::string Database::formatGetDeckCardsQuery(std::string userID, std::string deckID)
-{
-    std::ostringstream sqlStream;
-    sqlStream <<    "SELECT \n"
-                        "  \"Card\".\"ID\"\n"
-                    "FROM \n"
-                        "  public.\"Card\", \n"
-                        "  public.\"CardToUser\", \n"
-                        "  public.\"CardUserToDeck\", \n"
-                        "  public.\"Deck\", \n"
-                        "  public.\"DeckToUser\", \n"
-                        "  public.\"User\"\n"
-                    "WHERE \n"
-                        "  \"Card\".\"ID\" = \"CardToUser\".\"CardID\" AND\n"
-                        "  \"CardUserToDeck\".\"CardUserID\" = \"CardToUser\".\"ID\" AND\n"
-                        "  \"CardUserToDeck\".\"DeckID\" = \"Deck\".\"ID\" AND\n"
-                        "  \"Deck\".\"ID\" = \"DeckToUser\".\"DeckID\" AND\n"
-                        "  \"DeckToUser\".\"UserID\" = \"User\".\"ID\" AND\n"
-                        "  \"User\".\"ID\" = \"CardToUser\".\"UserID\" AND \n"
-                        "  \"User\".\"ID\" = " << userID << " AND \"Deck\".\"ID\" = " << deckID << ";";
-
-    return sqlStream.str();
 }
 
 void Database::initializeConnection()
