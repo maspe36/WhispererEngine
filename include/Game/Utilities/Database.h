@@ -17,16 +17,18 @@ class Database
 public:
     json config;
 
-    std::vector<std::string> getDeckCards(std::string deckID);
+    std::vector<std::string> getDeckCards(std::string userID, std::string deckID);
 
     Database();
     ~Database();
+
 private:
     std::string CONNECTION_INFO;
     PGconn* connection;
+    PGresult* result;
 
+    std::string formatGetDeckCardsQuery(std::string userID, std::string deckID);
     void initializeConfig();
-
     void initializeConnection();
 };
 

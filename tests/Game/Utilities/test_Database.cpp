@@ -8,12 +8,22 @@
 
 TEST_CASE("Create database")
 {
-    try
-    {
-        Database database;
-    }
-    catch(const std::exception &ex)
-    {
-        std::cout << ex.what() << std::endl;
-    }
+    Database database;
+}
+
+TEST_CASE("Get CardIDs for Deck")
+{
+    // Don't fill this from a loop because this could change soon
+    std::vector<std::string> expectedIDs = {"1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                                            "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                                            "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+                                            "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"};
+
+    std::string userID = "1";
+    std::string deckID = "1";
+
+    Database database;
+    std::vector<std::string> cardIDs = database.getDeckCards(userID, deckID);
+
+    REQUIRE(cardIDs == expectedIDs);
 }
