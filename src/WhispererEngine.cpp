@@ -14,14 +14,14 @@
 namespace py = pybind11;
 
 
-void commandListen(Server* server, Factory& factory)
+void commandListen(Server* server)
 {
     std::__cxx11::string line;
     while (getline(std::cin, line) && line != "quit")
     {
         if (line == "memes")
         {
-            pybind11::object card = factory.createCard("Azar");
+            pybind11::object card = server->factory.createCard("Azar");
             auto base = card.cast<Card*>();
             auto creature = dynamic_cast<Creature*>(base);
 
@@ -73,7 +73,6 @@ int main(int argc, const char* argv[])
 
     auto* server = new Server(8888);
     server->Start();
-    Factory factory;
 
     if (process)
     {
@@ -81,6 +80,6 @@ int main(int argc, const char* argv[])
     }
     else
     {
-        commandListen(server, factory);
+        commandListen(server);
     }
 }

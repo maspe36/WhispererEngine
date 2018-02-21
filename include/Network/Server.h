@@ -10,6 +10,8 @@
 #include <boost/thread.hpp>
 #include <boost/smart_ptr.hpp>
 #include "Client.h"
+#include "../Game/Utilities/Database.h"
+#include "../Game/Python/Factory.h"
 
 class Player;
 
@@ -18,6 +20,8 @@ class Server
 public:
     std::vector<Client::pointer> clients;
     std::queue<Player*> queue;
+    Database database;
+    Factory factory;
 
     void WriteAll(std::string data);
     void Start();

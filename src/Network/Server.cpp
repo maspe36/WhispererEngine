@@ -51,7 +51,7 @@ void Server::Stop()
 }
 
 Server::Server(int port)
-        : io_service(), workLock(io_service), thread(),
+        : database(Database()), factory(Factory()), io_service(), workLock(io_service), thread(),
           acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
                                                               static_cast<unsigned short>(port)))
 {
