@@ -26,23 +26,24 @@ std::vector<std::string> Database::getDeckCards(std::string userID, std::string 
 std::string Database::formatGetDeckCardsQuery(std::string userID, std::string deckID)
 {
     std::ostringstream sqlStream;
-    sqlStream << R"( SELECT
-                        "Card"."PythonName"
-                     FROM
-                         public."Card",
-                         public."CardToUser",
-                         public."CardUserToDeck",
-                         public."Deck",
-                         public."DeckToUser",
-                         public."User"
-                     WHERE
-                         "Card"."ID" = "CardToUser"."CardID" AND
-                         "CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND
-                         "CardUserToDeck"."DeckID" = "Deck"."ID" AND
-                         "Deck"."ID" = "DeckToUser"."DeckID" AND
-                         "DeckToUser"."UserID" = "User"."ID" AND
-                         "User"."ID" = "CardToUser"."UserID" AND
-                         "User"."SteamID" = ')" << userID << R"(' AND "Deck"."ID" =)" << deckID << ";";
+    sqlStream <<
+              "SELECT " <<
+                R"("Card"."PythonName" )" <<
+              "FROM " <<
+                R"(public."Card", )" <<
+                R"(public."CardToUser", )" <<
+                R"(public."CardUserToDeck", )" <<
+                R"(public."Deck", )" <<
+                R"(public."DeckToUser", )" <<
+                R"(public."User" )" <<
+              "WHERE " <<
+                R"("Card"."ID" = "CardToUser"."CardID" AND )" <<
+                R"("CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND )" <<
+                R"("CardUserToDeck"."DeckID" = "Deck"."ID" AND )" <<
+                R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
+                R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
+                R"("User"."ID" = "CardToUser"."UserID" AND )" <<
+                R"("User"."SteamID" = ')" << userID << R"(' AND "Deck"."ID" = )" << deckID << ";";
 
     return sqlStream.str();
 }
