@@ -13,25 +13,25 @@ TEST_CASE("Create database")
 
 TEST_CASE("Verify get CardIDs for Deck SQL")
 {
-    std::string userID = "1";
+    std::string userID = "STEAM_1:0:32887992";
     std::string deckID = "1";
-    std::string expectedQuery = "SELECT \n"
-                                    "  \"Card\".\"ID\"\n"
-                                "FROM \n"
-                                    "  public.\"Card\", \n"
-                                    "  public.\"CardToUser\", \n"
-                                    "  public.\"CardUserToDeck\", \n"
-                                    "  public.\"Deck\", \n"
-                                    "  public.\"DeckToUser\", \n"
-                                    "  public.\"User\"\n"
-                                "WHERE \n"
-                                    "  \"Card\".\"ID\" = \"CardToUser\".\"CardID\" AND\n"
-                                    "  \"CardUserToDeck\".\"CardUserID\" = \"CardToUser\".\"ID\" AND\n"
-                                    "  \"CardUserToDeck\".\"DeckID\" = \"Deck\".\"ID\" AND\n"
-                                    "  \"Deck\".\"ID\" = \"DeckToUser\".\"DeckID\" AND\n"
-                                    "  \"DeckToUser\".\"UserID\" = \"User\".\"ID\" AND\n"
-                                    "  \"User\".\"ID\" = \"CardToUser\".\"UserID\" AND \n"
-                                    "  \"User\".\"ID\" = 1 AND \"Deck\".\"ID\" = 1;";
+    std::string expectedQuery = R"( SELECT 
+                                        "Card"."PythonName"
+                                    FROM
+                                        public."Card", 
+                                        public."CardToUser", 
+                                        public."CardUserToDeck",
+                                        public."Deck", 
+                                        public."DeckToUser", 
+                                        public."User"
+                                    WHERE
+                                        "Card"."ID" = "CardToUser"."CardID" AND
+                                        "CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND
+                                        "CardUserToDeck"."DeckID" = "Deck"."ID" AND
+                                        "Deck"."ID" = "DeckToUser"."DeckID" AND
+                                        "DeckToUser"."UserID" = "User"."ID" AND
+                                        "User"."ID" = "CardToUser"."UserID" AND
+                                        "User"."SteamID" = 'STEAM_1:0:32887992' AND "Deck"."ID" = 1;)";
 
     Database database;
     std::string query = database.formatGetDeckCardsQuery(userID, deckID);
@@ -42,12 +42,16 @@ TEST_CASE("Verify get CardIDs for Deck SQL")
 TEST_CASE("Get CardIDs for Deck")
 {
     // Don't fill this from a loop because this could change soon
-    std::vector<std::string> expectedIDs = {"1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-                                            "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-                                            "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
-                                            "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"};
+    std::vector<std::string> expectedNames = {"Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar"};
 
-    std::string userID = "1";
+    std::string userID = "STEAM_1:0:32887992";
     std::string deckID = "1";
 
     Database database;

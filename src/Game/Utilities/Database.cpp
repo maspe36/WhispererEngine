@@ -26,23 +26,23 @@ std::vector<std::string> Database::getDeckCards(std::string userID, std::string 
 std::string Database::formatGetDeckCardsQuery(std::string userID, std::string deckID)
 {
     std::ostringstream sqlStream;
-    sqlStream <<    "SELECT \n"
-            "  \"Card\".\"ID\"\n"
-            "FROM \n"
-            "  public.\"Card\", \n"
-            "  public.\"CardToUser\", \n"
-            "  public.\"CardUserToDeck\", \n"
-            "  public.\"Deck\", \n"
-            "  public.\"DeckToUser\", \n"
-            "  public.\"User\"\n"
-            "WHERE \n"
-            "  \"Card\".\"ID\" = \"CardToUser\".\"CardID\" AND\n"
-            "  \"CardUserToDeck\".\"CardUserID\" = \"CardToUser\".\"ID\" AND\n"
-            "  \"CardUserToDeck\".\"DeckID\" = \"Deck\".\"ID\" AND\n"
-            "  \"Deck\".\"ID\" = \"DeckToUser\".\"DeckID\" AND\n"
-            "  \"DeckToUser\".\"UserID\" = \"User\".\"ID\" AND\n"
-            "  \"User\".\"ID\" = \"CardToUser\".\"UserID\" AND \n"
-            "  \"User\".\"ID\" = " << userID << " AND \"Deck\".\"ID\" = " << deckID << ";";
+    sqlStream << R"( SELECT
+                        "Card"."PythonName"
+                     FROM
+                         public."Card",
+                         public."CardToUser",
+                         public."CardUserToDeck",
+                         public."Deck",
+                         public."DeckToUser",
+                         public."User"
+                     WHERE
+                         "Card"."ID" = "CardToUser"."CardID" AND
+                         "CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND
+                         "CardUserToDeck"."DeckID" = "Deck"."ID" AND
+                         "Deck"."ID" = "DeckToUser"."DeckID" AND
+                         "DeckToUser"."UserID" = "User"."ID" AND
+                         "User"."ID" = "CardToUser"."UserID" AND
+                         "User"."SteamID" = ')" << userID << R"(' AND "Deck"."ID" =)" << deckID << ";";
 
     return sqlStream.str();
 }
