@@ -3,3 +3,9 @@
 //
 
 #include "../../../include/Game/Core/Board.h"
+
+Board::Board()
+= default;
+
+Board::~Board()
+= default;

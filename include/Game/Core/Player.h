@@ -23,14 +23,14 @@ class Player: public Taggable
 public:
     std::string name;
     Client::pointer client;
-    Game *game;
+    Game* game;
 
-    Mana *availableMana;
-    Mana *totalMana;
-    Board *board;
+    Mana* availableMana;
+    Mana* totalMana;
+    Board* board;
     std::vector<Card*> hand;
 
-    Player(Client::pointer client);
+    explicit Player(Client::pointer client);
     ~Player();
 };
 
