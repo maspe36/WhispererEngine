@@ -15,7 +15,7 @@
 namespace py = pybind11;
 
 PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
-    py::class_<Card> (m, "Card")
+    py::class_<Card, std::shared_ptr<Card>> (m, "Card")
         .def(py::init<const std::string &, const std::string &, const Mana &>(),
             py::arg("name"), py::arg("text"), py::arg("mana"))
         .def_readwrite("name", &Card::name)
@@ -27,11 +27,11 @@ PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
         .def("addEffect", &Card::addEffect)
         .def("addModifier", &Card::addModifier);
 
-    py::class_<Constant, Card> (m, "Constant")
+    py::class_<Constant, Card, std::shared_ptr<Constant>> (m, "Constant")
         .def(py::init<const std::string &, const std::string &, const Mana &>(),
              py::arg("name"), py::arg("text"), py::arg("mana"));
 
-    py::class_<Creature, Card> (m, "Creature")
+    py::class_<Creature, Card, std::shared_ptr<Creature>> (m, "Creature")
             .def(py::init<const std::string &, const std::string &, const Mana &, const int &, const int &>(),
                  py::arg("name"), py::arg("text"), py::arg("mana"), py::arg("attackStat"), py::arg("defenseStat"))
             .def_readwrite("attackStat", &Creature::attackStat)
