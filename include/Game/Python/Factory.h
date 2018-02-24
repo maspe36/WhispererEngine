@@ -24,7 +24,8 @@ class Factory
 public:
     Version* version;
 
-    pybind11::object createCard(const std::string &name);
+    std::shared_ptr<Card> createCard(const std::string &name);
+    pybind11::object createPyCard(const std::string &name);
 
     Factory();
     ~Factory();

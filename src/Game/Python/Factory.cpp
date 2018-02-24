@@ -8,7 +8,14 @@
 
 namespace py = pybind11;
 
-py::object Factory::createCard(const std::string &name)
+std::shared_ptr<Card> Factory::createCard(const std::string &name)
+{
+    auto pyCard = Factory::createPyCard(name);
+    auto card = pyCard.cast<std::shared_ptr<Card>>();
+    return card;
+}
+
+py::object Factory::createPyCard(const std::string &name)
 {
     py::module cardModule = py::module::import(name.c_str());
     cardModule.reload();
