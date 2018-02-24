@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include <memory>
 
 class Card;
 class Constant;
@@ -14,12 +15,13 @@ class Creature;
 
 /* Handles a single players cards in play. */
 class Board
+        : public std::enable_shared_from_this<Board>
 {
 public:
-    std::vector<Constant*> constants;
-    std::vector<Creature*> creatures;
-    std::vector<Card*> deck;
-    std::vector<Card*> graveyard;
+    std::vector<std::shared_ptr<Constant>> constants;
+    std::vector<std::shared_ptr<Creature>> creatures;
+    std::vector<std::shared_ptr<Card>> deck;
+    std::vector<std::shared_ptr<Card>> graveyard;
 
     Board();
     ~Board();

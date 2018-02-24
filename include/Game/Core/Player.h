@@ -8,6 +8,7 @@
 
 #include "../../Network/Client.h"
 #include "../Utilities/Taggable.h"
+#include "Mana.h"
 
 #include <string>
 #include <vector>
@@ -15,7 +16,6 @@
 class Board;
 class Card;
 class Game;
-class Mana;
 
 /* Represents a single player. */
 class Player: public Taggable
@@ -23,12 +23,12 @@ class Player: public Taggable
 public:
     std::string name;
     Client::pointer client;
-    Game* game;
+    std::shared_ptr<Game> game;
 
-    Mana* availableMana;
-    Mana* totalMana;
-    Board* board;
-    std::vector<Card*> hand;
+    Mana availableMana;
+    Mana totalMana;
+    std::shared_ptr<Board> board;
+    std::vector<std::shared_ptr<Card>> hand;
 
     explicit Player(Client::pointer client);
     ~Player();
