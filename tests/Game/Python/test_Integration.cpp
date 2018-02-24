@@ -43,7 +43,7 @@ TEST_CASE("Polymorphic down casting")
     {
         const std::string name = "testConstant";
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto tempBase = card.cast<Card*>();
 
         auto tempConstant = dynamic_cast<Constant*>(tempBase);
@@ -54,7 +54,7 @@ TEST_CASE("Polymorphic down casting")
     {
         const std::string name = "testCreature";
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto tempBase = card.cast<Card*>();
 
         auto tempCreature = dynamic_cast<Creature*>(tempBase);
@@ -72,7 +72,7 @@ TEST_CASE("Polymorphic up casting")
     {
         const std::string name = "testConstant";
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto constant = card.cast<Constant*>();
 
         auto tempBase = dynamic_cast<Card*>(constant);
@@ -83,10 +83,35 @@ TEST_CASE("Polymorphic up casting")
     {
         const std::string name = "testCreature";
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto creature = card.cast<Creature*>();
 
         auto tempBase = dynamic_cast<Card*>(creature);
         REQUIRE(tempBase != nullptr);
+    }
+}
+
+TEST_CASE("shared_ptr Downcasting")
+{
+    Factory factory;
+
+    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game/Core");
+
+    SECTION("shared_ptr<Card> -> shared_ptr<Creature>")
+    {
+        const std::string name = "testCreature";
+
+        std::shared_ptr<Card> card = factory.createCard(name);
+        std::shared_ptr<Creature> creature = std::dynamic_pointer_cast<Creature>(card);
+        REQUIRE(&creature != nullptr);
+    }
+
+    SECTION("shared_ptr<Card> -> shared_ptr<Constant>")
+    {
+        const std::string name = "testConstant";
+
+        std::shared_ptr<Card> card = factory.createCard(name);
+        std::shared_ptr<Constant> constant = std::dynamic_pointer_cast<Constant>(card);
+        REQUIRE(&constant != nullptr);
     }
 }

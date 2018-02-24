@@ -26,7 +26,7 @@ TEST_CASE("Create cards from modules")
         const std::string text = "An empty test card";
         Mana mana(0, 0, 0, 0, 1, 0);
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto base = card.cast<Card*>();
 
         REQUIRE(base->name == name);
@@ -40,7 +40,7 @@ TEST_CASE("Create cards from modules")
         const std::string text = "An empty test constant";
         Mana mana(1, 0, 0, 0, 0, 0);
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto constant = card.cast<Constant*>();
 
         REQUIRE(constant->name == name);
@@ -54,7 +54,7 @@ TEST_CASE("Create cards from modules")
         const std::string text = "An empty test creature";
         Mana mana(1, 0, 0, 0, 0, 0);
 
-        py::object card = factory.createCard(name);
+        py::object card = factory.createPyCard(name);
         auto creature = card.cast<Creature*>();
 
         REQUIRE(creature->name == name);
