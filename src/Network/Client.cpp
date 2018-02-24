@@ -6,12 +6,15 @@
 #include "../../include/Network/Server.h"
 #include "../../include/Game/Core/Game.h"
 #include "../../include/Game/Core/Player.h"
+#include "../../include/Game/Core/Card.h"
 #include "../../include/Network/Message.h"
 #include "../../include/Network/Derived/AuthMessage.h"
 #include "../../include/Network/Derived/QueueMessage.h"
+#include "../../include/Game/Core/Board.h"
 
 #include <iostream>
 #include <utility>
+#include <pybind11/pytypes.h>
 
 typedef boost::shared_ptr<Client> pointer;
 
@@ -158,7 +161,16 @@ void Client::assemblePlayer()
 
 void Client::assembleDeck(std::string deckID)
 {
-    std::vector<std::string> cardIDs = server->database.getDeckCards(std::move(deckID), clientID);
+    std::vector<std::string> pythonNames = server->database.getDeckCards(clientID, std::move(deckID));
+    std::vector<std::shared_ptr<Card>> deck;
+
+    for (const auto &name : pythonNames)
+    {
+        auto card = server->factory.createCard(name);
+        deck.push_back(card);
+    }
+
+    player->board->deck = deck;
 }
 
 void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTransferred) const
