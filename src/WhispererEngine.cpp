@@ -21,9 +21,8 @@ void commandListen(Server* server)
     {
         if (line == "memes")
         {
-            pybind11::object card = server->factory.createCard("Azar");
-            auto base = card.cast<Card*>();
-            auto creature = dynamic_cast<Creature*>(base);
+            auto card = server->factory.createCard("Azar");
+            auto creature = std::dynamic_pointer_cast<Creature>(card);
 
             std::cout << "Name: " << creature->name << std::endl;
             std::cout << "Tag: " << creature->tag << std::endl;
