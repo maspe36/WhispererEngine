@@ -115,11 +115,15 @@ void Client::emptyBuffer()
 
 void Client::authenticationHandler()
 {
-    std::string json = GetString(buffer);
+    std::string json = getString(buffer);
 
     AuthMessage authMessage(json);
-    name = authMessage.name;
-    clientID = authMessage.clientID;
+
+    // HTTP Request with the token to get steamID
+    // Verify response
+
+//        name = httpRequest.name;
+//        clientID = httpRequest.clientID;
 
     server->AddClient(shared_from_this());
     Write(Message::success());

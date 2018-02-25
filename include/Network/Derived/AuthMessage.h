@@ -12,8 +12,7 @@ class AuthMessage
         : public Message
 {
 public:
-    std::string name;
-    std::string clientID;
+    std::string token;
 
     explicit AuthMessage(std::string json);
     ~AuthMessage() override;

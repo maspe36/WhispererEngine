@@ -9,8 +9,7 @@
 AuthMessage::AuthMessage(std::string json) : Message()
 {
     loadJSON(std::move(json));
-    name = getDataMember("name");
-    clientID = getDataMember("clientID");
+    token = getDataMember("token");
 }
 
 AuthMessage::~AuthMessage()
