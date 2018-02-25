@@ -59,6 +59,13 @@ find_package(PostgreSQL 9.6.7 EXACT REQUIRED)
 include_directories(${PostgreSQL_INCLUDE_DIRS})
 link_libraries(${PostgreSQL_LIBRARIES})
 
+# Find CURL
+find_package(CURL REQUIRED)
+
+# Include and link CURL
+include_directories(${CURL_INCLUDE_DIRS})
+link_libraries(${CURL_LIBRARIES})
+
 # Add pybind11 modules
 set(PYBIND11_CPP_STANDARD -std=c++17)
 
@@ -188,7 +195,8 @@ set(TEST_FILES
         tests/Game/Python/test_Factory.cpp
         tests/Game/Python/test_Integration.cpp
         tests/Game/Utilities/test_Database.cpp
-        tests/Network/test_Message.cpp)
+        tests/Network/test_Message.cpp
+        tests/Network/test_Client.cpp)
 
 # Define the WhispererEngineTests target
 add_executable(WhispererEngineTests ${TEST_FILES})
