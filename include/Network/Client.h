@@ -39,12 +39,15 @@ public:
     void AsyncListen(clientFunc callback);
     void Listen(const boost::system::error_code& errorCode, clientFunc callback);
 
+    static std::string makeGETRequest(std::string url);
+
 private:
     std::string delimiter;
     boost::asio::streambuf buffer;
     boost::asio::ip::tcp::socket socket;
 
-    std::string makeGETRequest(std::string url);
+    static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
+
     std::string getString(boost::asio::streambuf &buffer);
     void emptyBuffer();
     void authenticationHandler();
