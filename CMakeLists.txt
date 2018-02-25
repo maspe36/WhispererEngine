@@ -161,6 +161,9 @@ set(WHISPERER_FILES
         src/Network/Server.cpp
         include/Network/Server.h
 
+        src/Network/HTTPRequest.cpp
+        include/Network/HTTPRequest.h
+
         include/Network/Derived/AuthMessage.h
         src/Network/Derived/AuthMessage.cpp
 
@@ -196,7 +199,7 @@ set(TEST_FILES
         tests/Game/Python/test_Integration.cpp
         tests/Game/Utilities/test_Database.cpp
         tests/Network/test_Message.cpp
-        tests/Network/test_Client.cpp)
+        tests/Network/test_HTTPRequest.cpp)
 
 # Define the WhispererEngineTests target
 add_executable(WhispererEngineTests ${TEST_FILES})
