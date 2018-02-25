@@ -3,11 +3,13 @@
 //
 
 #include "../../include/Network/Message.h"
+#include "../../include/Network/Exceptions/JSONError.h"
 #include <utility>
 
 
 std::string Message::AUTH = "AUTH";
 std::string Message::QUEUE = "QUEUE";
+
 std::string Message::TYPE_KEY = "type";
 std::string Message::DATA_KEY = "data";
 
@@ -38,7 +40,18 @@ std::string Message::getMember(std::string key)
 
 std::string Message::getDataMember(std::string key)
 {
-    return rawJSON[DATA_KEY][key];
+    std::string result;
+
+    try
+    {
+        result = rawJSON[DATA_KEY][key];
+    }
+    catch (const nlohmann::detail::type_error &exception)
+    {
+        throw JSONError("The key '" + key + "' is missing from the JSON!");
+    }
+
+    return result;
 }
 
 Message::Message(std::string type)
