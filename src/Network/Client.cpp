@@ -11,6 +11,7 @@
 #include "../../include/Network/Derived/AuthMessage.h"
 #include "../../include/Network/Derived/QueueMessage.h"
 #include "../../include/Game/Core/Board.h"
+#include "../../include/Network/Exceptions/JSONError.h"
 
 #include <iostream>
 #include <utility>
@@ -89,7 +90,12 @@ void Client::Listen(const boost::system::error_code& errorCode, clientFunc callb
     }
 }
 
-std::string Client::GetString(boost::asio::streambuf& buffer)
+std::string Client::makeGETRequest(std::string url)
+{
+    return std::__cxx11::string();
+}
+
+std::string Client::getString(boost::asio::streambuf &buffer)
 {
     boost::asio::streambuf::const_buffers_type bufs = buffer.data();
     std::string data(
@@ -123,7 +129,7 @@ void Client::authenticationHandler()
 
 void Client::serverHandler()
 {
-    std::string data = GetString(buffer);
+    std::string data = getString(buffer);
     Message message;
     message.loadJSON(data);
 
@@ -139,7 +145,7 @@ void Client::serverHandler()
 
 void Client::gameHandler()
 {
-    std::string data = GetString(buffer);
+    std::string data = getString(buffer);
     std::cout << "From " << name << ": " << data << std::endl;
 
     AsyncListen(&Client::gameHandler);

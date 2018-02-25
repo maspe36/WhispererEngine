@@ -44,7 +44,8 @@ private:
     boost::asio::streambuf buffer;
     boost::asio::ip::tcp::socket socket;
 
-    std::string GetString(boost::asio::streambuf& buffer);
+    std::string makeGETRequest(std::string url);
+    std::string getString(boost::asio::streambuf &buffer);
     void emptyBuffer();
     void authenticationHandler();
     void serverHandler();
