@@ -76,13 +76,11 @@ void Client::Listen(const boost::system::error_code& errorCode, clientFunc callb
         {
             (*this.*callback)();
         }
-        catch(const std::invalid_argument& e)
+        catch(const std::exception &error)
         {
-            Write(Message::fail(e.what()));
-        }
-        catch(...)
-        {
-            Write(Message::fail());
+            std::cout << "Error during callback: " << error.what() << std::endl;
+            Write(Message::fail(error.what()));
+            (*this.*callback)();
         }
     }
     else

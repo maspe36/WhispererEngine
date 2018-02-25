@@ -160,6 +160,9 @@ set(WHISPERER_FILES
         src/Network/Derived/QueueMessage.cpp
         include/Network/Derived/QueueMessage.h
 
+        src/Network/Exceptions/JSONError.cpp
+        include/Network/Exceptions/JSONError.h
+
         src/Game/Utilities/Taggable.cpp
         include/Game/Utilities/Taggable.h
 
