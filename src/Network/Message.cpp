@@ -7,8 +7,11 @@
 #include <utility>
 
 
-std::string Message::AUTH = "AUTH";
-std::string Message::QUEUE = "QUEUE";
+std::string Message::SUCCESS = "Success";
+std::string Message::FAILURE = "Failure";
+std::string Message::AUTH = "Auth";
+std::string Message::QUEUE = "Queue";
+std::string Message::REGISTER_PLAYER = "RegisterPlayer";
 
 std::string Message::TYPE_KEY = "type";
 std::string Message::DATA_KEY = "data";
@@ -71,20 +74,12 @@ Message::~Message()
 
 const std::string Message::success()
 {
-    return Message("success").getJSON();
-}
-
-const std::string Message::fail()
-{
-    Message message("fail");
-    message.addDataMember("cause", "Unknown error");
-
-    return message.getJSON();
+    return Message(SUCCESS).getJSON();
 }
 
 const std::string Message::fail(std::string cause)
 {
-    Message message("fail");
+    Message message(FAILURE);
     message.addDataMember("cause",std::move(cause));
 
     return message.getJSON();
@@ -92,5 +87,10 @@ const std::string Message::fail(std::string cause)
 
 const std::string Message::auth()
 {
-    return Message("authentication").getJSON();
+    return Message(AUTH).getJSON();
+}
+
+const std::string Message::registerPlayer()
+{
+    return Message(REGISTER_PLAYER).getJSON();
 }

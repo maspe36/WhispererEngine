@@ -13,8 +13,12 @@ using json = nlohmann::json;
 class Message
 {
 public:
+    static std::string SUCCESS;
+    static std::string FAILURE;
     static std::string AUTH;
     static std::string QUEUE;
+    static std::string REGISTER_PLAYER;
+
     static std::string TYPE_KEY;
     static std::string DATA_KEY;
 
@@ -27,9 +31,9 @@ public:
     std::string getDataMember(std::string key);
 
     static const std::string success();
-    static const std::string fail();
     static const std::string fail(std::string cause);
     static const std::string auth();
+    static const std::string registerPlayer();
 
     explicit Message(std::string type);
     Message();
