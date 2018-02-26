@@ -5,13 +5,11 @@
 #include "../../include/Network/HTTPRequest.h"
 #include <curl/curl.h>
 #include <iostream>
+#include <sstream>
 
 
-size_t HTTPRequest::writeCallback(void *contents, size_t size, size_t nmemb, void *userp)
-{
-    ((std::string*)userp)->append((char*)contents, size * nmemb);
-    return size * nmemb;
-}
+std::string HTTPRequest::API_KEY = "86E46A5E8C8A6D7DAEADFF7875D94D2B";
+std::string HTTPRequest::APP_ID = "480";
 
 std::string HTTPRequest::makeGETRequest(std::string url)
 {
@@ -39,4 +37,21 @@ std::string HTTPRequest::makeGETRequest(std::string url)
     }
 
     return readBuffer;
+}
+
+std::string HTTPRequest::sendAuthenticationRequest(std::string token)
+{
+    std::ostringstream URL;
+    URL << "https://api.steampowered.com/ISteamUserAuth/AuthenticateUserTicket/v1/?" <<
+        "key=" << API_KEY <<
+        "&appid=" << APP_ID <<
+        "&ticket=" << token;
+
+    return makeGETRequest(URL.str());
+}
+
+size_t HTTPRequest::writeCallback(void *contents, size_t size, size_t nmemb, void *userp)
+{
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
 }
