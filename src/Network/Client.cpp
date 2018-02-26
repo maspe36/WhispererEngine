@@ -12,6 +12,7 @@
 #include "../../include/Network/Derived/QueueMessage.h"
 #include "../../include/Game/Core/Board.h"
 #include "../../include/Network/Exceptions/JSONError.h"
+#include "../../include/Network/HTTPRequest.h"
 
 #include <iostream>
 #include <utility>
@@ -115,15 +116,31 @@ void Client::authenticationHandler()
     AuthMessage authMessage(json);
 
     // HTTP Request with the token to get steamID
+    std::string httpRequest = HTTPRequest::sendAuthenticationRequest(authMessage.token);
+    auto httpJSON = json::parse(httpRequest);
+
     // Verify response
+    try
+    {
+        std::string result = httpJSON["response"]["params"]["result"];
+        if (result == "OK")
+        {
+            steamID = httpJSON["response"]["params"]["steamid"];
+        }
 
-//        name = httpRequest.name;
-//        clientID = httpRequest.clientID;
+        server->AddClient(shared_from_this());
+        Write(Message::registerPlayer());
 
-    server->AddClient(shared_from_this());
-    Write(Message::success());
+        AsyncListen(&Client::serverHandler);
+    }
+    catch (const nlohmann::detail::type_error &exception)
+    {
+        std::string code = httpJSON["response"]["error"]["errorcode"];
+        std::string desc = httpJSON["response"]["error"]["errordesc"];
 
-    AsyncListen(&Client::serverHandler);
+        Write(Message::fail(code + ": " +desc));
+        AsyncListen(&Client::authenticationHandler);
+    }
 }
 
 void Client::serverHandler()
@@ -164,7 +181,7 @@ void Client::assemblePlayer()
 
 void Client::assembleDeck(std::string deckID)
 {
-    std::vector<std::string> pythonNames = server->database.getDeckCards(clientID, std::move(deckID));
+    std::vector<std::string> pythonNames = server->database.getDeckCards(steamID, std::move(deckID));
     std::vector<std::shared_ptr<Card>> deck;
 
     for (const auto &name : pythonNames)

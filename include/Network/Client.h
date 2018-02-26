@@ -24,7 +24,7 @@ public:
     typedef void (Client::*clientFunc)();
 
     std::string name;
-    std::string clientID;
+    std::string steamID;
     Player* player;
     Server* server;
     bool listening;
