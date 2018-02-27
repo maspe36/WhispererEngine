@@ -13,7 +13,7 @@ TEST_CASE("Create database")
 
 TEST_CASE("Verify get CardIDs for Deck SQL")
 {
-    std::string userID = "STEAM_1:0:32887992";
+    std::string userID = "76561198026041712";
     std::string deckID = "1";
     std::ostringstream expectedQuery;
     expectedQuery <<
@@ -33,7 +33,7 @@ TEST_CASE("Verify get CardIDs for Deck SQL")
                     R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
                     R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
                     R"("User"."ID" = "CardToUser"."UserID" AND )" <<
-                    R"("User"."SteamID" = 'STEAM_1:0:32887992' AND "Deck"."ID" = 1;)";
+                    R"("User"."SteamID" = '76561198026041712' AND "Deck"."ID" = 1;)";
 
     Database database;
     std::string query = database.formatGetDeckCardsQuery(userID, deckID);
@@ -53,7 +53,7 @@ TEST_CASE("Get CardIDs for Deck")
                                               "Azar", "Azar", "Azar", "Azar", "Azar",
                                               "Azar", "Azar", "Azar", "Azar", "Azar"};
 
-    std::string userID = "STEAM_1:0:32887992";
+    std::string userID = "76561198026041712";
     std::string deckID = "1";
 
     Database database;
