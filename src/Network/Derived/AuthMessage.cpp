@@ -14,5 +14,3 @@ AuthMessage::AuthMessage(std::string json) : Message()
 
 AuthMessage::~AuthMessage()
 = default;
-
-
