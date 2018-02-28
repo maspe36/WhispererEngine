@@ -3,10 +3,13 @@
 //
 
 #include "../../include/Network/HTTPRequest.h"
+#include "../../include/Network/Exceptions/JSONError.h"
 #include <curl/curl.h>
 #include <iostream>
 #include <sstream>
+#include <nlohmann/json.hpp>
 
+using json = nlohmann::json;
 
 std::string HTTPRequest::API_KEY = "86E46A5E8C8A6D7DAEADFF7875D94D2B";
 std::string HTTPRequest::APP_ID = "480";
@@ -48,6 +51,61 @@ std::string HTTPRequest::sendAuthenticationRequest(std::string token)
         "&ticket=" << token;
 
     return makeGETRequest(URL.str());
+}
+
+std::string HTTPRequest::sendSteamNameRequest(std::string steamID)
+{
+    std::ostringstream URL;
+    URL << "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?" <<
+        "key=" << API_KEY <<
+        "&steamids=" << steamID;
+
+    return makeGETRequest(URL.str());
+}
+
+std::string HTTPRequest::getSteamID(std::string token)
+{
+    std::string httpRequest = HTTPRequest::sendAuthenticationRequest(token);
+    auto httpJSON = json::parse(httpRequest);
+
+    std::string result;
+
+    try
+    {
+        result = httpJSON["response"]["params"]["result"];
+    }
+    catch(const nlohmann::detail::type_error &exception)
+    {
+        std::string code = httpJSON["response"]["error"]["errorcode"];
+        std::string desc = httpJSON["response"]["error"]["errordesc"];
+
+        throw JSONError(code + ": " + desc);
+    }
+
+    if (result == "OK")
+    {
+        return httpJSON["response"]["params"]["steamid"];
+    }
+}
+
+std::string HTTPRequest::getSteamName(std::string steamID)
+{
+    auto nameHTTPJSON = json::parse(HTTPRequest::sendSteamNameRequest(std::move(steamID)));
+    std::string name;
+
+    try
+    {
+        name = nameHTTPJSON["response"]["players"][0]["personaname"];
+    }
+    catch(const nlohmann::detail::type_error &exception)
+    {
+        throw JSONError("No player information found with the steamID '" + steamID + "'");
+    }
+
+    if (!name.empty())
+    {
+        return name;
+    }
 }
 
 size_t HTTPRequest::writeCallback(void *contents, size_t size, size_t nmemb, void *userp)

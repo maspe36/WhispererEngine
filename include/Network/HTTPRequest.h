@@ -16,6 +16,9 @@ public:
 
     static std::string makeGETRequest(std::string url);
     static std::string sendAuthenticationRequest(std::string token);
+    static std::string sendSteamNameRequest(std::string steamID);
+    static std::string getSteamID(std::string token);
+    static std::string getSteamName(std::string steamID);
 
 private:
     static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);

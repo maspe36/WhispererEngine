@@ -115,32 +115,13 @@ void Client::authenticationHandler()
 
     AuthMessage authMessage(json);
 
-    // HTTP Request with the token to get steamID
-    std::string httpRequest = HTTPRequest::sendAuthenticationRequest(authMessage.token);
-    auto httpJSON = json::parse(httpRequest);
+    steamID = HTTPRequest::getSteamID(authMessage.token);
+    name = HTTPRequest::getSteamName(steamID);
 
-    // Verify response
-    try
-    {
-        std::string result = httpJSON["response"]["params"]["result"];
-        if (result == "OK")
-        {
-            steamID = httpJSON["response"]["params"]["steamid"];
-        }
+    server->AddClient(shared_from_this());
+    Write(Message::registerPlayer());
 
-        server->AddClient(shared_from_this());
-        Write(Message::registerPlayer());
-
-        AsyncListen(&Client::serverHandler);
-    }
-    catch (const nlohmann::detail::type_error &exception)
-    {
-        std::string code = httpJSON["response"]["error"]["errorcode"];
-        std::string desc = httpJSON["response"]["error"]["errordesc"];
-
-        Write(Message::fail(code + ": " +desc));
-        AsyncListen(&Client::authenticationHandler);
-    }
+    AsyncListen(&Client::serverHandler);
 }
 
 void Client::serverHandler()
