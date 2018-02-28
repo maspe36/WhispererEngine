@@ -23,7 +23,14 @@ std::string Message::getJSON()
 
 void Message::loadJSON(std::string json)
 {
-    rawJSON = json::parse(json);
+    try
+    {
+        rawJSON = json::parse(json);
+    }
+    catch (const nlohmann::detail::type_error &exception)
+    {
+        throw JSONError("The message '" + json + "' is invalid and cannot be parsed");
+    }
 }
 
 void Message::addDataMember(std::string key, std::string value)

@@ -82,7 +82,7 @@ void Client::Listen(const boost::system::error_code& errorCode, clientFunc callb
         {
             std::cout << "Error during callback: " << error.what() << std::endl;
             Write(Message::fail(error.what()));
-            (*this.*callback)();
+            AsyncListen(callback);
         }
     }
     else
