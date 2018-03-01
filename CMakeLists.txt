@@ -107,6 +107,12 @@ set(WHISPERER_FILES
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
 
+        src/Game/Core/Containers/Deck.cpp
+        include/Game/Core/Containers/Deck.h
+
+        src/Game/Core/Containers/Hand.cpp
+        include/Game/Core/Containers/Hand.h
+
         src/Game/Derived/Card/Constant.cpp
         include/Game/Derived/Card/Constant.h
 
