@@ -11,8 +11,8 @@ json Deck::getJSON()
     return Exportable::getJSON();
 }
 
-Deck::Deck(std::vector<std::shared_ptr<Card>> cards)
-        : cards(std::move(cards))
+Deck::Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards)
+        : deckID(std::move(deckID)), cards(std::move(cards))
 {
 }
 
