@@ -37,7 +37,7 @@ else:
     ENDPOINT = LOCAL_ENDPOINT
 
 sock = socket.socket()
-port = 3000
+port = 8888
 
 sock.connect((ENDPOINT, port))
 
