@@ -24,17 +24,7 @@ void commandListen(Server* server)
             auto card = server->factory.createCard("Azar");
             auto creature = std::dynamic_pointer_cast<Creature>(card);
 
-            std::cout << "Name: " << creature->name << std::endl;
-            std::cout << "Tag: " << creature->tag << std::endl;
-            std::cout << "Text: " << creature->text << std::endl;
-            std::cout << "Attack: " << creature->attackStat << std::endl;
-            std::cout << "Defense: " << creature->defenseStat << std::endl;
-            std::cout << "Black: " << creature->mana.black << std::endl;
-            std::cout << "Blue: " << creature->mana.blue << std::endl;
-            std::cout << "Brown: " << creature->mana.brown << std::endl;
-            std::cout << "Red: " << creature->mana.red << std::endl;
-            std::cout << "Green: " << creature->mana.green << std::endl;
-            std::cout << "White: " << creature->mana.white << std::endl;
+            std::cout << creature->getJSON().dump(4) << std::endl;
         }
         else if (line == "list")
         {
