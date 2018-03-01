@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <memory>
+#include "Containers/Deck.h"
 
 class Card;
 class Constant;
@@ -20,11 +21,11 @@ class Board
 public:
     std::vector<std::shared_ptr<Constant>> constants;
     std::vector<std::shared_ptr<Creature>> creatures;
-    std::vector<std::shared_ptr<Card>> deck;
+    std::shared_ptr<Deck> deck;
     std::vector<std::shared_ptr<Card>> graveyard;
 
     Board();
-    ~Board();
+    virtual ~Board();
 };
 
 

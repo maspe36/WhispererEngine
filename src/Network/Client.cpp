@@ -171,7 +171,7 @@ void Client::assembleDeck(std::string deckID)
         deck.push_back(card);
     }
 
-    player->board->deck = deck;
+    player->board->deck = std::make_shared<Deck>(Deck(deck));
 }
 
 void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTransferred) const

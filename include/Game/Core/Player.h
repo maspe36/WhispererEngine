@@ -8,12 +8,13 @@
 
 #include "../../Network/Client.h"
 #include "../Utilities/Taggable.h"
+#include "Containers/Hand.h"
 #include "Mana.h"
+#include "Board.h"
 
 #include <string>
 #include <vector>
 
-class Board;
 class Card;
 class Game;
 
@@ -28,7 +29,7 @@ public:
     Mana availableMana;
     Mana totalMana;
     std::shared_ptr<Board> board;
-    std::vector<std::shared_ptr<Card>> hand;
+    std::shared_ptr<Hand> hand;
 
     explicit Player(Client::pointer client);
     ~Player();
