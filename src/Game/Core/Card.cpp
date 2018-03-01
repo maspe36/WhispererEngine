@@ -15,6 +15,23 @@ void Card::addModifier(Modifier *modifier)
     modifiers.push_back(modifier);
 }
 
+json Card::getJSON()
+{
+    json rawJSON;
+
+    rawJSON["name"] = name;
+    rawJSON["text"] = text;
+    rawJSON["tag"] = tag;
+    rawJSON["mana"]["black"] = mana.black;
+    rawJSON["mana"]["blue"] = mana.blue;
+    rawJSON["mana"]["brown"] = mana.brown;
+    rawJSON["mana"]["green"] = mana.green;
+    rawJSON["mana"]["red"] = mana.red;
+    rawJSON["mana"]["white"] = mana.white;
+
+    return rawJSON;
+}
+
 Card::Card(std::string name, std::string text, Mana mana)
         : name(std::move(name)), text(std::move(text)), mana(mana)
 {

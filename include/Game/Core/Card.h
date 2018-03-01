@@ -10,14 +10,16 @@
 #include <vector>
 #include <memory>
 #include "Mana.h"
-#include "../Utilities/Taggable.h"
+#include "../Utilities/Exportable.h"
 
 class Effect;
 class Player;
 class Modifier;
 
 /* Represents a single card. */
-class Card: public Taggable, public std::enable_shared_from_this<Card>
+class Card
+        : public Exportable,
+          public std::enable_shared_from_this<Card>
 {
 public:
     std::string name;
@@ -30,8 +32,9 @@ public:
     void addEffect(Effect *effect);
     void addModifier(Modifier *modifier);
 
-    Card(std::string name, std::string text, Mana mana);
+    json getJSON() override;
 
+    Card(std::string name, std::string text, Mana mana);
     virtual ~Card();
 };
 

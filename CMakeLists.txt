@@ -176,6 +176,9 @@ set(WHISPERER_FILES
         src/Game/Utilities/Taggable.cpp
         include/Game/Utilities/Taggable.h
 
+        src/Game/Utilities/Exportable.cpp
+        include/Game/Utilities/Exportable.h
+
         src/Game/Utilities/Database.cpp
         include/Game/Utilities/Database.h)
 
@@ -195,6 +198,7 @@ set(TEST_FILES
         tests/CatchMain.cpp
         tests/Game/Core/test_Card.cpp
         tests/Game/Core/test_Player.cpp
+        tests/Game/Derived/test_Creature.cpp
         tests/Game/Python/test_Factory.cpp
         tests/Game/Python/test_Integration.cpp
         tests/Game/Utilities/test_Database.cpp

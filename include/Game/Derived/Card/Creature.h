@@ -17,6 +17,8 @@ public:
     int attacks;
     int remainingAttacks;
 
+    json getJSON() override;
+
     Creature(std::string name, std::string text, Mana mana, int attackStat, int defenseStat);
     ~Creature();
 };
