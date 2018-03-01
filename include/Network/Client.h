@@ -52,7 +52,7 @@ private:
 
     void handleQueue(std::string data);
     void assemblePlayer();
-    void assembleDeck(std::string deckID);
+    void assembleDeck(const std::string& deckID);
 
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
 
