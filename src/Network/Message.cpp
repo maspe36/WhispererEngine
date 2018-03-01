@@ -7,11 +7,11 @@
 #include <utility>
 
 
-std::string Message::SUCCESS = "Success";
-std::string Message::FAILURE = "Failure";
-std::string Message::AUTH = "Auth";
-std::string Message::QUEUE = "Queue";
-std::string Message::REGISTER_PLAYER = "RegisterPlayer";
+std::string Message::SUCCESS = "success";
+std::string Message::FAILURE = "failure";
+std::string Message::AUTH = "auth";
+std::string Message::QUEUE = "queue";
+std::string Message::REGISTER_PLAYER = "registerPlayer";
 
 std::string Message::TYPE_KEY = "type";
 std::string Message::DATA_KEY = "data";
