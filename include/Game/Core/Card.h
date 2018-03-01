@@ -25,7 +25,7 @@ public:
     std::string name;
     std::string text;
     Mana mana;
-    Player* player;
+    std::shared_ptr<Player> player;
     std::vector<Effect*> effects;
     std::vector<Modifier*> modifiers;
 

@@ -73,7 +73,7 @@ void Server::OnAccept(Client::pointer client, const boost::system::error_code & 
     if (!error)
     {
         std::cout << "Connection from " << client->GetAddress() << std::endl;
-        client->Start(this);
+        client->Start(shared_from_this());
     }
 
     // pesudo recursive

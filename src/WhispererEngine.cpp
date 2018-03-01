@@ -14,7 +14,7 @@
 namespace py = pybind11;
 
 
-void commandListen(Server* server)
+void commandListen(std::shared_ptr<Server> server)
 {
     std::__cxx11::string line;
     while (getline(std::cin, line) && line != "quit")
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[])
         }
     }
 
-    auto* server = new Server(8888);
+    auto server = std::make_shared<Server>(8888);
     server->Start();
 
     if (process)

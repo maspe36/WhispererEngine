@@ -6,10 +6,13 @@
 
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Board.h"
+#include "../../../include/Network/Client.h"
 
-Player::Player(Client::pointer client)
-        : client(std::move(client)),
-          availableMana(1,1,1,1,1,1), totalMana(1,1,1,1,1,1)
+Player::Player(std::shared_ptr<Client> client)
+        : client(client),
+          name(client->name),
+          availableMana(1,1,1,1,1,1),
+          totalMana(1,1,1,1,1,1)
 {
     board = std::make_shared<Board>();
 }

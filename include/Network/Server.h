@@ -16,10 +16,11 @@
 class Player;
 
 class Server
+        : public std::enable_shared_from_this<Server>
 {
 public:
     std::vector<Client::pointer> clients;
-    std::queue<Player*> queue;
+    std::queue<std::shared_ptr<Player>> queue;
     Database database;
     Factory factory;
 

@@ -6,34 +6,33 @@
 #define WHISPERERENGINE_CLIENT_H
 
 
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/asio.hpp>
-#include <boost/algorithm/string.hpp>
-#include <boost/bind/bind.hpp>
+#include <memory>
 #include <vector>
+#include <boost/asio.hpp>
+#include <boost/bind/bind.hpp>
 
 class Player;
 class Server;
 class Card;
 
 class Client
-        : public boost::enable_shared_from_this<Client>
+        : public std::enable_shared_from_this<Client>
 {
 public:
-    typedef boost::shared_ptr<Client> pointer;
+    typedef std::shared_ptr<Client> pointer;
     typedef void (Client::*clientFunc)();
 
     std::string name;
     std::string steamID;
-    Player* player;
-    Server* server;
+    std::shared_ptr<Player> player;
+    std::shared_ptr<Server> server;
     bool listening;
 
     static pointer Create(boost::asio::io_service& ioService);
     boost::asio::ip::tcp::socket& GetSocket();
     std::string GetAddress();
 
-    void Start(Server* server);
+    void Start(std::shared_ptr<Server> server);
     void Write(std::string data);
     void Disconnect();
     void AsyncListen(clientFunc callback);
@@ -51,7 +50,6 @@ private:
     void gameHandler();
 
     void handleQueue(std::string data);
-    void assemblePlayer();
     void assembleDeck(const std::string& deckID);
 
     void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;

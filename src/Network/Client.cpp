@@ -11,14 +11,13 @@
 #include "../../include/Network/Derived/AuthMessage.h"
 #include "../../include/Network/Derived/QueueMessage.h"
 #include "../../include/Game/Core/Board.h"
-#include "../../include/Network/Exceptions/JSONError.h"
 #include "../../include/Network/HTTPRequest.h"
 
 #include <iostream>
 #include <utility>
 #include <pybind11/pytypes.h>
 
-typedef boost::shared_ptr<Client> pointer;
+typedef std::shared_ptr<Client> pointer;
 
 
 pointer Client::Create(boost::asio::io_service & ioService)
@@ -36,9 +35,9 @@ std::string Client::GetAddress()
     return shared_from_this()->GetSocket().remote_endpoint().address().to_string();
 }
 
-void Client::Start(Server* server)
+void Client::Start(std::shared_ptr<Server> server)
 {
-    this->server = server;
+    this->server = std::move(server);
     Write(Message::success());
 
     listening = true;
@@ -151,13 +150,12 @@ void Client::gameHandler()
 void Client::handleQueue(std::string data)
 {
     QueueMessage qMessage(std::move(data));
-    assemblePlayer();
-    assembleDeck(qMessage.deckID);
-}
 
-void Client::assemblePlayer()
-{
-    player = new Player(shared_from_this());
+    player = std::make_shared<Player>(shared_from_this());
+    assembleDeck(qMessage.deckID);
+
+    server->queue.push(player);
+    std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
 }
 
 void Client::assembleDeck(const std::string& deckID)
@@ -172,7 +170,7 @@ void Client::assembleDeck(const std::string& deckID)
         cards.push_back(card);
     }
 
-    player->board->deck = std::make_shared<Deck>(Deck(deckID, cards));
+    player->board->deck = std::make_shared<Deck>(deckID, cards);
 }
 
 void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTransferred) const
