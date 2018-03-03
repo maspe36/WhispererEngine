@@ -151,6 +151,7 @@ void Client::assembleProtocolMap()
 {
     clientProtocol[Message::LOGIN] = &Client::handleLogin;
     clientProtocol[Message::QUEUE] = &Client::handleQueue;
+    playerProtocol[Message::SEND_CHAT] = &Player::sendChatMessage;
     playerProtocol[Message::PLAY_CARD] = &Player::playCard;
 }
 

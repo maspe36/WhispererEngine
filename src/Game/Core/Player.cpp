@@ -6,12 +6,23 @@
 #include <iostream>
 
 #include "../../../include/Game/Core/Player.h"
+#include "../../../include/Game/Core/Game.h"
 #include "../../../include/Game/Core/Board.h"
 #include "../../../include/Network/Client.h"
+#include "../../../include/Network/Derived/ChatMessage.h"
 
 void Player::playCard(const json& rawJSON)
 {
     std::cout << "Hello from player class" << std::endl;
+}
+
+void Player::sendChatMessage(const json &rawJSON)
+{
+    // Format chat message with the sender name before broadcasting it to all players
+    ChatMessage chatMessage(rawJSON);
+    chatMessage.rawJSON[Message::DATA_KEY]["text"] = name + ": " + chatMessage.text;
+
+    game->writePlayers(chatMessage.getJSON());
 }
 
 Player::Player(std::shared_ptr<Client> client)

@@ -34,6 +34,7 @@ public:
     std::shared_ptr<Hand> hand;
 
     void playCard(const json& rawJSON);
+    void sendChatMessage(const json& rawJSON);
 
     explicit Player(std::shared_ptr<Client> client);
     ~Player();
