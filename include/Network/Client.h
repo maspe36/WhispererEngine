@@ -42,7 +42,7 @@ public:
     void listen(const boost::system::error_code &errorCode, clientFunc callback);
 
     void handleQueue(std::string json);
-    void handleAuth(std::string json);
+    void handleLogin(std::string json);
 
 private:
     std::string delimiter;

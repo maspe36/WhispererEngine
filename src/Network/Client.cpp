@@ -99,7 +99,7 @@ void Client::handleQueue(std::string json)
     std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
 }
 
-void Client::handleAuth(std::string json)
+void Client::handleLogin(std::string json)
 {
     AuthMessage authMessage(std::move(json));
 
