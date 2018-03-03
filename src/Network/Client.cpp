@@ -20,56 +20,56 @@
 typedef std::shared_ptr<Client> pointer;
 
 
-pointer Client::Create(boost::asio::io_service & ioService)
+pointer Client::create(boost::asio::io_service &ioService)
 {
     return pointer(new Client(ioService));
 }
 
-boost::asio::ip::tcp::socket & Client::GetSocket()
+boost::asio::ip::tcp::socket & Client::getSocket()
 {
     return socket;
 }
 
-std::string Client::GetAddress()
+std::string Client::getAddress()
 {
-    return shared_from_this()->GetSocket().remote_endpoint().address().to_string();
+    return shared_from_this()->getSocket().remote_endpoint().address().to_string();
 }
 
-void Client::Start(std::shared_ptr<Server> server)
+void Client::start(std::shared_ptr<Server> server)
 {
     this->server = std::move(server);
-    Write(Message::success());
+    write(Message::success());
 
     listening = true;
-    Write(Message::auth());
-    AsyncListen(&Client::authenticationHandler);
+    write(Message::auth());
+    asyncListen(&Client::authenticationHandler);
 }
 
-void Client::Write(std::string data)
+void Client::write(std::string data)
 {
     data.append(delimiter);
 
     boost::asio::async_write(socket, boost::asio::buffer(data.c_str(), data.size()),
-                             boost::bind(&Client::OnWrite, shared_from_this(),
+                             boost::bind(&Client::onWrite, shared_from_this(),
                                          boost::asio::placeholders::error,
                                          boost::asio::placeholders::bytes_transferred));
 }
 
-void Client::Disconnect()
+void Client::disconnect()
 {
     socket.close();
-    server->RemoveClient(shared_from_this());
+    server->removeClient(shared_from_this());
     std::cout << "Lost connection to client!" << std::endl;
 }
 
-void Client::AsyncListen(clientFunc callback)
+void Client::asyncListen(clientFunc callback)
 {
     boost::asio::async_read_until(socket, buffer, delimiter,
-                                  boost::bind(&Client::Listen, shared_from_this(),
+                                  boost::bind(&Client::listen, shared_from_this(),
                                               boost::asio::placeholders::error, callback));
 }
 
-void Client::Listen(const boost::system::error_code& errorCode, clientFunc callback)
+void Client::listen(const boost::system::error_code &errorCode, clientFunc callback)
 {
     if (errorCode == nullptr && listening)
     {
@@ -80,13 +80,13 @@ void Client::Listen(const boost::system::error_code& errorCode, clientFunc callb
         catch(const std::exception &error)
         {
             std::cout << "Error during callback: " << error.what() << std::endl;
-            Write(Message::fail(error.what()));
-            AsyncListen(callback);
+            write(Message::fail(error.what()));
+            asyncListen(callback);
         }
     }
     else
     {
-        Disconnect();
+        disconnect();
     }
 }
 
@@ -117,10 +117,10 @@ void Client::authenticationHandler()
     steamID = HTTPRequest::getSteamID(authMessage.token);
     name = HTTPRequest::getSteamName(steamID);
 
-    server->AddClient(shared_from_this());
-    Write(Message::registerPlayer());
+    server->addClient(shared_from_this());
+    write(Message::registerPlayer());
 
-    AsyncListen(&Client::serverHandler);
+    asyncListen(&Client::serverHandler);
 }
 
 void Client::serverHandler()
@@ -136,7 +136,7 @@ void Client::serverHandler()
         handleQueue(data);
     }
 
-    AsyncListen(&Client::serverHandler);
+    asyncListen(&Client::serverHandler);
 }
 
 void Client::gameHandler()
@@ -144,7 +144,7 @@ void Client::gameHandler()
     std::string data = getString(buffer);
     std::cout << "From " << name << ": " << data << std::endl;
 
-    AsyncListen(&Client::gameHandler);
+    asyncListen(&Client::gameHandler);
 }
 
 void Client::handleQueue(std::string data)
@@ -173,7 +173,7 @@ void Client::assembleDeck(const std::string& deckID)
     player->board->deck = std::make_shared<Deck>(deckID, cards);
 }
 
-void Client::OnWrite(const boost::system::error_code & errorCode, size_t bytesTransferred) const
+void Client::onWrite(const boost::system::error_code &errorCode, size_t bytesTransferred) const
 {
 }
 

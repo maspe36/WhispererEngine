@@ -9,7 +9,7 @@ void Server::writeAll(std::string data)
 {
     for (const auto &i : clients)
     {
-        i->Write(data);
+        i->write(data);
     }
 
     std::cout << data << std::endl;
@@ -60,7 +60,7 @@ void Server::stop()
 void Server::addClient(Client::pointer client)
 {
     clients.push_back(client);
-    std::cout << "'" << client->name << "' has connected from " << client->GetAddress() << "!" << std::endl;
+    std::cout << "'" << client->name << "' has connected from " << client->getAddress() << "!" << std::endl;
 }
 
 void Server::removeClient(Client::pointer client)
@@ -82,10 +82,10 @@ Server::Server(int port)
 
 void Server::listen()
 {
-    Client::pointer client = Client::Create(acceptor.get_io_service());
+    Client::pointer client = Client::create(acceptor.get_io_service());
 
     // Calls onAccept when a connection happens
-    acceptor.async_accept(client->GetSocket(),
+    acceptor.async_accept(client->getSocket(),
                           boost::bind(&Server::onAccept, this, client,
                                       boost::asio::placeholders::error));
 }
@@ -94,8 +94,8 @@ void Server::onAccept(Client::pointer client, const boost::system::error_code &e
 {
     if (!error)
     {
-        std::cout << "Connection from " << client->GetAddress() << std::endl;
-        client->Start(shared_from_this());
+        std::cout << "Connection from " << client->getAddress() << std::endl;
+        client->start(shared_from_this());
     }
 
     // pesudo recursive
@@ -105,7 +105,7 @@ void Server::onAccept(Client::pointer client, const boost::system::error_code &e
 void Server::close(Client::pointer client)
 {
     std::cout << "Closing connection from " << client->name << std::endl;
-    client->GetSocket().close();
+    client->getSocket().close();
 }
 
 void Server::matchMake(std::atomic<bool>& quit)

@@ -28,15 +28,15 @@ public:
     std::shared_ptr<Server> server;
     bool listening;
 
-    static pointer Create(boost::asio::io_service& ioService);
-    boost::asio::ip::tcp::socket& GetSocket();
-    std::string GetAddress();
+    static pointer create(boost::asio::io_service &ioService);
+    boost::asio::ip::tcp::socket& getSocket();
+    std::string getAddress();
 
-    void Start(std::shared_ptr<Server> server);
-    void Write(std::string data);
-    void Disconnect();
-    void AsyncListen(clientFunc callback);
-    void Listen(const boost::system::error_code& errorCode, clientFunc callback);
+    void start(std::shared_ptr<Server> server);
+    void write(std::string data);
+    void disconnect();
+    void asyncListen(clientFunc callback);
+    void listen(const boost::system::error_code &errorCode, clientFunc callback);
 
 private:
     std::string delimiter;
@@ -52,7 +52,7 @@ private:
     void handleQueue(std::string data);
     void assembleDeck(const std::string& deckID);
 
-    void OnWrite(const boost::system::error_code& error, size_t bytesTransferred) const;
+    void onWrite(const boost::system::error_code &error, size_t bytesTransferred) const;
 
     explicit Client(boost::asio::io_service& ioService);
 };
