@@ -8,14 +8,12 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 class Card;
 class Event;
 class Effect;
 class Player;
-
-class Converter;
-class Factory;
 
 class Server;
 
@@ -23,17 +21,15 @@ class Server;
 class Game
 {
 public:
-    std::vector<Player*> players;
+    std::vector<std::shared_ptr<Player>> players;
     std::vector<Event*> history;
     std::vector<Effect*> stack;
-    std::vector<Card*> cardOrder;
-    Factory *factory;
-    Converter *converter;
-    Server *server;
+    std::vector<std::shared_ptr<Card>> cardOrder;
+    std::shared_ptr<Server> server;
 
-    void WritePlayers(std::string data);
+    void WritePlayers(const std::string& data);
 
-    Game(std::vector<Player*> players, Server *server);
+    Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server);
     ~Game();
 };
 
