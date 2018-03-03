@@ -173,6 +173,9 @@ set(WHISPERER_FILES
         include/Network/Derived/AuthMessage.h
         src/Network/Derived/AuthMessage.cpp
 
+        src/Network/Derived/ChatMessage.cpp
+        include/Network/Derived/ChatMessage.h
+
         src/Network/Derived/QueueMessage.cpp
         include/Network/Derived/QueueMessage.h
 
