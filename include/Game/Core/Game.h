@@ -19,6 +19,7 @@ class Server;
 
 /* Overall handler for game interactions. */
 class Game
+        : public std::enable_shared_from_this<Game>
 {
 public:
     std::vector<std::shared_ptr<Player>> players;
@@ -27,10 +28,13 @@ public:
     std::vector<std::shared_ptr<Card>> cardOrder;
     std::shared_ptr<Server> server;
 
-    void WritePlayers(const std::string& data);
+    void writePlayers(const std::string &data);
+    void registerPlayers(const std::vector<std::shared_ptr<Player>> &players);
+
+    void startGame();
 
     Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server);
-    ~Game();
+    virtual ~Game();
 };
 
 

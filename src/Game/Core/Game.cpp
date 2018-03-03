@@ -10,7 +10,7 @@
 #include "../../../include/Network/Server.h"
 #include "../../../include/Network/Message.h"
 
-void Game::WritePlayers(const std::string &data)
+void Game::writePlayers(const std::string &data)
 {
     for (const auto& player : players)
     {
@@ -18,11 +18,25 @@ void Game::WritePlayers(const std::string &data)
     }
 }
 
+void Game::registerPlayers(const std::vector<std::shared_ptr<Player>> &players)
+{
+    for (const auto& player : players)
+    {
+        player->game = shared_from_this();
+    }
+}
+
+void Game::startGame()
+{
+    Message start(Message::START_GAME);
+    writePlayers(start.getJSON());
+}
+
 Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
         : players(std::move(players)), server(std::move(server))
 {
-    Message start(Message::START_GAME);
-    WritePlayers(start.getJSON());
+    registerPlayers(players);
+    startGame();
 }
 
 Game::~Game()
