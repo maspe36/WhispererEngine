@@ -17,10 +17,8 @@
 #include <utility>
 #include <pybind11/pytypes.h>
 
-typedef std::shared_ptr<Client> pointer;
 
-
-pointer Client::create(boost::asio::io_service &ioService)
+Client::pointer Client::create(boost::asio::io_service &ioService)
 {
     return pointer(new Client(ioService));
 }
@@ -41,8 +39,8 @@ void Client::start(std::shared_ptr<Server> server)
     write(Message::success());
 
     listening = true;
-    write(Message::auth());
-    asyncListen(&Client::authenticationHandler);
+    write(Message::login());
+    asyncListen(&Client::protocolListen);
 }
 
 void Client::write(std::string data)
@@ -90,6 +88,28 @@ void Client::listen(const boost::system::error_code &errorCode, clientFunc callb
     }
 }
 
+void Client::handleQueue(std::string json)
+{
+    QueueMessage qMessage(std::move(json));
+
+    player = std::make_shared<Player>(shared_from_this());
+    assembleDeck(qMessage.deckID);
+
+    server->queue.push(player);
+    std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
+}
+
+void Client::handleAuth(std::string json)
+{
+    AuthMessage authMessage(std::move(json));
+
+    steamID = HTTPRequest::getSteamID(authMessage.token);
+    name = HTTPRequest::getSteamName(steamID);
+
+    server->addClient(shared_from_this());
+    write(Message::registerPlayer());
+}
+
 std::string Client::getString(boost::asio::streambuf &buffer)
 {
     boost::asio::streambuf::const_buffers_type bufs = buffer.data();
@@ -108,54 +128,8 @@ void Client::emptyBuffer()
     buffer.consume(buffer.size());
 }
 
-void Client::authenticationHandler()
+void Client::onWrite(const boost::system::error_code &errorCode, size_t bytesTransferred) const
 {
-    std::string json = getString(buffer);
-
-    AuthMessage authMessage(json);
-
-    steamID = HTTPRequest::getSteamID(authMessage.token);
-    name = HTTPRequest::getSteamName(steamID);
-
-    server->addClient(shared_from_this());
-    write(Message::registerPlayer());
-
-    asyncListen(&Client::serverHandler);
-}
-
-void Client::serverHandler()
-{
-    std::string data = getString(buffer);
-    Message message;
-    message.loadJSON(data);
-
-    std::string type = message.getType();
-
-    if (type == Message::QUEUE)
-    {
-        handleQueue(data);
-    }
-
-    asyncListen(&Client::serverHandler);
-}
-
-void Client::gameHandler()
-{
-    std::string data = getString(buffer);
-    std::cout << "From " << name << ": " << data << std::endl;
-
-    asyncListen(&Client::gameHandler);
-}
-
-void Client::handleQueue(std::string data)
-{
-    QueueMessage qMessage(std::move(data));
-
-    player = std::make_shared<Player>(shared_from_this());
-    assembleDeck(qMessage.deckID);
-
-    server->queue.push(player);
-    std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
 }
 
 void Client::assembleDeck(const std::string& deckID)
@@ -173,11 +147,34 @@ void Client::assembleDeck(const std::string& deckID)
     player->board->deck = std::make_shared<Deck>(deckID, cards);
 }
 
-void Client::onWrite(const boost::system::error_code &errorCode, size_t bytesTransferred) const
+void Client::assembleProtocolMap()
 {
+    protocol[Message::LOGIN] = &Client::handleAuth;
+    protocol[Message::QUEUE] = &Client::handleQueue;
+}
+
+void Client::protocolListen()
+{
+    std::string data = getString(buffer);
+    auto rawJSON = json::parse(data);
+    std::string type = rawJSON[Message::TYPE_KEY];
+
+    // Search the protocol map to determine how we should handle this message
+    auto iter = protocol.find(type);
+    if (iter == protocol.end())
+    {
+        write(Message::fail("Unknown protocol '" + type + "'"));
+    }
+    else
+    {
+        (this->*protocol[type])(data);
+    }
+
+    asyncListen(&Client::protocolListen);
 }
 
 Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
 {
+    assembleProtocolMap();
 }

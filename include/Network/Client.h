@@ -21,11 +21,14 @@ class Client
 public:
     typedef std::shared_ptr<Client> pointer;
     typedef void (Client::*clientFunc)();
+    typedef void (Client::*protocolFunc)(std::string data);
+    typedef std::map<std::string, protocolFunc> functionMap;
 
     std::string name;
     std::string steamID;
     std::shared_ptr<Player> player;
     std::shared_ptr<Server> server;
+    functionMap protocol;
     bool listening;
 
     static pointer create(boost::asio::io_service &ioService);
@@ -38,6 +41,9 @@ public:
     void asyncListen(clientFunc callback);
     void listen(const boost::system::error_code &errorCode, clientFunc callback);
 
+    void handleQueue(std::string json);
+    void handleAuth(std::string json);
+
 private:
     std::string delimiter;
     boost::asio::streambuf buffer;
@@ -45,14 +51,12 @@ private:
 
     std::string getString(boost::asio::streambuf &buffer);
     void emptyBuffer();
-    void authenticationHandler();
-    void serverHandler();
-    void gameHandler();
+    void onWrite(const boost::system::error_code &error, size_t bytesTransferred) const;
 
-    void handleQueue(std::string data);
     void assembleDeck(const std::string& deckID);
 
-    void onWrite(const boost::system::error_code &error, size_t bytesTransferred) const;
+    void assembleProtocolMap();
+    void protocolListen();
 
     explicit Client(boost::asio::io_service& ioService);
 };
