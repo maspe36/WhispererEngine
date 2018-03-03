@@ -3,10 +3,9 @@
 //
 
 #include "../../include/Network/Server.h"
-#include <iostream>
-#include <boost/bind/bind.hpp>
+#include "../../include/Game/Core/Game.h"
 
-void Server::WriteAll(std::string data)
+void Server::writeAll(std::string data)
 {
     for (const auto &i : clients)
     {
@@ -16,59 +15,82 @@ void Server::WriteAll(std::string data)
     std::cout << data << std::endl;
 }
 
-void Server::Start()
+void Server::start()
 {
-    // Is the thread already running
-    if (thread)
+    // Is the io_thread or matchmaking_thread already running?
+    if (io_thread && matchmaking_thread)
     {
         return;
     }
 
     std::cout << "Starting server..." << std::endl;
 
-    Listen();
+    listen();
 
-    thread.reset(new boost::thread(
+    io_thread.reset(new boost::thread(
             boost::bind(&boost::asio::io_service::run, &io_service)
+    ));
+
+    matchmaking_thread.reset(new boost::thread(
+            boost::bind(&Server::matchMake, shared_from_this(), std::ref(quit))
     ));
 
     std::cout << "Server started!" << std::endl;
 }
 
-void Server::Stop()
+void Server::stop()
 {
-    // Is the thread already stopped
-    if (!thread)
+    // Is the io_thread already stopped
+    if (!io_thread && !matchmaking_thread)
     {
         return;
     }
 
-    // Stop and join the thread
+    // Stop and join the io_thread and matchmaking_thread
     io_service.stop();
-    thread->join();
+    io_thread->join();
+    quit = true;
+    matchmaking_thread->join();
+
     io_service.reset();
-    thread.reset();
+    io_thread.reset();
+    matchmaking_thread.reset();
+}
+
+void Server::addClient(Client::pointer client)
+{
+    clients.push_back(client);
+    std::cout << "'" << client->name << "' has connected from " << client->GetAddress() << "!" << std::endl;
+}
+
+void Server::removeClient(Client::pointer client)
+{
+    close(client);
+    auto newEnd = std::remove(clients.begin(), clients.end(), client);
+    clients.erase(newEnd, clients.end());
 }
 
 Server::Server(int port)
-        : database(Database()), factory(Factory()), io_service(), workLock(io_service), thread(),
-          acceptor(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
-                                                              static_cast<unsigned short>(port)))
+        : database(Database()), factory(Factory()), io_service(), workLock(io_service), io_thread(),
+          matchmaking_thread(), acceptor(io_service,
+                                         boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
+                                                                        static_cast<unsigned short>(port))),
+          quit(false)
 {
     std::cout << "Initializing server..." << std::endl;
 }
 
-void Server::Listen()
+void Server::listen()
 {
     Client::pointer client = Client::Create(acceptor.get_io_service());
 
-    // Calls OnAccept when a connection happens
+    // Calls onAccept when a connection happens
     acceptor.async_accept(client->GetSocket(),
-                          boost::bind(&Server::OnAccept, this, client,
+                          boost::bind(&Server::onAccept, this, client,
                                       boost::asio::placeholders::error));
 }
 
-void Server::OnAccept(Client::pointer client, const boost::system::error_code & error)
+void Server::onAccept(Client::pointer client, const boost::system::error_code &error)
 {
     if (!error)
     {
@@ -77,24 +99,31 @@ void Server::OnAccept(Client::pointer client, const boost::system::error_code & 
     }
 
     // pesudo recursive
-    Listen();
+    listen();
 }
 
-void Server::Close(Client::pointer client)
+void Server::close(Client::pointer client)
 {
     std::cout << "Closing connection from " << client->name << std::endl;
     client->GetSocket().close();
 }
 
-void Server::AddClient(Client::pointer client)
+void Server::matchMake(std::atomic<bool>& quit)
 {
-    clients.push_back(client);
-    std::cout << "'" << client->name << "' has connected from " << client->GetAddress() << "!" << std::endl;
-}
+    while(!quit)
+    {
+        if (queue.size() >= 2)
+        {
+            std::vector<std::shared_ptr<Player>> players;
 
-void Server::RemoveClient(Client::pointer client)
-{
-    Close(client);
-    auto newEnd = std::remove(clients.begin(), clients.end(), client);
-    clients.erase(newEnd, clients.end());
+            while(players.size() < 2)
+            {
+                std::shared_ptr<Player> player = queue.front();
+                queue.pop();
+                players.push_back(player);
+            }
+
+            games.push_back(std::make_shared<Game>(players, shared_from_this()));
+        }
+    }
 }
