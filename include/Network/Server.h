@@ -9,7 +9,7 @@
 #include "Client.h"
 #include "../Game/Python/Factory.h"
 #include "../Game/Utilities/Database.h"
-#include <queue>
+#include <deque>
 #include <boost/thread.hpp>
 #include <boost/smart_ptr.hpp>
 
@@ -22,7 +22,7 @@ class Server
 public:
     std::vector<std::shared_ptr<Game>> games;
     std::vector<Client::pointer> clients;
-    std::queue<std::shared_ptr<Player>> queue;
+    std::deque<std::shared_ptr<Player>> queue;
     Database database;
     Factory factory;
 

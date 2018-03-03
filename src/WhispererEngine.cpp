@@ -37,6 +37,17 @@ void commandListen(std::shared_ptr<Server> server)
             }
             std::cout << server->clients.size() << " client(s) connected" << std::endl;
         }
+        else if (line == "queue")
+        {
+            for (const auto &player : server->queue)
+            {
+                if (!player->name.empty())
+                {
+                    std::cout << player->name << std::endl;
+                }
+            }
+            std::cout << server->clients.size() << " player(s) in queue" << std::endl;
+        }
         else
         {
             std::cout << "Unknown command: '" << line << "'" << std::endl;

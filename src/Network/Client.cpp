@@ -95,7 +95,7 @@ void Client::handleQueue(const json& rawJSON)
     player = std::make_shared<Player>(shared_from_this());
     assembleDeck(qMessage.deckID);
 
-    server->queue.push(player);
+    server->queue.push_back(player);
     std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
 }
 

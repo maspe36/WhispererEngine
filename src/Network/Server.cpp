@@ -67,9 +67,14 @@ void Server::addClient(Client::pointer client)
 
 void Server::removeClient(Client::pointer client)
 {
+    // Close the connection
     close(client);
-    auto newEnd = std::remove(clients.begin(), clients.end(), client);
-    clients.erase(newEnd, clients.end());
+
+    // Remove this client from the list of active clients
+    clients.erase(std::remove(clients.begin(), clients.end(), client), clients.end());
+
+    // Remove this clients player pointer from the queue
+    queue.erase(std::remove(queue.begin(), queue.end(), client->player), queue.end());
 }
 
 Server::Server(int port)
@@ -103,7 +108,7 @@ void Server::matchMake(std::atomic<bool>& quit)
             while(players.size() < 2)
             {
                 std::shared_ptr<Player> player = queue.front();
-                queue.pop();
+                queue.pop_front();
                 players.push_back(player);
             }
 
