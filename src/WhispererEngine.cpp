@@ -44,7 +44,7 @@ void commandListen(std::shared_ptr<Server> server)
     }
 
     std::cout << "Shutting down..." << std::endl;
-    server->Stop();
+    server->stop();
     std::cout << "Bye!" << std::endl;
 }
 
@@ -61,7 +61,7 @@ int main(int argc, const char* argv[])
     }
 
     auto server = std::make_shared<Server>(8888);
-    server->Start();
+    server->start();
 
     if (process)
     {
