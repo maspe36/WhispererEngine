@@ -7,6 +7,9 @@
 
 
 #include <stdexcept>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 class JSONError
         : public std::runtime_error
@@ -14,6 +17,7 @@ class JSONError
 public:
     virtual const char* what() const throw();
 
+    explicit JSONError(json rawJSON);
     explicit JSONError(const char* message);
     explicit JSONError(const std::string& message);
     virtual ~JSONError() throw();

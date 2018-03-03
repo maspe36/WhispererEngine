@@ -74,12 +74,15 @@ std::string HTTPRequest::getSteamID(std::string token)
     {
         result = httpJSON["response"]["params"]["result"];
     }
-    catch(const nlohmann::detail::type_error &exception)
+    catch(const std::exception& exception)
     {
-        std::string code = httpJSON["response"]["error"]["errorcode"];
-        std::string desc = httpJSON["response"]["error"]["errordesc"];
+        auto errorJSON = httpJSON["response"]["error"];
 
-        throw JSONError(code + ": " + desc);
+        // Have to dump the code because of some internal json goof between auto casting nums to strings
+        std::string code = errorJSON["errorcode"].dump();
+        std::string desc = errorJSON["errordesc"];
+
+        throw JSONError(errorJSON);
     }
 
     if (result == "OK")

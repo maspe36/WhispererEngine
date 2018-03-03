@@ -20,5 +20,10 @@ JSONError::JSONError(const std::string &message)
 {
 }
 
+JSONError::JSONError(json rawJSON)
+        : runtime_error(rawJSON.dump(4)), msg_(rawJSON.dump(4))
+{
+}
+
 JSONError::~JSONError() throw()
 = default;

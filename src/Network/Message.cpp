@@ -40,7 +40,7 @@ void Message::loadJSON(const nlohmann::json& newJSON)
     rawJSON = newJSON;
 }
 
-void Message::addDataMember(std::string key, std::string value)
+void Message::addDataMember(std::string key, json value)
 {
     rawJSON[DATA_KEY][key] = value;
 }
@@ -94,7 +94,14 @@ const std::string Message::success()
 const std::string Message::fail(std::string cause)
 {
     Message message(FAILURE);
-    message.addDataMember("cause",std::move(cause));
+    if (json::accept(cause))
+    {
+        message.addDataMember("cause", json::parse(cause));
+    }
+    else
+    {
+        message.addDataMember("cause", std::move(cause));
+    }
 
     return message.getJSON();
 }
