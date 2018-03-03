@@ -21,8 +21,12 @@ public:
     static std::string START_GAME;
     static std::string PLAY_CARD;
 
+    static std::string SEND_CHAT;
+
     static std::string TYPE_KEY;
     static std::string DATA_KEY;
+
+    json rawJSON;
 
     std::string getJSON();
     void loadJSON(std::string json);
@@ -41,9 +45,6 @@ public:
     explicit Message(std::string type);
     Message();
     virtual ~Message();
-
-private:
-    json rawJSON;
 };
 
 
