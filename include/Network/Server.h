@@ -43,9 +43,9 @@ private:
     std::atomic<bool> quit;
 
     void listen();
-    void onAccept(Client::pointer client, const boost::system::error_code &error);
-
     void matchMake(std::atomic<bool>& quit);
+
+    void onAccept(Client::pointer client, const boost::system::error_code &error);
 
     static void close(Client::pointer connection);
 };

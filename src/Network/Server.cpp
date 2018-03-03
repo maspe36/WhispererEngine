@@ -4,6 +4,7 @@
 
 #include "../../include/Network/Server.h"
 #include "../../include/Game/Core/Game.h"
+#include "../../include/Network/Message.h"
 
 void Server::writeAll(std::string data)
 {
@@ -90,24 +91,6 @@ void Server::listen()
                                       boost::asio::placeholders::error));
 }
 
-void Server::onAccept(Client::pointer client, const boost::system::error_code &error)
-{
-    if (!error)
-    {
-        std::cout << "Connection from " << client->getAddress() << std::endl;
-        client->start(shared_from_this());
-    }
-
-    // pesudo recursive
-    listen();
-}
-
-void Server::close(Client::pointer client)
-{
-    std::cout << "Closing connection from " << client->name << std::endl;
-    client->getSocket().close();
-}
-
 void Server::matchMake(std::atomic<bool>& quit)
 {
     while(!quit)
@@ -126,4 +109,22 @@ void Server::matchMake(std::atomic<bool>& quit)
             games.push_back(std::make_shared<Game>(players, shared_from_this()));
         }
     }
+}
+
+void Server::onAccept(Client::pointer client, const boost::system::error_code &error)
+{
+    if (!error)
+    {
+        std::cout << "Connection from " << client->getAddress() << std::endl;
+        client->start(shared_from_this());
+    }
+
+    // pesudo recursive
+    listen();
+}
+
+void Server::close(Client::pointer client)
+{
+    std::cout << "Closing connection from " << client->name << std::endl;
+    client->getSocket().close();
 }
