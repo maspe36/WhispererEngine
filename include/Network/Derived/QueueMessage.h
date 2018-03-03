@@ -14,7 +14,7 @@ class QueueMessage
 public:
     std::string deckID;
 
-    explicit QueueMessage(std::string json);
+    explicit QueueMessage(const json& newJSON);
     ~QueueMessage() override;
 };
 

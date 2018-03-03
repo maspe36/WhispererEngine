@@ -14,7 +14,7 @@ class AuthMessage
 public:
     std::string token;
 
-    explicit AuthMessage(std::string json);
+    explicit AuthMessage(const json& newJSON);
     ~AuthMessage() override;
 };
 

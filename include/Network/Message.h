@@ -26,6 +26,7 @@ public:
 
     std::string getJSON();
     void loadJSON(std::string json);
+    void loadJSON(const json& newJSON);
     void addDataMember(std::string key, std::string value);
 
     std::string getType();

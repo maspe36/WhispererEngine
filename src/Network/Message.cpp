@@ -35,6 +35,11 @@ void Message::loadJSON(std::string json)
     }
 }
 
+void Message::loadJSON(const nlohmann::json& newJSON)
+{
+    rawJSON = newJSON;
+}
+
 void Message::addDataMember(std::string key, std::string value)
 {
     rawJSON[DATA_KEY][key] = value;

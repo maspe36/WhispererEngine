@@ -4,11 +4,9 @@
 
 #include "../../../include/Network/Derived/AuthMessage.h"
 
-#include <utility>
-
-AuthMessage::AuthMessage(std::string json) : Message()
+AuthMessage::AuthMessage(const json& newJSON) : Message()
 {
-    loadJSON(std::move(json));
+    loadJSON(newJSON);
     token = getDataMember("token");
 }
 

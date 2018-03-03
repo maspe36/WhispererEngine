@@ -6,9 +6,9 @@
 
 #include "../../../include/Network/Derived/QueueMessage.h"
 
-QueueMessage::QueueMessage(std::string json) : Message()
+QueueMessage::QueueMessage(const json& newJSON) : Message()
 {
-    loadJSON(std::move(json));
+    loadJSON(newJSON);
     deckID = getDataMember("deckID");
 }
 
