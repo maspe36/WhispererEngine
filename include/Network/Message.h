@@ -15,7 +15,7 @@ class Message
 public:
     static std::string SUCCESS;
     static std::string FAILURE;
-    static std::string AUTH;
+    static std::string LOGIN;
     static std::string QUEUE;
     static std::string REGISTER_PLAYER;
 
@@ -32,7 +32,7 @@ public:
 
     static const std::string success();
     static const std::string fail(std::string cause);
-    static const std::string auth();
+    static const std::string login();
     static const std::string registerPlayer();
 
     explicit Message(std::string type);

@@ -9,7 +9,7 @@
 
 std::string Message::SUCCESS = "success";
 std::string Message::FAILURE = "failure";
-std::string Message::AUTH = "auth";
+std::string Message::LOGIN = "login";
 std::string Message::QUEUE = "queue";
 std::string Message::REGISTER_PLAYER = "registerPlayer";
 
@@ -92,9 +92,9 @@ const std::string Message::fail(std::string cause)
     return message.getJSON();
 }
 
-const std::string Message::auth()
+const std::string Message::login()
 {
-    return Message(AUTH).getJSON();
+    return Message(LOGIN).getJSON();
 }
 
 const std::string Message::registerPlayer()
