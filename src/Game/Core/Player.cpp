@@ -3,6 +3,7 @@
 //
 
 #include <utility>
+#include <iostream>
 
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Board.h"
@@ -10,7 +11,7 @@
 
 void Player::playCard(const json& rawJSON)
 {
-
+    std::cout << "Hello from player class" << std::endl;
 }
 
 Player::Player(std::shared_ptr<Client> client)
