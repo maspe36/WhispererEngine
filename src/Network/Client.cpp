@@ -88,9 +88,9 @@ void Client::listen(const boost::system::error_code &errorCode, clientFunc callb
     }
 }
 
-void Client::handleQueue(const Message& message)
+void Client::handleQueue(const json& rawJSON)
 {
-    QueueMessage qMessage = dynamic_cast<const QueueMessage&>(message);
+    QueueMessage qMessage(rawJSON);
 
     player = std::make_shared<Player>(shared_from_this());
     assembleDeck(qMessage.deckID);
@@ -99,9 +99,9 @@ void Client::handleQueue(const Message& message)
     std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
 }
 
-void Client::handleLogin(const Message& message)
+void Client::handleLogin(const json& rawJSON)
 {
-    AuthMessage authMessage = dynamic_cast<const AuthMessage&>(message);
+    AuthMessage authMessage(rawJSON);
 
     steamID = HTTPRequest::getSteamID(authMessage.token);
     name = HTTPRequest::getSteamName(steamID);
@@ -158,21 +158,21 @@ void Client::protocolListen()
 {
     std::string data = getString(buffer);
     auto rawJSON = json::parse(data);
+    std::string type = rawJSON[Message::TYPE_KEY];
 
-    Message message;
-    message.loadJSON(rawJSON);
-    std::string type = message.getType();
+    auto clientIter = clientProtocol.find(type);
+    bool clientCallable = !(clientIter == clientProtocol.end());
 
-    bool clientCallable = searchMap(message, clientProtocol);
-    bool playerCallable = searchMap(message, playerProtocol);
+    auto playerIter = playerProtocol.find(type);
+    bool playerCallable = !(playerIter == playerProtocol.end());
 
     if (clientCallable)
     {
-        (this->*clientProtocol[type])(message);
+        (this->*clientProtocol[type])(rawJSON);
     }
     else if (playerCallable)
     {
-        (player.*playerProtocol[type])(message);
+        (player.get()->*playerProtocol[type])(rawJSON);
     }
     else
     {
@@ -186,12 +186,4 @@ Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
 {
     assembleProtocolMap();
-}
-
-bool Client::searchMap(Message &message, std::map map)
-{
-    std::string type = message.getType();
-
-    auto iter = map.find(type);
-    return !(iter == map.end());
 }

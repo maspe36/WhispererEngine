@@ -8,7 +8,7 @@
 #include "../../../include/Game/Core/Board.h"
 #include "../../../include/Network/Client.h"
 
-void Player::playCard(const Message& message)
+void Player::playCard(const json& rawJSON)
 {
 
 }

@@ -33,7 +33,7 @@ public:
     std::shared_ptr<Board> board;
     std::shared_ptr<Hand> hand;
 
-    void playCard(const Message& message);
+    void playCard(const json& rawJSON);
 
     explicit Player(std::shared_ptr<Client> client);
     ~Player();
