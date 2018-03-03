@@ -169,11 +169,11 @@ void Client::protocolListen()
 
     if (clientCallable)
     {
-        (this->*clientProtocol[type])(rawJSON);
+        ((*this).*clientProtocol[type])(rawJSON);
     }
     else if (playerCallable)
     {
-        (player.get()->*playerProtocol[type])(rawJSON);
+        ((*player).*playerProtocol[type])(rawJSON);
     }
     else
     {
