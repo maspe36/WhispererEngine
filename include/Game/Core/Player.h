@@ -9,6 +9,7 @@
 #include "Containers/Hand.h"
 #include "Mana.h"
 #include "Board.h"
+#include "../../Network/Message.h"
 
 #include <string>
 #include <vector>
@@ -31,6 +32,8 @@ public:
     Mana totalMana;
     std::shared_ptr<Board> board;
     std::shared_ptr<Hand> hand;
+
+    void playCard(const Message& message);
 
     explicit Player(std::shared_ptr<Client> client);
     ~Player();

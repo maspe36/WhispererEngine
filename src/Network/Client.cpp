@@ -2,16 +2,16 @@
 // Created by Sam on 9/25/2017.
 //
 
-#include "../../include/Network/Client.h"
-#include "../../include/Network/Server.h"
+#include "../../include/Game/Core/Board.h"
+#include "../../include/Game/Core/Card.h"
 #include "../../include/Game/Core/Game.h"
 #include "../../include/Game/Core/Player.h"
-#include "../../include/Game/Core/Card.h"
+#include "../../include/Network/Client.h"
+#include "../../include/Network/HTTPRequest.h"
 #include "../../include/Network/Message.h"
+#include "../../include/Network/Server.h"
 #include "../../include/Network/Derived/AuthMessage.h"
 #include "../../include/Network/Derived/QueueMessage.h"
-#include "../../include/Game/Core/Board.h"
-#include "../../include/Network/HTTPRequest.h"
 
 #include <iostream>
 #include <utility>
@@ -88,9 +88,9 @@ void Client::listen(const boost::system::error_code &errorCode, clientFunc callb
     }
 }
 
-void Client::handleQueue(std::string json)
+void Client::handleQueue(const Message& message)
 {
-    QueueMessage qMessage(std::move(json));
+    QueueMessage qMessage = dynamic_cast<const QueueMessage&>(message);
 
     player = std::make_shared<Player>(shared_from_this());
     assembleDeck(qMessage.deckID);
@@ -99,9 +99,9 @@ void Client::handleQueue(std::string json)
     std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
 }
 
-void Client::handleLogin(std::string json)
+void Client::handleLogin(const Message& message)
 {
-    AuthMessage authMessage(std::move(json));
+    AuthMessage authMessage = dynamic_cast<const AuthMessage&>(message);
 
     steamID = HTTPRequest::getSteamID(authMessage.token);
     name = HTTPRequest::getSteamName(steamID);
@@ -149,25 +149,34 @@ void Client::assembleDeck(const std::string& deckID)
 
 void Client::assembleProtocolMap()
 {
-    protocol[Message::LOGIN] = &Client::handleAuth;
-    protocol[Message::QUEUE] = &Client::handleQueue;
+    clientProtocol[Message::LOGIN] = &Client::handleLogin;
+    clientProtocol[Message::QUEUE] = &Client::handleQueue;
+    playerProtocol[Message::PLAY_CARD] = &Player::playCard;
 }
 
 void Client::protocolListen()
 {
     std::string data = getString(buffer);
     auto rawJSON = json::parse(data);
-    std::string type = rawJSON[Message::TYPE_KEY];
 
-    // Search the protocol map to determine how we should handle this message
-    auto iter = protocol.find(type);
-    if (iter == protocol.end())
+    Message message;
+    message.loadJSON(rawJSON);
+    std::string type = message.getType();
+
+    bool clientCallable = searchMap(message, clientProtocol);
+    bool playerCallable = searchMap(message, playerProtocol);
+
+    if (clientCallable)
     {
-        write(Message::fail("Unknown protocol '" + type + "'"));
+        (this->*clientProtocol[type])(message);
+    }
+    else if (playerCallable)
+    {
+        (player.*playerProtocol[type])(message);
     }
     else
     {
-        (this->*protocol[type])(data);
+        write(Message::fail("Unknown protocol '" + type + "'"));
     }
 
     asyncListen(&Client::protocolListen);
@@ -177,4 +186,12 @@ Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
 {
     assembleProtocolMap();
+}
+
+bool Client::searchMap(Message &message, std::map map)
+{
+    std::string type = message.getType();
+
+    auto iter = map.find(type);
+    return !(iter == map.end());
 }

@@ -10,6 +10,7 @@
 #include <vector>
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
+#include "Message.h"
 
 class Player;
 class Server;
@@ -21,14 +22,17 @@ class Client
 public:
     typedef std::shared_ptr<Client> pointer;
     typedef void (Client::*clientFunc)();
-    typedef void (Client::*protocolFunc)(std::string data);
-    typedef std::map<std::string, protocolFunc> functionMap;
+    typedef void (Client::*clientProtocolFunc)(const Message& message);
+    typedef void (Player::*playerProtocolFunc)(const Message& message);
+    typedef std::map<std::string, clientProtocolFunc> clientFunctionMap;
+    typedef std::map<std::string, playerProtocolFunc> playerFunctionMap;
 
     std::string name;
     std::string steamID;
     std::shared_ptr<Player> player;
     std::shared_ptr<Server> server;
-    functionMap protocol;
+    clientFunctionMap clientProtocol;
+    playerFunctionMap playerProtocol;
     bool listening;
 
     static pointer create(boost::asio::io_service &ioService);
@@ -41,8 +45,8 @@ public:
     void asyncListen(clientFunc callback);
     void listen(const boost::system::error_code &errorCode, clientFunc callback);
 
-    void handleQueue(std::string json);
-    void handleLogin(std::string json);
+    void handleQueue(const Message& message);
+    void handleLogin(const Message& message);
 
 private:
     std::string delimiter;
@@ -57,6 +61,7 @@ private:
 
     void assembleProtocolMap();
     void protocolListen();
+    bool searchMap(Message& message, std::map map);
 
     explicit Client(boost::asio::io_service& ioService);
 };

@@ -8,6 +8,11 @@
 #include "../../../include/Game/Core/Board.h"
 #include "../../../include/Network/Client.h"
 
+void Player::playCard(const Message& message)
+{
+
+}
+
 Player::Player(std::shared_ptr<Client> client)
         : client(client),
           name(client->name),
