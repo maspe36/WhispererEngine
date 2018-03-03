@@ -4,6 +4,7 @@
 
 #include "../../include/Network/Server.h"
 #include "../../include/Game/Core/Game.h"
+#include "../../include/Game/Core/Player.h"
 #include "../../include/Network/Message.h"
 
 void Server::writeAll(std::string data)
@@ -106,7 +107,10 @@ void Server::matchMake(std::atomic<bool>& quit)
                 players.push_back(player);
             }
 
-            games.push_back(std::make_shared<Game>(players, shared_from_this()));
+            std::shared_ptr<Game> game = std::make_shared<Game>(players, shared_from_this());
+            game->registerPlayers();
+
+            games.push_back(game);
         }
     }
 }

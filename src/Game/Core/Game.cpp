@@ -18,7 +18,7 @@ void Game::writePlayers(const std::string &data)
     }
 }
 
-void Game::registerPlayers(const std::vector<std::shared_ptr<Player>> &players)
+void Game::registerPlayers()
 {
     for (const auto& player : players)
     {
@@ -35,7 +35,6 @@ void Game::startGame()
 Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
         : players(std::move(players)), server(std::move(server))
 {
-    registerPlayers(players);
     startGame();
 }
 

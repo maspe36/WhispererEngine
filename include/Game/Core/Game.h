@@ -29,7 +29,7 @@ public:
     std::shared_ptr<Server> server;
 
     void writePlayers(const std::string &data);
-    void registerPlayers(const std::vector<std::shared_ptr<Player>> &players);
+    void registerPlayers();
 
     void startGame();
 
