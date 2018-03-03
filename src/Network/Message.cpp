@@ -12,6 +12,7 @@ std::string Message::FAILURE = "failure";
 std::string Message::LOGIN = "login";
 std::string Message::QUEUE = "queue";
 std::string Message::REGISTER_PLAYER = "registerPlayer";
+std::string Message::START_GAME = "startGame";
 
 std::string Message::TYPE_KEY = "type";
 std::string Message::DATA_KEY = "data";

@@ -7,6 +7,8 @@
 #include "../../../include/Game/Core/Game.h"
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Network/Client.h"
+#include "../../../include/Network/Server.h"
+#include "../../../include/Network/Message.h"
 
 void Game::WritePlayers(const std::string &data)
 {
@@ -19,6 +21,8 @@ void Game::WritePlayers(const std::string &data)
 Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
         : players(std::move(players)), server(std::move(server))
 {
+    Message start(Message::START_GAME);
+    WritePlayers(start.getJSON());
 }
 
 Game::~Game()

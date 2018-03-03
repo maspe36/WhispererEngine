@@ -18,6 +18,7 @@ public:
     static std::string LOGIN;
     static std::string QUEUE;
     static std::string REGISTER_PLAYER;
+    static std::string START_GAME;
 
     static std::string TYPE_KEY;
     static std::string DATA_KEY;
