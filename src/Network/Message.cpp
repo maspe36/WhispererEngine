@@ -113,7 +113,9 @@ const std::string Message::login()
     return Message(LOGIN).getJSON();
 }
 
-const std::string Message::registerPlayer()
+const std::string Message::registerPlayer(const json& deckJSON)
 {
-    return Message(REGISTER_PLAYER).getJSON();
+    Message message(REGISTER_PLAYER);
+    message.addDataMember("decks", deckJSON);
+    return message.getJSON();
 }
