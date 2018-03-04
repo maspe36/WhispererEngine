@@ -8,11 +8,11 @@
 #include <utility>
 #include "../../../include/Game/Utilities/Database.h"
 
-std::vector<std::string> Database::getDeckCards(const std::string& userID, const std::string& deckID)
+std::vector<std::string> Database::getDeckCards(const std::string& steamID, const std::string& deckID)
 {
     std::vector<std::string> rows;
 
-    std::string query = formatGetDeckCardsQuery(userID, deckID);
+    std::string query = formatGetDeckCardsQuery(steamID, deckID);
     result = PQexec(connection, query.c_str());
 
     for (int i = 0; i < PQntuples(result); i++)
@@ -23,7 +23,7 @@ std::vector<std::string> Database::getDeckCards(const std::string& userID, const
     return rows;
 }
 
-std::string Database::formatGetDeckCardsQuery(const std::string& userID, const std::string& deckID)
+std::string Database::formatGetDeckCardsQuery(const std::string& steamID, const std::string& deckID)
 {
     std::ostringstream sqlStream;
     sqlStream <<
@@ -43,7 +43,7 @@ std::string Database::formatGetDeckCardsQuery(const std::string& userID, const s
                 R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
                 R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
                 R"("User"."ID" = "CardToUser"."UserID" AND )" <<
-                R"("User"."SteamID" = ')" << userID << R"(' AND "Deck"."ID" = )" << deckID << ";";
+                R"("User"."SteamID" = ')" << steamID << R"(' AND "Deck"."ID" = )" << deckID << ";";
 
     return sqlStream.str();
 }

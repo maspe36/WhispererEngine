@@ -107,7 +107,10 @@ void Client::handleLogin(const json& rawJSON)
     name = HTTPRequest::getSteamName(steamID);
 
     server->addClient(shared_from_this());
-    write(Message::registerPlayer());
+
+    json deckJSON;
+
+    write(Message::registerPlayer(deckJSON));
 }
 
 std::string Client::getString(boost::asio::streambuf &buffer)

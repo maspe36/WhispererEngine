@@ -17,8 +17,10 @@ class Database
 public:
     json config;
 
-    std::vector<std::string> getDeckCards(const std::string& userID, const std::string& deckID);
-    std::string formatGetDeckCardsQuery(const std::string& userID, const std::string& deckID);
+    std::vector<std::string> getDeckCards(const std::string& steamID, const std::string& deckID);
+    std::string formatGetDeckCardsQuery(const std::string& steamID, const std::string& deckID);
+
+
 
     Database();
     ~Database();
