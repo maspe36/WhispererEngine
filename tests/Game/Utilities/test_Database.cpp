@@ -13,7 +13,7 @@ TEST_CASE("Create database")
 
 TEST_CASE("Verify get CardIDs for Deck SQL")
 {
-    std::string userID = "76561198026041712";
+    std::string steamID = "76561198026041712";
     std::string deckID = "1";
     std::ostringstream expectedQuery;
     expectedQuery <<
@@ -36,7 +36,7 @@ TEST_CASE("Verify get CardIDs for Deck SQL")
                     R"("User"."SteamID" = '76561198026041712' AND "Deck"."ID" = 1;)";
 
     Database database;
-    std::string query = database.formatGetDeckCardsQuery(userID, deckID);
+    std::string query = database.formatGetDeckCardsQuery(steamID, deckID);
 
     REQUIRE(query == expectedQuery.str());
 }
@@ -53,11 +53,22 @@ TEST_CASE("Get CardIDs for Deck")
                                               "Azar", "Azar", "Azar", "Azar", "Azar",
                                               "Azar", "Azar", "Azar", "Azar", "Azar"};
 
-    std::string userID = "76561198026041712";
+    std::string steamID = "76561198026041712";
     std::string deckID = "1";
 
     Database database;
-    std::vector<std::string> cardIDs = database.getDeckCards(userID, deckID);
+    std::vector<std::string> cardIDs = database.getDeckCards(steamID, deckID);
 
     REQUIRE(cardIDs == expectedNames);
+}
+
+TEST_CASE("Get all Deck Cards")
+{
+    // Krusher99 steamID
+    std::string steamID = "76561198819580946";
+
+    Database database;
+    Database::DeckMap deckMap = database.getAllDeckCards(steamID);
+
+    REQUIRE(!deckMap.empty());
 }
