@@ -108,9 +108,15 @@ void Client::handleLogin(const json& rawJSON)
 
     server->addClient(shared_from_this());
 
+    json deckJSON = createRegisterPlayerJSON();
+    write(Message::registerPlayer(deckJSON));
+}
+
+json Client::createRegisterPlayerJSON() const
+{
     json deckJSON;
 
-    write(Message::registerPlayer(deckJSON));
+    return deckJSON;
 }
 
 std::string Client::getString(boost::asio::streambuf &buffer)

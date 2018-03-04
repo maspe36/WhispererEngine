@@ -63,6 +63,8 @@ private:
     void protocolListen();
 
     explicit Client(boost::asio::io_service& ioService);
+
+    json createRegisterPlayerJSON() const;
 };
 
 
