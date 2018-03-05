@@ -24,6 +24,17 @@ py::object Factory::createPyCard(const std::string &name)
     return pyCard;
 }
 
+std::vector<std::shared_ptr<Card>> Factory::createCards(std::vector<std::string> pythonNames)
+{
+    std::vector<std::shared_ptr<Card>> cards;
+
+    for (const auto &name : pythonNames)
+    {
+        auto card = createCard(name);
+        cards.push_back(card);
+    }
+}
+
 Factory::Factory()
         : version(nullptr), interpreter(new py::scoped_interpreter{})
 {

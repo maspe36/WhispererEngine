@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <memory>
+#include <vector>
 
 class Card;
 class Version;
@@ -26,6 +27,7 @@ public:
 
     std::shared_ptr<Card> createCard(const std::string &name);
     pybind11::object createPyCard(const std::string &name);
+    std::vector<std::shared_ptr<Card>> createCards(std::vector<std::string> pythonNames);
 
     Factory();
     ~Factory();
