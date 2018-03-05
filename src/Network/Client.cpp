@@ -112,7 +112,7 @@ void Client::handleLogin(const json& rawJSON)
     write(Message::registerPlayer(deckJSON));
 }
 
-json Client::createRegisterPlayerJSON() const
+std::vector<json> Client::createRegisterPlayerJSON() const
 {
     std::vector<json> deckJSON;
 
@@ -124,10 +124,7 @@ json Client::createRegisterPlayerJSON() const
         deckJSON.push_back(deck.getJSON());
     }
 
-    json finalJSON;
-    finalJSON["decks"] = deckJSON;
-
-    return finalJSON;
+    return deckJSON;
 }
 
 std::string Client::getString(boost::asio::streambuf &buffer)
