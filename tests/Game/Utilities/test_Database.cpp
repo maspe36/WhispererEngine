@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../../../build/catch-src/include/catch.hpp"
 #include "../../../include/Game/Utilities/Database.h"
+#include "../../../include/Game/Python/Factory.h"
 
 TEST_CASE("Create database")
 {
@@ -68,7 +69,8 @@ TEST_CASE("Get all Deck Cards")
     std::string steamID = "76561198819580946";
 
     Database database;
-    Database::DeckMap deckMap = database.getAllDeckCards(steamID);
+    Factory factory;
+    std::map<std::string, Deck> deckMap = database.getAllDeckCards(steamID, &factory);
 
     REQUIRE(!deckMap.empty());
 }

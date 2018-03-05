@@ -16,11 +16,14 @@ class Deck
 {
 public:
     std::string deckID;
+    std::string deckName;
     std::vector<std::shared_ptr<Card>> cards;
 
     json getJSON();
 
     Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards);
+    Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards);
+    Deck();
     ~Deck();
 };
 

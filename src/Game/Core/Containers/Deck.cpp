@@ -19,6 +19,7 @@ json Deck::getJSON()
     json rawJSON;
 
     rawJSON["deckID"] = deckID;
+    rawJSON["deckName"] = deckName;
     rawJSON["cards"] = jsonCards;
 
     return rawJSON;
@@ -28,6 +29,14 @@ Deck::Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards)
         : deckID(std::move(deckID)), cards(std::move(cards))
 {
 }
+
+Deck::Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards)
+        : deckName(std::move(deckName)), deckID(std::move(deckID)), cards(std::move(cards))
+{
+}
+
+Deck::Deck()
+= default;
 
 Deck::~Deck()
 = default;
