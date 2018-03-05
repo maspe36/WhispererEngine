@@ -7,6 +7,7 @@
 #include <sstream>
 #include <utility>
 #include "../../../include/Game/Utilities/Database.h"
+#include "../../../include/Game/Python/Factory.h"
 
 std::vector<std::string> Database::getDeckCards(const std::string& steamID, const std::string& deckID)
 {
@@ -44,6 +45,62 @@ std::string Database::formatGetDeckCardsQuery(const std::string& steamID, const 
                 R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
                 R"("User"."ID" = "CardToUser"."UserID" AND )" <<
                 R"("User"."SteamID" = ')" << steamID << R"(' AND "Deck"."ID" = )" << deckID << ";";
+
+    return sqlStream.str();
+}
+
+std::map<std::string, Deck> Database::getAllDeckCards(const std::string &steamID, Factory* factory)
+{
+    std::map<std::string, Deck> deckMap;
+
+    std::string query = formatGetAllDecksAndCardsQuery(steamID);
+    result = PQexec(connection, query.c_str());
+
+    for (int i = 0; i < PQntuples(result); i++)
+    {
+        std::string name = PQgetvalue(result, i, 0);
+        std::string ID = PQgetvalue(result, i, 1);
+        std::string pythonName = PQgetvalue(result, i, 2);
+
+        if (deckMap[name].deckName.empty())
+        {
+            deckMap[name].deckName = name;
+        }
+
+        if (deckMap[name].deckID.empty())
+        {
+            deckMap[name].deckID = ID;
+        }
+
+        deckMap[name].cards.push_back(factory->createCard(pythonName));
+    }
+
+    return deckMap;
+}
+
+std::string Database::formatGetAllDecksAndCardsQuery(const std::string &steamID)
+{
+    std::ostringstream sqlStream;
+    sqlStream <<
+              "SELECT " <<
+              R"("Deck"."Name", )" <<
+              R"("Deck"."ID", )" <<
+              R"("Card"."PythonName" )" <<
+              "FROM " <<
+              R"(public."Card", )" <<
+              R"(public."CardToUser", )" <<
+              R"(public."CardUserToDeck", )" <<
+              R"(public."Deck", )" <<
+              R"(public."DeckToUser", )" <<
+              R"(public."User" )" <<
+              "WHERE " <<
+              R"("Card"."ID" = "CardToUser"."CardID" AND )" <<
+              R"("CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND )" <<
+              R"("CardUserToDeck"."DeckID" = "Deck"."ID" AND )" <<
+              R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
+              R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
+              R"("User"."ID" = "CardToUser"."UserID" AND )" <<
+              R"("User"."SteamID" = ')" << steamID << "';";
 
     return sqlStream.str();
 }

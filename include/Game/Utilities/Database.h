@@ -9,8 +9,11 @@
 #include <vector>
 #include <libpq-fe.h>
 #include <nlohmann/json.hpp>
+#include "../Core/Containers/Deck.h"
 
 using json = nlohmann::json;
+
+class Factory;
 
 class Database
 {
@@ -20,7 +23,8 @@ public:
     std::vector<std::string> getDeckCards(const std::string& steamID, const std::string& deckID);
     std::string formatGetDeckCardsQuery(const std::string& steamID, const std::string& deckID);
 
-
+    std::map<std::string, Deck> getAllDeckCards(const std::string& steamID, Factory* factory);
+    std::string formatGetAllDecksAndCardsQuery(const std::string& steamID);
 
     Database();
     ~Database();

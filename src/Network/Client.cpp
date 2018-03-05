@@ -114,9 +114,20 @@ void Client::handleLogin(const json& rawJSON)
 
 json Client::createRegisterPlayerJSON() const
 {
-    json deckJSON;
+    std::vector<json> deckJSON;
 
-    return deckJSON;
+    std::map<std::string, Deck> deckMap = server->database.getAllDeckCards(steamID, &server->factory);
+
+    for (const auto& deckInfo : deckMap)
+    {
+        Deck deck = deckInfo.second;
+        deckJSON.push_back(deck.getJSON());
+    }
+
+    json finalJSON;
+    finalJSON["decks"] = deckJSON;
+
+    return finalJSON;
 }
 
 std::string Client::getString(boost::asio::streambuf &buffer)
@@ -144,13 +155,11 @@ void Client::onWrite(const boost::system::error_code &errorCode, size_t bytesTra
 void Client::assembleDeck(const std::string& deckID)
 {
     std::vector<std::string> pythonNames = server->database.getDeckCards(steamID, deckID);
-    std::vector<std::shared_ptr<Card>> cards;
+    std::vector<std::shared_ptr<Card>> cards = server->factory.createCards(pythonNames);
 
-    for (const auto &name : pythonNames)
+    for (const auto &card : cards)
     {
-        auto card = server->factory.createCard(name);
         card->player = player;
-        cards.push_back(card);
     }
 
     player->board->deck = std::make_shared<Deck>(deckID, cards);
