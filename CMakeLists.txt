@@ -75,6 +75,7 @@ pybind11_add_module(Whisperer
         src/Game/Core/Card.cpp
         src/Game/Core/Mana.cpp
         src/Game/Utilities/Taggable.cpp
+        src/Game/Utilities/Exportable.cpp
         src/Game/Derived/Card/Constant.cpp
         src/Game/Derived/Card/Creature.cpp)
 
