@@ -152,11 +152,13 @@ void Client::onWrite(const boost::system::error_code &errorCode, size_t bytesTra
 void Client::assembleDeck(const std::string& deckID)
 {
     std::vector<std::string> pythonNames = server->database.getDeckCards(steamID, deckID);
-    std::vector<std::shared_ptr<Card>> cards = server->factory.createCards(pythonNames);
 
-    for (const auto &card : cards)
+    std::vector<std::shared_ptr<Card>> cards;
+    for (const auto &pythonName : pythonNames)
     {
+        auto card = server->factory.createCard(pythonName);
         card->player = player;
+        cards.push_back(card);
     }
 
     player->board->deck = std::make_shared<Deck>(deckID, cards);
