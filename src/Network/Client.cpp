@@ -109,7 +109,7 @@ void Client::handleLogin(const json& rawJSON)
     server->addClient(shared_from_this());
 
     json deckJSON = createRegisterPlayerJSON();
-    write(Message::registerPlayer(deckJSON));
+    write(Message::registerPlayer(deckJSON, name));
 }
 
 std::vector<json> Client::createRegisterPlayerJSON() const

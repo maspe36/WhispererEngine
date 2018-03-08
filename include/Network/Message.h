@@ -40,7 +40,7 @@ public:
     static const std::string success();
     static const std::string fail(std::string cause);
     static const std::string login();
-    static const std::string registerPlayer(const json& deckJSON);
+    static const std::string registerPlayer(const json& deckJSON, const std::string& name);
 
     explicit Message(std::string type);
     Message();
