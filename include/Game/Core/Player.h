@@ -33,6 +33,8 @@ public:
     std::shared_ptr<Board> board;
     std::shared_ptr<Hand> hand;
 
+    void draw();
+    void draw(int count);
     void playCard(const json& rawJSON);
     void sendChatMessage(const json& rawJSON);
 

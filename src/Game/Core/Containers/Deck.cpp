@@ -2,6 +2,7 @@
 // Created by Sam on 3/1/2018.
 //
 
+#include <random>
 #include <utility>
 
 #include "../../../../include/Game/Core/Containers/Deck.h"
@@ -23,6 +24,22 @@ json Deck::getJSON()
     rawJSON["cards"] = jsonCards;
 
     return rawJSON;
+}
+
+void Deck::shuffle()
+{
+    std::shuffle(cards.begin(), cards.end(), std::mt19937(std::random_device()()));
+}
+
+std::shared_ptr<Card> Deck::draw()
+{
+    if (!cards.empty())
+    {
+        auto card = cards.front();
+        cards.erase(cards.begin());
+
+        return card;
+    }
 }
 
 Deck::Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards)

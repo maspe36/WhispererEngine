@@ -21,6 +21,9 @@ public:
 
     json getJSON();
 
+    void shuffle();
+    std::shared_ptr<Card> draw();
+
     Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards);
     Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards);
     Deck();

@@ -19,7 +19,9 @@ public:
 
     json getJSON();
 
-    explicit Hand(std::vector<std::shared_ptr<Card>> cards);
+    void addCard(std::shared_ptr<Card> card);
+
+    Hand();
     ~Hand();
 };
 

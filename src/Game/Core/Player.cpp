@@ -11,6 +11,19 @@
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Derived/ChatMessage.h"
 
+void Player::draw()
+{
+    hand->addCard(board->deck->draw());
+}
+
+void Player::draw(int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        draw();
+    }
+}
+
 void Player::playCard(const json& rawJSON)
 {
     std::cout << "Hello from player class" << std::endl;
@@ -39,9 +52,10 @@ Player::Player(std::shared_ptr<Client> client)
         : client(client),
           name(client->name),
           availableMana(1,1,1,1,1,1),
-          totalMana(1,1,1,1,1,1)
+          totalMana(1,1,1,1,1,1),
+          board(std::make_shared<Board>()),
+          hand(std::make_shared<Hand>())
 {
-    board = std::make_shared<Board>();
 }
 
 Player::~Player()
