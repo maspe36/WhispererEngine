@@ -25,6 +25,16 @@ void Player::sendChatMessage(const json &rawJSON)
     game->writePlayers(chatMessage.getJSON());
 }
 
+json Player::getOpponentJSON()
+{
+    json opponentJSON;
+
+    opponentJSON["playerID"] = tag;
+    opponentJSON["playerName"] = name;
+
+    return opponentJSON;
+}
+
 Player::Player(std::shared_ptr<Client> client)
         : client(client),
           name(client->name),

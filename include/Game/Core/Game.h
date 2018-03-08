@@ -35,6 +35,9 @@ public:
 
     Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server);
     virtual ~Game();
+
+private:
+    void sendStartGameMessage() const;
 };
 
 

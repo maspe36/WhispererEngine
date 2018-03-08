@@ -36,6 +36,8 @@ public:
     void playCard(const json& rawJSON);
     void sendChatMessage(const json& rawJSON);
 
+    json getOpponentJSON();
+
     explicit Player(std::shared_ptr<Client> client);
     ~Player();
 };

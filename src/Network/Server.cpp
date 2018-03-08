@@ -114,6 +114,7 @@ void Server::matchMake(std::atomic<bool>& quit)
 
             std::shared_ptr<Game> game = std::make_shared<Game>(players, shared_from_this());
             game->registerPlayers();
+            game->startGame();
 
             games.push_back(game);
         }

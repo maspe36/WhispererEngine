@@ -9,6 +9,7 @@
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Server.h"
 #include "../../../include/Network/Message.h"
+#include "../../../include/Network/Derived/StartGameMessage.h"
 
 void Game::writePlayers(const std::string &data)
 {
@@ -28,15 +29,22 @@ void Game::registerPlayers()
 
 void Game::startGame()
 {
-    Message start(Message::START_GAME);
-    writePlayers(start.getJSON());
+    sendStartGameMessage();
 }
 
 Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
         : players(std::move(players)), server(std::move(server))
 {
-    startGame();
 }
 
 Game::~Game()
 = default;
+
+void Game::sendStartGameMessage() const
+{
+    for (const auto& player : players)
+    {
+        StartGameMessage startGameMessage(player, players);
+        player->client->write(startGameMessage.getJSON());
+    }
+}

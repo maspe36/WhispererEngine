@@ -180,6 +180,9 @@ set(WHISPERER_FILES
         src/Network/Derived/QueueMessage.cpp
         include/Network/Derived/QueueMessage.h
 
+        src/Network/Derived/StartGameMessage.cpp
+        include/Network/Derived/StartGameMessage.h
+
         src/Network/Exceptions/JSONError.cpp
         include/Network/Exceptions/JSONError.h
 
