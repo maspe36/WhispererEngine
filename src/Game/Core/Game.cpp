@@ -29,6 +29,14 @@ void Game::registerPlayers()
 
 void Game::startGame()
 {
+
+
+    for (const auto& player : players)
+    {
+        player->board->deck->shuffle();
+        player->draw(5);
+    }
+
     sendStartGameMessage();
 }
 
