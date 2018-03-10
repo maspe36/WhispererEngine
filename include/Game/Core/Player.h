@@ -24,6 +24,9 @@ class Player
           public std::enable_shared_from_this<Player>
 {
 public:
+    typedef void (Player::*func)();
+    typedef void (Player::*protocolFunc)(const json& rawJSON);
+
     std::string name;
     std::shared_ptr<Client> client;
     std::shared_ptr<Game> game;
