@@ -9,10 +9,11 @@
 #include <memory>
 #include <vector>
 #include <boost/asio.hpp>
+#include <boost/variant.hpp>
 #include <boost/bind/bind.hpp>
 #include "Message.h"
+#include "../Game/Core/Player.h"
 
-class Player;
 class Server;
 class Card;
 
@@ -21,18 +22,19 @@ class Client
 {
 public:
     typedef std::shared_ptr<Client> pointer;
-    typedef void (Client::*clientFunc)();
-    typedef void (Client::*clientProtocolFunc)(const json& rawJSON);
-    typedef void (Player::*playerProtocolFunc)(const json& rawJSON);
-    typedef std::map<std::string, clientProtocolFunc> clientFunctionMap;
-    typedef std::map<std::string, playerProtocolFunc> playerFunctionMap;
+    typedef void (Client::*func)();
+    typedef void (Client::*protocolFunc)(const json& rawJSON);
+    typedef std::map<std::string, protocolFunc> LobbyFunctions;
+    typedef std::map<std::string, Player::protocolFunc> GameFunctions;
 
     std::string name;
     std::string steamID;
     std::shared_ptr<Player> player;
     std::shared_ptr<Server> server;
-    clientFunctionMap clientProtocol;
-    playerFunctionMap playerProtocol;
+
+    LobbyFunctions lobbyFunctions;
+    GameFunctions gameFunctions;
+    func listenerCallback;
     bool listening;
 
     static pointer create(boost::asio::io_service &ioService);
@@ -42,8 +44,8 @@ public:
     void start(std::shared_ptr<Server> server);
     void write(std::string data);
     void disconnect();
-    void asyncListen(clientFunc callback);
-    void listen(const boost::system::error_code &errorCode, clientFunc callback);
+    void asyncListen(func callback);
+    void listen(const boost::system::error_code &errorCode, func callback);
 
     void handleQueue(const json& rawJSON);
     void handleLogin(const json& rawJSON);
@@ -60,7 +62,8 @@ private:
     void assembleDeck(const std::string& deckID);
 
     void assembleProtocolMap();
-    void protocolListen();
+    void lobbyListen();
+    void gameListen();
 
     explicit Client(boost::asio::io_service& ioService);
 

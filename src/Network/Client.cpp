@@ -40,7 +40,7 @@ void Client::start(std::shared_ptr<Server> server)
 
     listening = true;
     write(Message::login());
-    asyncListen(&Client::protocolListen);
+    asyncListen(&Client::lobbyListen);
 }
 
 void Client::write(std::string data)
@@ -60,14 +60,14 @@ void Client::disconnect()
     std::cout << "Lost connection to client!" << std::endl;
 }
 
-void Client::asyncListen(clientFunc callback)
+void Client::asyncListen(func callback)
 {
     boost::asio::async_read_until(socket, buffer, delimiter,
                                   boost::bind(&Client::listen, shared_from_this(),
                                               boost::asio::placeholders::error, callback));
 }
 
-void Client::listen(const boost::system::error_code &errorCode, clientFunc callback)
+void Client::listen(const boost::system::error_code &errorCode, func callback)
 {
     if (errorCode == nullptr && listening)
     {
@@ -97,6 +97,9 @@ void Client::handleQueue(const json& rawJSON)
 
     server->queue.push_back(player);
     std::cout << "Queue | Name: " << player->name << " deckID: " << qMessage.deckID << std::endl;
+
+    // Send the player into the gameListen function
+    listenerCallback = &Client::gameListen;
 }
 
 void Client::handleLogin(const json& rawJSON)
@@ -166,42 +169,57 @@ void Client::assembleDeck(const std::string& deckID)
 
 void Client::assembleProtocolMap()
 {
-    clientProtocol[Message::LOGIN] = &Client::handleLogin;
-    clientProtocol[Message::QUEUE] = &Client::handleQueue;
-    playerProtocol[Message::SEND_CHAT] = &Player::sendChatMessage;
-    playerProtocol[Message::PLAY_CARD] = &Player::playCard;
+    lobbyFunctions[Message::LOGIN] = &Client::handleLogin;
+    lobbyFunctions[Message::QUEUE] = &Client::handleQueue;
+
+    gameFunctions[Message::CHAT] = &Player::sendChatMessage;
 }
 
-void Client::protocolListen()
+void Client::lobbyListen()
 {
     std::string data = getString(buffer);
     auto rawJSON = json::parse(data);
     std::string type = rawJSON[Message::TYPE_KEY];
 
-    auto clientIter = clientProtocol.find(type);
-    bool clientCallable = !(clientIter == clientProtocol.end());
+    auto iterator = lobbyFunctions.find(type);
+    bool callable = !(iterator == lobbyFunctions.end());
 
-    auto playerIter = playerProtocol.find(type);
-    bool playerCallable = !(playerIter == playerProtocol.end());
-
-    if (clientCallable)
+    if (callable)
     {
-        ((*this).*clientProtocol[type])(rawJSON);
-    }
-    else if (playerCallable)
-    {
-        ((*player).*playerProtocol[type])(rawJSON);
+        ((*this).*lobbyFunctions[type])(rawJSON);
     }
     else
     {
-        write(Message::fail("Unknown protocol '" + type + "'"));
+        write(Message::fail("Unknown lobby protocol '" + type + "'"));
     }
 
-    asyncListen(&Client::protocolListen);
+    asyncListen(listenerCallback);
+}
+
+void Client::gameListen()
+{
+    std::string data = getString(buffer);
+    auto rawJSON = json::parse(data);
+    std::string type = rawJSON[Message::TYPE_KEY];
+
+    auto iterator = gameFunctions.find(type);
+    bool callable = !(iterator == gameFunctions.end());
+
+    if (callable)
+    {
+        ((*player).*gameFunctions[type])(rawJSON);
+    }
+    else
+    {
+        write(Message::fail("Unknown game protocol '" + type + "'"));
+    }
+
+    asyncListen(listenerCallback);
 }
 
 Client::Client(boost::asio::io_service & ioService)
-        : player(nullptr), server(nullptr), listening(false), socket(ioService), delimiter("\n")
+        : player(nullptr), server(nullptr),
+          listening(false), socket(ioService), delimiter("\n"), listenerCallback(&Client::lobbyListen)
 {
     assembleProtocolMap();
 }
