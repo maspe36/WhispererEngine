@@ -2,6 +2,7 @@
 // Created by Sam on 9/25/2017.
 //
 
+#include <random>
 #include <utility>
 
 #include "../../../include/Game/Core/Game.h"
@@ -29,13 +30,14 @@ void Game::registerPlayers()
 
 void Game::startGame()
 {
-
-
     for (const auto& player : players)
     {
         player->board->deck->shuffle();
         player->draw(5);
     }
+
+    std::shuffle(players.begin(), players.end(), std::mt19937(std::random_device()()));
+    activePlayer = players.front();
 
     sendStartGameMessage();
 }
