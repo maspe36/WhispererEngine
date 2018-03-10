@@ -21,7 +21,7 @@ public:
     static std::string START_GAME;
     static std::string PLAY_CARD;
 
-    static std::string SEND_CHAT;
+    static std::string CHAT;
 
     static std::string TYPE_KEY;
     static std::string DATA_KEY;
