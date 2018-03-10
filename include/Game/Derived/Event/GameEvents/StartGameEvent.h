@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_STARTEVENT_H
 
 
-class StartEvent
+class StartGameEvent
 {
 
 };
