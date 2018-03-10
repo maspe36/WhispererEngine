@@ -38,7 +38,7 @@ public:
 
     void draw();
     void draw(int count);
-    void playCard(const json& rawJSON);
+    void moveCard(const json &rawJSON);
     void sendChatMessage(const json& rawJSON);
 
     json getOpponentJSON();

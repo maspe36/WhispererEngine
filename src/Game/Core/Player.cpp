@@ -24,7 +24,7 @@ void Player::draw(int count)
     }
 }
 
-void Player::playCard(const json& rawJSON)
+void Player::moveCard(const json &rawJSON)
 {
     std::cout << "Hello from player class" << std::endl;
 }
