@@ -50,7 +50,20 @@ void Player::sendChatMessage(const json &rawJSON)
     game->writePlayers(chatMessage.getJSON());
 }
 
-json Player::getOpponentJSON()
+json Player::getState()
+{
+    json playerJSON;
+
+    playerJSON["playerID"] = tag;
+    playerJSON["hand"] = hand->getJSON();
+    playerJSON["health"] = health;
+    playerJSON["deckCount"] = board->deck->count();
+    playerJSON["mana"] = getManaJSON();
+
+    return playerJSON;
+}
+
+json Player::getOpponentState()
 {
     json opponentJSON;
 
