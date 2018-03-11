@@ -52,6 +52,11 @@ Deck::Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr
 {
 }
 
+int Deck::count()
+{
+    return cards.size();
+}
+
 Deck::Deck()
 = default;
 

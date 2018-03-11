@@ -23,6 +23,7 @@ public:
 
     void shuffle();
     std::shared_ptr<Card> draw();
+    int count();
 
     Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards);
     Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards);

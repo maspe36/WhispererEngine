@@ -33,6 +33,11 @@ void Hand::addCard(std::shared_ptr<Card> card)
     cards.push_back(card);
 }
 
+int Hand::count()
+{
+    return cards.size();
+}
+
 Hand::Hand()
 = default;
 
