@@ -23,7 +23,7 @@ class Game
 {
 public:
     std::vector<std::shared_ptr<Player>> players;
-    std::shared_ptr<Card> activePlayer;
+    std::shared_ptr<Player> activePlayer;
     std::vector<Event*> history;
     std::vector<Effect*> stack;
     std::vector<std::shared_ptr<Card>> cardOrder;
