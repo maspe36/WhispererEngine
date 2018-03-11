@@ -24,6 +24,8 @@ public:
     std::shared_ptr<Deck> deck;
     std::vector<std::shared_ptr<Card>> graveyard;
 
+    void playCard(std::shared_ptr<Card> card);
+
     Board();
     virtual ~Board();
 };
