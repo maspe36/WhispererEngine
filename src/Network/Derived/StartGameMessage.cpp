@@ -17,9 +17,12 @@ StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::vector
     }
 
     rawJSON[TYPE_KEY] = Message::START_GAME;
-    addDataMember("playerID", toPlayer->tag);
     addDataMember("opponents", opponentsJSON);
+    addDataMember("playerID", toPlayer->tag);
     addDataMember("hand", toPlayer->hand->getJSON());
+    addDataMember("health", toPlayer->health);
+    addDataMember("deckCount", toPlayer->board->deck->count());
+    addDataMember("mana", toPlayer->getManaJSON());
 }
 
 StartGameMessage::~StartGameMessage()
