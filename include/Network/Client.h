@@ -57,7 +57,7 @@ private:
 
     std::string getString(boost::asio::streambuf &buffer);
     void emptyBuffer();
-    void onWrite(const boost::system::error_code &error, size_t bytesTransferred) const;
+    void onWrite(const boost::system::error_code &error, const std::string& data);
 
     void assembleDeck(const std::string& deckID);
 

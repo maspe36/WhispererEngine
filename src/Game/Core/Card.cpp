@@ -22,12 +22,7 @@ json Card::getJSON()
     rawJSON["name"] = name;
     rawJSON["text"] = text;
     rawJSON["tag"] = tag;
-    rawJSON["mana"]["black"] = mana.black;
-    rawJSON["mana"]["blue"] = mana.blue;
-    rawJSON["mana"]["brown"] = mana.brown;
-    rawJSON["mana"]["green"] = mana.green;
-    rawJSON["mana"]["red"] = mana.red;
-    rawJSON["mana"]["white"] = mana.white;
+    rawJSON["mana"] = mana.getJSON();
 
     return rawJSON;
 }

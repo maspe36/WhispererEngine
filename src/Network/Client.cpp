@@ -49,8 +49,7 @@ void Client::write(std::string data)
 
     boost::asio::async_write(socket, boost::asio::buffer(data.c_str(), data.size()),
                              boost::bind(&Client::onWrite, shared_from_this(),
-                                         boost::asio::placeholders::error,
-                                         boost::asio::placeholders::bytes_transferred));
+                                         boost::asio::placeholders::error, data));
 }
 
 void Client::disconnect()
@@ -148,8 +147,12 @@ void Client::emptyBuffer()
     buffer.consume(buffer.size());
 }
 
-void Client::onWrite(const boost::system::error_code &errorCode, size_t bytesTransferred) const
+void Client::onWrite(const boost::system::error_code &errorCode, const std::string& data)
 {
+    if (errorCode != nullptr)
+    {
+        std::cout << "Failed to send " << getAddress() << " '" << data.substr(0, data.size()-1) << "'" << std::endl;
+    }
 }
 
 void Client::assembleDeck(const std::string& deckID)
