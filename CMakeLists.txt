@@ -53,7 +53,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_libraries(${Boost_LIBRARIES})
 
 # Find Postgres
-find_package(PostgreSQL 9.6.7 EXACT REQUIRED)
+find_package(PostgreSQL 9.6.7 REQUIRED)
 
 # Inclue and link Postgres
 include_directories(${PostgreSQL_INCLUDE_DIRS})
