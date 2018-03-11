@@ -18,7 +18,8 @@ public:
 
     bool operator == (const Mana& other) const;
 
-    void payMana(Mana *mana);
+    void payMana(Mana mana);
+    bool canPay(Mana mana);
 
     Mana(int black, int blue, int brown, int green, int red, int white);
     ~Mana();
