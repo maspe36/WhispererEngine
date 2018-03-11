@@ -19,6 +19,7 @@ public:
 
     json getJSON();
 
+    std::shared_ptr<Card> findCard(const std::string& tag);
     void addCard(std::shared_ptr<Card> card);
 
     Hand();

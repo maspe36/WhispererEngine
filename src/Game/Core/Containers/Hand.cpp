@@ -17,6 +17,17 @@ json Hand::getJSON()
     return handJSON;
 }
 
+std::shared_ptr<Card> Hand::findCard(const std::string &tag)
+{
+    for (const auto& card : cards)
+    {
+        if (card->tag == tag)
+        {
+            return card;
+        }
+    }
+}
+
 void Hand::addCard(std::shared_ptr<Card> card)
 {
     cards.push_back(card);
