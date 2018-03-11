@@ -5,11 +5,13 @@
 #include <utility>
 #include <iostream>
 
+#include "../../../include/Game/Core/Card.h"
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Game.h"
 #include "../../../include/Game/Core/Board.h"
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Derived/ChatMessage.h"
+#include "../../../include/Network/Derived/PlayCardMessage.h"
 
 void Player::draw()
 {
@@ -24,9 +26,19 @@ void Player::draw(int count)
     }
 }
 
-void Player::moveCard(const json &rawJSON)
+void Player::playCard(const json &rawJSON)
 {
-    std::cout << "Hello from player class" << std::endl;
+    if (shared_from_this() == game->activePlayer)
+    {
+        PlayCardMessage moveCardMessage(rawJSON);
+        auto card = hand->findCard(moveCardMessage.cardTag);
+
+        if (availableMana.canPay(card->mana))
+        {
+            availableMana.payMana(card->mana);
+            board->playCard(card);
+        }
+    }
 }
 
 void Player::sendChatMessage(const json &rawJSON)
@@ -43,9 +55,23 @@ json Player::getOpponentJSON()
     json opponentJSON;
 
     opponentJSON["playerID"] = tag;
-    opponentJSON["playerName"] = name;
+    opponentJSON["name"] = name;
+    opponentJSON["tag"] = tag;
+    opponentJSON["health"] = health;
+    opponentJSON["handCount"] = hand->count();
+    opponentJSON["deckCount"] = board->deck->count();
+    opponentJSON["mana"] = getManaJSON();
 
     return opponentJSON;
+}
+
+json Player::getManaJSON()
+{
+    json manaJSON;
+    manaJSON["available"] = availableMana.getJSON();
+    manaJSON["total"] = totalMana.getJSON();
+
+    return manaJSON;
 }
 
 Player::Player(std::shared_ptr<Client> client)
@@ -54,7 +80,8 @@ Player::Player(std::shared_ptr<Client> client)
           availableMana(1,1,1,1,1,1),
           totalMana(1,1,1,1,1,1),
           board(std::make_shared<Board>()),
-          hand(std::make_shared<Hand>())
+          hand(std::make_shared<Hand>()),
+          health(30)
 {
 }
 

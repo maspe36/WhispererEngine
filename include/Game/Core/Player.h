@@ -35,13 +35,16 @@ public:
     Mana totalMana;
     std::shared_ptr<Board> board;
     std::shared_ptr<Hand> hand;
+    int health;
 
     void draw();
     void draw(int count);
-    void moveCard(const json &rawJSON);
+
+    void playCard(const json &rawJSON);
     void sendChatMessage(const json& rawJSON);
 
     json getOpponentJSON();
+    json getManaJSON();
 
     explicit Player(std::shared_ptr<Client> client);
     ~Player();
