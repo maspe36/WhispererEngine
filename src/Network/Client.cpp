@@ -173,6 +173,7 @@ void Client::assembleProtocolMap()
     lobbyFunctions[Message::QUEUE] = &Client::handleQueue;
 
     gameFunctions[Message::CHAT] = &Player::sendChatMessage;
+    gameFunctions[Message::PLAY_CARD] = &Player::playCard;
 }
 
 void Client::lobbyListen()
