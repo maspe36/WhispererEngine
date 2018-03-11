@@ -6,6 +6,8 @@
 #define WHISPERERENGINE_MANA_H
 
 
+#include "../../Network/Message.h"
+
 class Mana
 {
 public:
@@ -20,6 +22,8 @@ public:
 
     void payMana(Mana mana);
     bool canPay(Mana mana);
+
+    json getJSON();
 
     Mana(int black, int blue, int brown, int green, int red, int white);
     ~Mana();

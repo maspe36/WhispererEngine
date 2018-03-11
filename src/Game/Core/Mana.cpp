@@ -29,6 +29,20 @@ Mana::Mana(int black, int blue, int brown, int green, int red, int white)
 {
 }
 
+json Mana::getJSON()
+{
+    json manaJSON;
+
+    manaJSON["black"] = black;
+    manaJSON["blue"] = blue;
+    manaJSON["brown"] = brown;
+    manaJSON["green"] = green;
+    manaJSON["red"] = red;
+    manaJSON["white"] = white;
+
+    return manaJSON;
+}
+
 bool Mana::canPay(Mana mana)
 {
     return (black > mana.black &&
