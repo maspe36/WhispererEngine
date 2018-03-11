@@ -13,7 +13,7 @@ std::string Message::LOGIN = "login";
 std::string Message::QUEUE = "queue";
 std::string Message::REGISTER_PLAYER = "registerPlayer";
 std::string Message::START_GAME = "startGame";
-std::string Message::MOVE_CARD = "moveCard";
+std::string Message::PLAY_CARD = "playCard";
 
 std::string Message::CHAT = "chat";
 

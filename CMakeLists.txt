@@ -180,6 +180,9 @@ set(WHISPERER_FILES
         src/Network/Derived/ChatMessage.cpp
         include/Network/Derived/ChatMessage.h
 
+        src/Network/Derived/PlayCardMessage.cpp
+        include/Network/Derived/PlayCardMessage.h
+
         src/Network/Derived/QueueMessage.cpp
         include/Network/Derived/QueueMessage.h
 
