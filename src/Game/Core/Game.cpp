@@ -76,6 +76,8 @@ void Game::changeTurn()
         }
     }
 
+    activePlayer->startTurn();
+
     // Check for start turn effects
 
     sendTurnMessage();

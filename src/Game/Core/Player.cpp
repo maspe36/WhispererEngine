@@ -26,6 +26,17 @@ void Player::draw(int count)
     }
 }
 
+void Player::startTurn()
+{
+    refillMana();
+    draw();
+}
+
+void Player::refillMana()
+{
+    availableMana = totalMana;
+}
+
 void Player::playCard(const json &rawJSON)
 {
     if (shared_from_this() == game->activePlayer)

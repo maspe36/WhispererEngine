@@ -39,6 +39,8 @@ public:
 
     void draw();
     void draw(int count);
+    void startTurn();
+    void refillMana();
 
     void playCard(const json &rawJSON);
     void endTurn(const json &rawJSON);
