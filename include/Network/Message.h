@@ -10,6 +10,8 @@
 
 using json = nlohmann::json;
 
+class Client;
+
 class Message
 {
 public:
@@ -40,7 +42,7 @@ public:
     static const std::string success();
     static const std::string fail(std::string cause);
     static const std::string login();
-    static const std::string registerPlayer(const json& deckJSON, const std::string& name);
+    static const std::string registerPlayer(const json& deckJSON, std::shared_ptr<Client> client);
 
     explicit Message(std::string type);
     Message();

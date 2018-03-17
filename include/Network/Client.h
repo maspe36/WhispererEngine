@@ -29,6 +29,7 @@ public:
 
     std::string name;
     std::string steamID;
+    std::string avatarURL;
     std::shared_ptr<Player> player;
     std::shared_ptr<Server> server;
 

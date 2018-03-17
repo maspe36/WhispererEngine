@@ -106,12 +106,15 @@ void Client::handleLogin(const json& rawJSON)
     AuthMessage authMessage(rawJSON);
 
     steamID = HTTPRequest::getSteamID(authMessage.token);
-    name = HTTPRequest::getSteamName(steamID);
+
+    json playerInfoJSON = HTTPRequest::getPlayerInfo(steamID);
+    name = playerInfoJSON["personaname"];
+    avatarURL = playerInfoJSON["avatarfull"];
 
     server->addClient(shared_from_this());
 
     json deckJSON = createRegisterPlayerJSON();
-    write(Message::registerPlayer(deckJSON, name));
+    write(Message::registerPlayer(deckJSON, shared_from_this()));
 }
 
 std::vector<json> Client::createRegisterPlayerJSON() const

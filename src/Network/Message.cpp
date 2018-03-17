@@ -2,6 +2,7 @@
 // Created by Sam on 1/15/2018.
 //
 
+#include "../../include/Network/Client.h"
 #include "../../include/Network/Message.h"
 #include "../../include/Network/Exceptions/JSONError.h"
 #include <utility>
@@ -113,10 +114,11 @@ const std::string Message::login()
     return Message(LOGIN).getJSON();
 }
 
-const std::string Message::registerPlayer(const json& deckJSON, const std::string& name)
+const std::string Message::registerPlayer(const json& deckJSON, std::shared_ptr<Client> client)
 {
     Message message(REGISTER_PLAYER);
     message.addDataMember("decks", deckJSON);
-    message.addDataMember("name", name);
+    message.addDataMember("name", client->name);
+    message.addDataMember("avatarURL", client->avatarURL);
     return message.getJSON();
 }

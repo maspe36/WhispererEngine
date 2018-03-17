@@ -7,9 +7,6 @@
 #include <curl/curl.h>
 #include <iostream>
 #include <sstream>
-#include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
 
 std::string HTTPRequest::API_KEY = "86E46A5E8C8A6D7DAEADFF7875D94D2B";
 std::string HTTPRequest::APP_ID = "818550";
@@ -91,23 +88,23 @@ std::string HTTPRequest::getSteamID(std::string token)
     }
 }
 
-std::string HTTPRequest::getSteamName(std::string steamID)
+json HTTPRequest::getPlayerInfo(std::string steamID)
 {
     auto nameHTTPJSON = json::parse(HTTPRequest::sendSteamNameRequest(std::move(steamID)));
-    std::string name;
+    json playerInfoJSON;
 
     try
     {
-        name = nameHTTPJSON["response"]["players"][0]["personaname"];
+        playerInfoJSON = nameHTTPJSON["response"]["players"][0];
     }
     catch(const nlohmann::detail::type_error &exception)
     {
         throw JSONError("No player information found with the steamID '" + steamID + "'");
     }
 
-    if (!name.empty())
+    if (!playerInfoJSON.empty())
     {
-        return name;
+        return playerInfoJSON;
     }
 }
 
