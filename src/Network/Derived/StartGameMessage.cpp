@@ -24,7 +24,7 @@ StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared
     rawJSON[TYPE_KEY] = Message::START_GAME;
     addDataMember("opponents", opponentsJSON);
     addDataMember("player", toPlayer->getState());
-    addDataMember("activePlayerID", game->activePlayer->tag);
+    addDataMember("activePlayerTag", game->activePlayer->tag);
 }
 
 StartGameMessage::~StartGameMessage()
