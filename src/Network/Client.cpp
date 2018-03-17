@@ -225,6 +225,5 @@ Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr),
           listening(false), socket(ioService), delimiter("\n"), listenerCallback(&Client::lobbyListen)
 {
-    socket.set_option(boost::asio::ip::tcp::no_delay(true));
     assembleProtocolMap();
 }
