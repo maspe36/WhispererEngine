@@ -13,14 +13,12 @@
 class Card;
 class Constant;
 class Creature;
-class Player;
 
 /* Handles a single players cards in play. */
 class Board
         : public std::enable_shared_from_this<Board>
 {
 public:
-    std::shared_ptr<Player> player;
     std::vector<std::shared_ptr<Constant>> constants;
     std::vector<std::shared_ptr<Creature>> creatures;
     std::shared_ptr<Deck> deck;
@@ -28,7 +26,7 @@ public:
 
     void playCard(std::shared_ptr<Card> card);
 
-    explicit Board(const std::shared_ptr<Player>& player);
+    Board();
     virtual ~Board();
 };
 

@@ -47,7 +47,6 @@ void Player::playCard(const json &rawJSON)
         if (availableMana.canPay(card->mana))
         {
             availableMana.payMana(card->mana);
-            hand->removeCard(card);
             board->playCard(card);
 
             totalMana.increaseMana(card->mana);
@@ -114,8 +113,8 @@ Player::Player(std::shared_ptr<Client> client)
           name(client->name),
           availableMana(1,1,1,1,1,1),
           totalMana(1,1,1,1,1,1),
-          board(std::make_shared<Board>(shared_from_this())),
-          hand(std::make_shared<Hand>(shared_from_this())),
+          board(std::make_shared<Board>()),
+          hand(std::make_shared<Hand>()),
           health(30)
 {
 }

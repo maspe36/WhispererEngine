@@ -170,8 +170,7 @@ void Client::assembleDeck(const std::string& deckID)
         cards.push_back(card);
     }
 
-    player->board->deck->cards = cards;
-    player->board->deck->id = deckID;
+    player->board->deck = std::make_shared<Deck>(deckID, cards);
 }
 
 void Client::assembleProtocolMap()
