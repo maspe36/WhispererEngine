@@ -4,17 +4,20 @@
 
 #include "../../../include/Network/Derived/StartGameMessage.h"
 #include "../../../include/Network/Client.h"
+#include "../../../include/Game/Core/Game.h"
 
-StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::vector<std::shared_ptr<Player>> players)
+StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared_ptr<Game> game)
 {
-    std::vector<json> opponentsJSON;
-    for (const auto& player : players)
+    std::vector<json> opponentsJSON = game->getOpponentJSON(toPlayer);
+
+    for (const auto& player : game->players)
     {
-        if (player != toPlayer)
+        for (const auto& opponentJSON : opponentsJSON)
         {
-            auto opponentJSON = player->getOpponentState();
-            opponentJSON["avatarURL"] = player->client->avatarURL;
-            opponentsJSON.push_back(opponentJSON);
+            if (opponentJSON["playerID"] == player->tag)
+            {
+                opponentJSON["avatarURL"] = player->client->avatarURL;
+            }
         }
     }
 

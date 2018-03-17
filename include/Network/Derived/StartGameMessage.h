@@ -9,12 +9,13 @@
 #include "../Message.h"
 
 class Player;
+class Game;
 
 class StartGameMessage
         : public Message
 {
 public:
-    explicit StartGameMessage(std::shared_ptr<Player> toPlayer, std::vector<std::shared_ptr<Player>> players);
+    explicit StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared_ptr<Game> game);
     virtual ~StartGameMessage();
 };
 
