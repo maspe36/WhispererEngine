@@ -67,18 +67,13 @@ void Game::changeTurn()
 {
     // Check for end turn effects
 
-    auto activePlayerIterator = std::find(players.begin(), players.end(), activePlayer);
-
-    if (activePlayerIterator != players.end())
+    for (const auto& player : players)
     {
-        // Advance to the next player in the vector
-        std::advance(activePlayerIterator, 1);
-        activePlayer = (*activePlayerIterator);
-    }
-    else
-    {
-        // Get the first player in the vector
-        activePlayer = (*players.begin());
+        if (player->tag != activePlayer->tag)
+        {
+            activePlayer = player;
+            break;
+        }
     }
 
     // Check for start turn effects
