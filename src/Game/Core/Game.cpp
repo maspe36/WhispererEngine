@@ -60,7 +60,6 @@ void Game::startGame()
     // Check for game start effects
 
     sendStartGameMessage();
-    changeTurn();
 }
 
 void Game::changeTurn()
