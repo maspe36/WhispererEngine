@@ -180,6 +180,7 @@ void Client::assembleProtocolMap()
 
     gameFunctions[Message::CHAT] = &Player::sendChatMessage;
     gameFunctions[Message::PLAY_CARD] = &Player::playCard;
+    gameFunctions[Message::END_TURN] = &Player::endTurn;
 }
 
 void Client::lobbyListen()

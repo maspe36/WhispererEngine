@@ -37,11 +37,17 @@ void Player::playCard(const json &rawJSON)
         {
             availableMana.payMana(card->mana);
             board->playCard(card);
+            game->cardOrder.push_back(card);
 
             // Check for play card effects
             // Send updated state
         }
     }
+}
+
+void Player::endTurn(const json &rawJSON)
+{
+    game->changeTurn();
 }
 
 void Player::sendChatMessage(const json &rawJSON)
