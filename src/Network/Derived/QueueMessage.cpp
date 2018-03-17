@@ -9,7 +9,7 @@
 QueueMessage::QueueMessage(const json& newJSON)
 {
     loadJSON(newJSON);
-    deckID = getDataMember("id");
+    deckID = getDataMember("deckID");
 }
 
 QueueMessage::~QueueMessage()
