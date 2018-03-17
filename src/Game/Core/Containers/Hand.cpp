@@ -26,6 +26,8 @@ std::shared_ptr<Card> Hand::findCard(const std::string &tag)
             return card;
         }
     }
+
+    throw std::runtime_error("No card with this tag (" + tag + ") was found");
 }
 
 void Hand::addCard(std::shared_ptr<Card> card)
