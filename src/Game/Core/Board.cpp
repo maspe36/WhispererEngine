@@ -14,8 +14,11 @@ void Board::playCard(std::shared_ptr<Card> card)
     }
 }
 
-Board::Board()
-= default;
+Board::Board(const std::shared_ptr<Player>& player)
+        : player(player),
+          deck(std::make_shared<Deck>(player))
+{
+}
 
 Board::~Board()
 = default;

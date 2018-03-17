@@ -42,19 +42,14 @@ std::shared_ptr<Card> Deck::draw()
     }
 }
 
-Deck::Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards)
-        : id(std::move(deckID)), cards(std::move(cards))
-{
-}
-
-Deck::Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards)
-        : name(std::move(deckName)), id(std::move(deckID)), cards(std::move(cards))
-{
-}
-
 int Deck::count()
 {
     return cards.size();
+}
+
+Deck::Deck(const std::shared_ptr<Player> &player)
+        : player(player)
+{
 }
 
 Deck::Deck()
