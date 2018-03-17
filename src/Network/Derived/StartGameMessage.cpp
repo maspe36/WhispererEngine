@@ -12,7 +12,7 @@ StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared
 
     for (const auto& player : game->players)
     {
-        for (const auto& opponentJSON : opponentsJSON)
+        for (auto opponentJSON : opponentsJSON)
         {
             if (opponentJSON["playerID"] == player->tag)
             {
