@@ -45,12 +45,12 @@ json Mana::getJSON()
 
 bool Mana::canPay(Mana mana)
 {
-    return (black > mana.black &&
-            blue > mana.blue &&
-            brown > mana.brown &&
-            green > mana.green &&
-            red > mana.red &&
-            white > mana.white);
+    return (black   >= mana.black &&
+            blue    >= mana.blue &&
+            brown   >= mana.brown &&
+            green   >= mana.green &&
+            red     >= mana.red &&
+            white   >= mana.white);
 }
 
 Mana::~Mana()
