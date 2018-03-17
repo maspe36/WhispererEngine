@@ -69,7 +69,6 @@ json Player::getOpponentState()
 
     opponentJSON["playerID"] = tag;
     opponentJSON["name"] = name;
-    opponentJSON["tag"] = tag;
     opponentJSON["health"] = health;
     opponentJSON["handCount"] = hand->count();
     opponentJSON["deckCount"] = board->deck->count();
