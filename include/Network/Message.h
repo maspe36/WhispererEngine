@@ -22,6 +22,9 @@ public:
     static std::string REGISTER_PLAYER;
     static std::string START_GAME;
     static std::string PLAY_CARD;
+    static std::string START_TURN;
+    static std::string END_TURN;
+    static std::string STOP_TURN;
 
     static std::string CHAT;
 

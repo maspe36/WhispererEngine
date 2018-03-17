@@ -180,6 +180,9 @@ set(WHISPERER_FILES
         src/Network/Derived/ChatMessage.cpp
         include/Network/Derived/ChatMessage.h
 
+        src/Network/Derived/EndTurnMessage.cpp
+        include/Network/Derived/EndTurnMessage.h
+
         src/Network/Derived/PlayCardMessage.cpp
         include/Network/Derived/PlayCardMessage.h
 
@@ -188,6 +191,9 @@ set(WHISPERER_FILES
 
         src/Network/Derived/StartGameMessage.cpp
         include/Network/Derived/StartGameMessage.h
+
+        src/Network/Derived/StartTurnMessage.cpp
+        include/Network/Derived/StartTurnMessage.h
 
         src/Network/Exceptions/JSONError.cpp
         include/Network/Exceptions/JSONError.h

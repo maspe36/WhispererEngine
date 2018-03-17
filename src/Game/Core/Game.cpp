@@ -11,6 +11,24 @@
 #include "../../../include/Network/Server.h"
 #include "../../../include/Network/Message.h"
 #include "../../../include/Network/Derived/StartGameMessage.h"
+#include "../../../include/Network/Derived/StartTurnMessage.h"
+#include "../../../include/Network/Derived/EndTurnMessage.h"
+
+std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
+{
+    std::vector<json> opponentsJSON;
+
+    for (const auto& player : players)
+    {
+        if (toPlayer != player)
+        {
+            auto opponentJSON = player->getOpponentState();
+            opponentsJSON.push_back(opponentJSON);
+        }
+    }
+
+    return opponentsJSON;
+}
 
 void Game::writePlayers(const std::string &data)
 {

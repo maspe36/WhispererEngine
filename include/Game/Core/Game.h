@@ -29,6 +29,8 @@ public:
     std::vector<std::shared_ptr<Card>> cardOrder;
     std::shared_ptr<Server> server;
 
+    std::vector<json> getOpponentJSON(std::shared_ptr<Player> toPlayer);
+
     void writePlayers(const std::string &data);
     void registerPlayers();
 

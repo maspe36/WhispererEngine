@@ -15,6 +15,9 @@ std::string Message::QUEUE = "queue";
 std::string Message::REGISTER_PLAYER = "registerPlayer";
 std::string Message::START_GAME = "startGame";
 std::string Message::PLAY_CARD = "playCard";
+std::string Message::START_TURN = "startTurn";
+std::string Message::END_TURN = "endTurn";
+std::string Message::STOP_TURN = "stopTurn";
 
 std::string Message::CHAT = "chat";
 
