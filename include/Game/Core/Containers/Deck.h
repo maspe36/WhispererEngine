@@ -15,8 +15,8 @@ class Deck
           public std::enable_shared_from_this<Deck>
 {
 public:
-    std::string deckID;
-    std::string deckName;
+    std::string id;
+    std::string name;
     std::vector<std::shared_ptr<Card>> cards;
 
     json getJSON();

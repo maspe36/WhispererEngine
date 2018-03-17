@@ -62,14 +62,14 @@ std::map<std::string, Deck> Database::getAllDeckCards(const std::string &steamID
         std::string ID = PQgetvalue(result, i, 1);
         std::string pythonName = PQgetvalue(result, i, 2);
 
-        if (deckMap[name].deckName.empty())
+        if (deckMap[name].name.empty())
         {
-            deckMap[name].deckName = name;
+            deckMap[name].name = name;
         }
 
-        if (deckMap[name].deckID.empty())
+        if (deckMap[name].id.empty())
         {
-            deckMap[name].deckID = ID;
+            deckMap[name].id = ID;
         }
 
         deckMap[name].cards.push_back(factory->createCard(pythonName));
