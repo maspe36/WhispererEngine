@@ -24,6 +24,44 @@ void Mana::payMana(Mana mana)
     white -= mana.white;
 }
 
+void Mana::increaseMana(Mana mana)
+{
+    if (mana.black > 0)
+    {
+        black++;
+    }
+    else if (mana.blue > 0)
+    {
+        blue++;
+    }
+    else if (mana.brown > 0)
+    {
+        brown++;
+    }
+    else if (mana.green > 0)
+    {
+        green++;
+    }
+    else if (mana.red > 0)
+    {
+        red++;
+    }
+    else if (mana.white > 0)
+    {
+        white++;
+    }
+}
+
+bool Mana::canPay(Mana mana)
+{
+    return (black   >= mana.black &&
+            blue    >= mana.blue &&
+            brown   >= mana.brown &&
+            green   >= mana.green &&
+            red     >= mana.red &&
+            white   >= mana.white);
+}
+
 Mana::Mana(int black, int blue, int brown, int green, int red, int white)
         : black(black), blue(blue), brown(brown), green(green), red(red), white(white)
 {
@@ -41,16 +79,6 @@ json Mana::getJSON()
     manaJSON["white"] = white;
 
     return manaJSON;
-}
-
-bool Mana::canPay(Mana mana)
-{
-    return (black   >= mana.black &&
-            blue    >= mana.blue &&
-            brown   >= mana.brown &&
-            green   >= mana.green &&
-            red     >= mana.red &&
-            white   >= mana.white);
 }
 
 Mana::~Mana()

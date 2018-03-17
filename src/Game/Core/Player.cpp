@@ -48,6 +48,8 @@ void Player::playCard(const json &rawJSON)
         {
             availableMana.payMana(card->mana);
             board->playCard(card);
+
+            totalMana.increaseMana(card->mana);
             game->cardOrder.push_back(card);
 
             // Check for play card effects

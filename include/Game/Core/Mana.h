@@ -21,6 +21,7 @@ public:
     bool operator == (const Mana& other) const;
 
     void payMana(Mana mana);
+    void increaseMana(Mana mana);
     bool canPay(Mana mana);
 
     json getJSON();
