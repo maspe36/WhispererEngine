@@ -3,7 +3,7 @@
 //
 
 #include "../../../include/Network/Derived/StartGameMessage.h"
-#include "../../../include/Game/Core/Player.h"
+#include "../../../include/Network/Client.h"
 
 StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::vector<std::shared_ptr<Player>> players)
 {
@@ -12,7 +12,9 @@ StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::vector
     {
         if (player != toPlayer)
         {
-            opponentsJSON.push_back(player->getOpponentState());
+            auto opponentJSON = player->getOpponentState();
+            opponentJSON["avatarURL"] = player->client->avatarURL;
+            opponentsJSON.push_back(opponentJSON);
         }
     }
 
