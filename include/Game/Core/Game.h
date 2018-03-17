@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include "../../Network/Message.h"
 
 class Card;
 class Event;
@@ -35,12 +36,14 @@ public:
     void registerPlayers();
 
     void startGame();
+    void changeTurn();
 
     Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server);
     virtual ~Game();
 
 private:
-    void sendStartGameMessage() const;
+    void sendStartGameMessage();
+    void sendTurnMessage();
 };
 
 

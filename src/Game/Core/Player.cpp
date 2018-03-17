@@ -37,6 +37,9 @@ void Player::playCard(const json &rawJSON)
         {
             availableMana.payMana(card->mana);
             board->playCard(card);
+
+            // Check for play card effects
+            // Send updated state
         }
     }
 }
