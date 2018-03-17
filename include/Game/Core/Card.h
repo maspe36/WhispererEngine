@@ -22,6 +22,7 @@ class Card
           public std::enable_shared_from_this<Card>
 {
 public:
+    std::string pythonName;
     std::string name;
     std::string text;
     Mana mana;

@@ -19,6 +19,7 @@ json Card::getJSON()
 {
     json rawJSON;
 
+    rawJSON["pythonName"] = pythonName;
     rawJSON["name"] = name;
     rawJSON["text"] = text;
     rawJSON["tag"] = tag;

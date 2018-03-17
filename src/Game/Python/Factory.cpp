@@ -12,6 +12,7 @@ std::shared_ptr<Card> Factory::createCard(const std::string &name)
 {
     auto pyCard = Factory::createPyCard(name);
     auto card = pyCard.cast<std::shared_ptr<Card>>();
+    card->pythonName = name;
     return card;
 }
 
