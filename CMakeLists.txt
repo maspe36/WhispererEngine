@@ -129,6 +129,12 @@ set(WHISPERER_FILES
         src/Game/Derived/Event/GameEvents/DrawEvent.cpp
         include/Game/Derived/Event/GameEvents/DrawEvent.h
 
+        src/Game/Derived/Event/GameEvents/EndTurnEvent.cpp
+        include/Game/Derived/Event/GameEvents/EndTurnEvent.h
+
+        src/Game/Derived/Event/GameEvents/StartTurnEvent.cpp
+        include/Game/Derived/Event/GameEvents/StartTurnEvent.h
+
         src/Game/Derived/Event/GameEvents/StartGameEvent.cpp
         include/Game/Derived/Event/GameEvents/StartGameEvent.h
 
