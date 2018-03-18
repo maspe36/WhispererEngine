@@ -11,6 +11,8 @@
 class Mana
 {
 public:
+    int individualManaLimit;
+
     int black;
     int blue;
     int brown;
@@ -23,6 +25,7 @@ public:
     void payMana(Mana mana);
     void increaseMana(Mana mana);
     bool canPay(Mana mana);
+    bool withinIndividualLimit();
     int getTotalCount();
 
     json getJSON();

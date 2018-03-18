@@ -2,6 +2,7 @@
 // Created by Sam on 3/1/2018.
 //
 
+#include <iostream>
 #include "../../../../include/Game/Derived/Containers/Hand.h"
 #include "../../../../include/Game/Core/Card.h"
 
@@ -17,7 +18,7 @@ json Hand::getJSON()
     return handJSON;
 }
 
-std::shared_ptr<Card> Hand::findCard(const std::string &tag)
+std::shared_ptr<Card> Hand::getCard(const std::string &tag)
 {
     for (const auto& card : cards)
     {
@@ -33,6 +34,11 @@ std::shared_ptr<Card> Hand::findCard(const std::string &tag)
 void Hand::addCard(std::shared_ptr<Card> card)
 {
     cards.push_back(card);
+}
+
+void Hand::removeCard(std::shared_ptr<Card> card)
+{
+    cards.erase(std::remove(cards.begin(), cards.end(), card));
 }
 
 int Hand::count()

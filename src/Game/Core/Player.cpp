@@ -45,14 +45,15 @@ void Player::playCard(const json &rawJSON)
     if (shared_from_this() == game->activePlayer)
     {
         PlayCardMessage moveCardMessage(rawJSON);
-        auto card = hand->findCard(moveCardMessage.cardTag);
+        auto card = hand->getCard(moveCardMessage.cardTag);
 
         if (availableMana.canPay(card->mana))
         {
             availableMana.payMana(card->mana);
             board->playCard(card);
+            hand->removeCard(card);
 
-            if (totalMana.getTotalCount() <= 15)
+            if (totalMana.getTotalCount() <= 15 && totalMana.withinIndividualLimit())
             {
                 totalMana.increaseMana(card->mana);
             }

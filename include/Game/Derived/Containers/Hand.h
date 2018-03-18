@@ -18,8 +18,9 @@ public:
 
     json getJSON();
 
-    std::shared_ptr<Card> findCard(const std::string& tag);
+    std::shared_ptr<Card> getCard(const std::string &tag);
     void addCard(std::shared_ptr<Card> card);
+    void removeCard(std::shared_ptr<Card> card);
 
     int count();
 
