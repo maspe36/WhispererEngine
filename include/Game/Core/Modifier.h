@@ -6,7 +6,12 @@
 #define WHISPERERENGINE_AFFECT_H
 
 
+#include <memory>
+#include "../Utilities/Exportable.h"
+
 class Modifier
+        : public Exportable,
+          public std::enable_shared_from_this<Modifier>
 {
 public:
     Modifier();

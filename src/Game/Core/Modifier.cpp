@@ -3,3 +3,9 @@
 //
 
 #include "../../../include/Game/Core/Modifier.h"
+
+Modifier::Modifier()
+= default;
+
+Modifier::~Modifier()
+= default;
