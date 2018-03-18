@@ -13,6 +13,7 @@ StartTurnMessage::StartTurnMessage(std::shared_ptr<Game> game, std::shared_ptr<P
     rawJSON[TYPE_KEY] = Message::START_TURN;
     addDataMember("opponents", opponentsJSON);
     addDataMember("player", toPlayer->getState());
+    addDataMember("gameState", game->getJSON(toPlayer));
 }
 
 StartTurnMessage::~StartTurnMessage()
