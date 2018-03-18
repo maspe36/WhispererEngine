@@ -16,6 +16,8 @@ class CreatureZone
 public:
     std::vector<std::shared_ptr<Creature>> cards;
 
+    json getJSON() override;
+
     CreatureZone();
     ~CreatureZone();
 };

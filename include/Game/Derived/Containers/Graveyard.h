@@ -14,6 +14,8 @@ class Graveyard
 public:
     std::vector<std::shared_ptr<Card>> cards;
 
+    json getJSON() override;
+
     Graveyard();
     ~Graveyard();
 };
