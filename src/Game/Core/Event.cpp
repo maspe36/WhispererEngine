@@ -4,8 +4,14 @@
 
 #include "../../../include/Game/Core/Event.h"
 
-Event::Event()
-= default;
+Event::Event(const std::shared_ptr<Game>& game)
+        : game(game)
+{
+}
 
 Event::~Event()
 = default;
+
+void Event::sendMessage()
+{
+}
