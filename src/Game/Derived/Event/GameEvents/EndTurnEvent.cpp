@@ -7,15 +7,15 @@
 #include "../../../../../include/Network/Client.h"
 #include "../../../../../include/Network/Derived/EndTurnMessage.h"
 
-EndTurnEvent::EndTurnEvent(const std::shared_ptr<Game>& game)
-        : Event(game), player(game->activePlayer)
-{
-}
-
 void EndTurnEvent::sendMessage()
 {
     EndTurnMessage endTurnMessage;
     player->client->write(endTurnMessage.getJSON());
+}
+
+EndTurnEvent::EndTurnEvent(const std::shared_ptr<Game>& game)
+        : Event(game), player(game->activePlayer)
+{
 }
 
 EndTurnEvent::~EndTurnEvent()

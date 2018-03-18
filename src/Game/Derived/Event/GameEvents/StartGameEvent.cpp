@@ -6,11 +6,6 @@
 #include "../../../../../include/Game/Core/Game.h"
 #include "../../../../../include/Network/Client.h"
 
-StartGameEvent::StartGameEvent(const std::shared_ptr<Game>& game)
-        : Event(game)
-{
-}
-
 void StartGameEvent::sendMessage()
 {
     for (const auto& player : game->players)
@@ -18,6 +13,11 @@ void StartGameEvent::sendMessage()
         StartGameMessage startGameMessage(player, game);
         player->client->write(startGameMessage.getJSON());
     }
+}
+
+StartGameEvent::StartGameEvent(const std::shared_ptr<Game>& game)
+        : Event(game)
+{
 }
 
 StartGameEvent::~StartGameEvent()
