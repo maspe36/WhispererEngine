@@ -9,13 +9,12 @@
 #include "../../../include/Game/Core/Card.h"
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Effect.h"
+#include "../../../include/Game/Core/Event.h"
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Server.h"
-#include "../../../include/Network/Message.h"
-#include "../../../include/Network/Derived/StartGameMessage.h"
-#include "../../../include/Network/Derived/StartTurnMessage.h"
-#include "../../../include/Network/Derived/EndTurnMessage.h"
 #include "../../../include/Game/Derived/Event/GameEvents/StartGameEvent.h"
+#include "../../../include/Game/Derived/Event/GameEvents/StartTurnEvent.h"
+#include "../../../include/Game/Derived/Event/GameEvents/EndTurnEvent.h"
 
 std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
 {
@@ -49,14 +48,26 @@ void Game::registerPlayers()
     }
 }
 
-void Game::eventHandler(Event event)
+void Game::eventHandler(const std::shared_ptr<Event>& event)
 {
-    history.push_back(std::make_shared<Event>(event));
+    // Make a copy of history to compare with after all events and
+    // effects from this starting event are resolved and recorded
+    std::vector<std::shared_ptr<Event>> oldHistory = history;
+
+    history.push_back(event);
     queueEffects(event);
     solveEffects();
+
+    // Send the messages to clients for all new events
+    std::vector<std::shared_ptr<Event>> historyDiff = getHistoryDifference(oldHistory);
+
+    for (const auto& env : historyDiff)
+    {
+        env->sendMessage();
+    }
 }
 
-void Game::queueEffects(Event event)
+void Game::queueEffects(const std::shared_ptr<Event>& event)
 {
     for (const auto& card : cardOrder)
     {
@@ -75,6 +86,31 @@ void Game::solveEffects()
     // Resolve the effects in the queue
 }
 
+std::vector<std::shared_ptr<Event>> Game::getHistoryDifference(const std::vector<std::shared_ptr<Event>>& oldHistory)
+{
+    std::vector<std::shared_ptr<Event>> historyDiff;
+
+    if (history.size() > oldHistory.size())
+    {
+        if (oldHistory.empty())
+        {
+            historyDiff = history;
+        }
+        else
+        {
+            auto oldHistoryEnd = std::find(history.begin(), history.end(), oldHistory.back());
+
+            // Increment this iterator one time because otherwise
+            // this iterators element is included when creating the new array
+            oldHistoryEnd++;
+
+            historyDiff = std::vector<std::shared_ptr<Event>>(oldHistoryEnd, history.end());
+        }
+    }
+
+    return historyDiff;
+}
+
 void Game::startGame()
 {
     for (const auto& player : players)
@@ -88,13 +124,14 @@ void Game::startGame()
 
     // Check for game start effects
     StartGameEvent startGameEvent(shared_from_this());
-    eventHandler(startGameEvent);
-    sendStartGameMessage();
+    eventHandler(std::make_shared<StartGameEvent>(startGameEvent));
 }
 
 void Game::changeTurn()
 {
     // Check for end turn effects
+    EndTurnEvent endTurnEvent(shared_from_this());
+    eventHandler(std::make_shared<EndTurnEvent>(endTurnEvent));
 
     for (const auto& player : players)
     {
@@ -108,8 +145,8 @@ void Game::changeTurn()
     activePlayer->startTurn();
 
     // Check for start turn effects
-
-    sendTurnMessage();
+    StartTurnEvent startTurnEvent(shared_from_this());
+    eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
 }
 
 Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
@@ -119,29 +156,3 @@ Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server>
 
 Game::~Game()
 = default;
-
-void Game::sendStartGameMessage()
-{
-    for (const auto& player : players)
-    {
-        StartGameMessage startGameMessage(player, shared_from_this());
-        player->client->write(startGameMessage.getJSON());
-    }
-}
-
-void Game::sendTurnMessage()
-{
-    for (const auto& player : players)
-    {
-        if (activePlayer == player)
-        {
-            StartTurnMessage startTurnMessage(shared_from_this(), player);
-            player->client->write(startTurnMessage.getJSON());
-        }
-        else
-        {
-            EndTurnMessage endTurnMessage;
-            player->client->write(endTurnMessage.getJSON());
-        }
-    }
-}
