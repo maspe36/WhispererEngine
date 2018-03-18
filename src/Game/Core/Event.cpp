@@ -3,3 +3,9 @@
 //
 
 #include "../../../include/Game/Core/Event.h"
+
+Event::Event()
+= default;
+
+Event::~Event()
+= default;

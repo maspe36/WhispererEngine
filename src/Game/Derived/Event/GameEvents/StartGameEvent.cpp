@@ -3,3 +3,11 @@
 //
 
 #include "../../../../../include/Game/Derived/Event/GameEvents/StartGameEvent.h"
+
+StartGameEvent::StartGameEvent(std::shared_ptr<Game> game)
+        : game(game)
+{
+}
+
+StartGameEvent::~StartGameEvent()
+= default;
