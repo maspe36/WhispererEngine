@@ -10,8 +10,6 @@
 #include "../../../../../include/Game/Core/Player.h"
 #include "../../../../../include/Game/Derived/Containers/CreatureZone.h"
 #include "../../../../../include/Game/Derived/Containers/Hand.h"
-#include "../../../../../include/Game/Derived/Containers/Deck.h"
-#include "../../../../../include/Game/Derived/Containers/Graveyard.h"
 #include "../../../../../include/Network/Client.h"
 
 void PlayCardEvent::sendMessage()
