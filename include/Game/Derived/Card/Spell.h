@@ -9,7 +9,8 @@
 #include "../../Core/Card.h"
 
 /* Represents the card type, spell. */
-class Spell : public Card
+class Spell
+        : public Card
 {
 public:
     Spell(std::string name, std::string text, Mana *mana);

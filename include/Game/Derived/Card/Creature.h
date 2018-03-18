@@ -9,7 +9,8 @@
 #include "../../Core/Card.h"
 
 /* Represents the permanent, creature. */
-class Creature : public Card
+class Creature
+        : public Card
 {
 public:
     int attackStat;
