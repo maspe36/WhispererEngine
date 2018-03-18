@@ -6,14 +6,18 @@
 #define WHISPERERENGINE_EFFECT_H
 
 #include <functional>
-
-/* A C++ function type */
-typedef std::function<void()> func;
+#include <memory>
+#include "../Utilities/Exportable.h"
+#include "Event.h"
 
 /* Holds an effects trigger condition and actual effect implementation */
 class Effect
+        : public Exportable,
+          public std::enable_shared_from_this<Effect>
 {
 public:
+    bool triggered(Event event);
+
     Effect();
     ~Effect();
 };
