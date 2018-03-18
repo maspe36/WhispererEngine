@@ -8,21 +8,23 @@
 
 #include <vector>
 #include <memory>
-#include "Containers/Deck.h"
 
 class Card;
 class Constant;
 class Creature;
+
+class CreatureZone;
+class Deck;
+class Graveyard;
 
 /* Handles a single players cards in play. */
 class Board
         : public std::enable_shared_from_this<Board>
 {
 public:
-    std::vector<std::shared_ptr<Constant>> constants;
-    std::vector<std::shared_ptr<Creature>> creatures;
+    std::shared_ptr<CreatureZone> creatures;
     std::shared_ptr<Deck> deck;
-    std::vector<std::shared_ptr<Card>> graveyard;
+    std::shared_ptr<Graveyard> graveyard;
 
     void playCard(std::shared_ptr<Card> card);
 
