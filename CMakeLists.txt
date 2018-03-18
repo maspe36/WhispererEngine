@@ -123,38 +123,14 @@ set(WHISPERER_FILES
         src/Game/Derived/Card/Spell.cpp
         include/Game/Derived/Card/Spell.h
 
-        src/Game/Derived/Event/GameEvents/DeadEvent.cpp
-        include/Game/Derived/Event/GameEvents/DeadEvent.h
-
-        src/Game/Derived/Event/GameEvents/DrawEvent.cpp
-        include/Game/Derived/Event/GameEvents/DrawEvent.h
-
         src/Game/Derived/Event/GameEvents/EndTurnEvent.cpp
         include/Game/Derived/Event/GameEvents/EndTurnEvent.h
-
-        src/Game/Derived/Event/GameEvents/StartTurnEvent.cpp
-        include/Game/Derived/Event/GameEvents/StartTurnEvent.h
 
         src/Game/Derived/Event/GameEvents/StartGameEvent.cpp
         include/Game/Derived/Event/GameEvents/StartGameEvent.h
 
-        src/Game/Derived/Event/PlayerEvents/AttackEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/AttackEvent.h
-
-        src/Game/Derived/Event/PlayerEvents/DamageEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/DamageEvent.h
-
-        src/Game/Derived/Event/PlayerEvents/HealEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/HealEvent.h
-
-        src/Game/Derived/Event/PlayerEvents/DestroyEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/DestroyEvent.h
-
-        src/Game/Derived/Event/PlayerEvents/PlayEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/PlayEvent.h
-
-        src/Game/Derived/Event/PlayerEvents/SelectionEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/SelectionEvent.h
+        src/Game/Derived/Event/GameEvents/StartTurnEvent.cpp
+        include/Game/Derived/Event/GameEvents/StartTurnEvent.h
 
         src/Game/Python/Factory.cpp
         include/Game/Python/Factory.h
