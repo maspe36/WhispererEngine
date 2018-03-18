@@ -4,7 +4,7 @@
 
 #include "../../../include/Game/Core/Effect.h"
 
-bool Effect::triggered(Event event)
+bool Effect::triggered(const std::shared_ptr<Event>& event)
 {
     return false;
 }

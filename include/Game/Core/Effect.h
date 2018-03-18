@@ -16,7 +16,7 @@ class Effect
           public std::enable_shared_from_this<Effect>
 {
 public:
-    bool triggered(Event event);
+    bool triggered(const std::shared_ptr<Event>& event);
 
     Effect();
     ~Effect();
