@@ -8,7 +8,6 @@
 
 #include "../../../Core/Event.h"
 #include "../../../../Network/Derived/StartGameMessage.h"
-#include <memory>
 
 class Game;
 
@@ -16,9 +15,9 @@ class StartGameEvent
         : public Event
 {
 public:
-    std::shared_ptr<Game> game;
+    void sendMessage() override;
 
-    explicit StartGameEvent(std::shared_ptr<Game> game);
+    explicit StartGameEvent(const std::shared_ptr<Game>& game);
     ~StartGameEvent();
 };
 
