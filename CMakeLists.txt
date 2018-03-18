@@ -93,6 +93,9 @@ set(WHISPERER_FILES
         src/Game/Core/Card.cpp
         include/Game/Core/Card.h
 
+        src/Game/Core/Container.cpp
+        include/Game/Core/Container.h
+
         src/Game/Core/Effect.cpp
         include/Game/Core/Effect.h
 
@@ -108,11 +111,17 @@ set(WHISPERER_FILES
         src/Game/Core/Player.cpp
         include/Game/Core/Player.h
 
-        src/Game/Core/Containers/Deck.cpp
-        include/Game/Core/Containers/Deck.h
+        src/Game/Derived/Containers/Deck.cpp
+        include/Game/Derived/Containers/Deck.h
 
-        src/Game/Core/Containers/Hand.cpp
-        include/Game/Core/Containers/Hand.h
+        src/Game/Derived/Containers/Graveyard.cpp
+        include/Game/Derived/Containers/Graveyard.h
+
+        src/Game/Derived/Containers/Hand.cpp
+        include/Game/Derived/Containers/Hand.h
+
+        src/Game/Derived/Containers/CreatureZone.cpp
+        include/Game/Derived/Containers/CreatureZone.h
 
         src/Game/Derived/Card/Constant.cpp
         include/Game/Derived/Card/Constant.h
@@ -131,6 +140,9 @@ set(WHISPERER_FILES
 
         src/Game/Derived/Event/GameEvents/StartTurnEvent.cpp
         include/Game/Derived/Event/GameEvents/StartTurnEvent.h
+
+        src/Game/Derived/Event/PlayerEvents/PlayCardEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h
 
         src/Game/Python/Factory.cpp
         include/Game/Python/Factory.h
@@ -152,6 +164,9 @@ set(WHISPERER_FILES
 
         include/Network/Derived/AuthMessage.h
         src/Network/Derived/AuthMessage.cpp
+
+        src/Network/Derived/CardMovedMessage.cpp
+        include/Network/Derived/CardMovedMessage.h
 
         src/Network/Derived/ChatMessage.cpp
         include/Network/Derived/ChatMessage.h

@@ -2,7 +2,7 @@
 // Created by Sam on 3/1/2018.
 //
 
-#include "../../../../include/Game/Core/Containers/Hand.h"
+#include "../../../../include/Game/Derived/Containers/Hand.h"
 #include "../../../../include/Game/Core/Card.h"
 
 json Hand::getJSON()

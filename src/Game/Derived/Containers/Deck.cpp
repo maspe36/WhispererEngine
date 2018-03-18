@@ -5,7 +5,7 @@
 #include <random>
 #include <utility>
 
-#include "../../../../include/Game/Core/Containers/Deck.h"
+#include "../../../../include/Game/Derived/Containers/Deck.h"
 #include "../../../../include/Game/Core/Card.h"
 
 json Deck::getJSON()

@@ -6,13 +6,12 @@
 #define WHISPERERENGINE_DECK_H
 
 
-#include "../../Utilities/Exportable.h"
+#include "../../Core/Container.h"
 
 class Card;
 
 class Deck
-        : public Exportable,
-          public std::enable_shared_from_this<Deck>
+        : public Container
 {
 public:
     std::string id;

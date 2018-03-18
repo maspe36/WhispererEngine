@@ -6,13 +6,12 @@
 #define WHISPERERENGINE_HAND_H
 
 
-#include "../../Utilities/Exportable.h"
+#include "../../Core/Container.h"
 
 class Card;
 
 class Hand
-        : public Exportable,
-          public std::enable_shared_from_this<Hand>
+        : public Container
 {
 public:
     std::vector<std::shared_ptr<Card>> cards;
