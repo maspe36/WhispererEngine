@@ -40,11 +40,12 @@ public:
     void startGame();
     void changeTurn();
 
+    void eventHandler(const std::shared_ptr<Event>& event);
+
     Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server);
     virtual ~Game();
 
 private:
-    void eventHandler(const std::shared_ptr<Event>& event);
     void queueEffects(const std::shared_ptr<Event>& event);
     void solveEffects();
     std::vector<std::shared_ptr<Event>> getHistoryDifference(const std::vector<std::shared_ptr<Event>>& oldHistory);

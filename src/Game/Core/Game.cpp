@@ -85,14 +85,6 @@ void Game::changeTurn()
     eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
 }
 
-Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
-        : players(std::move(players)), server(std::move(server))
-{
-}
-
-Game::~Game()
-= default;
-
 void Game::eventHandler(const std::shared_ptr<Event>& event)
 {
     // Make a copy of history to compare with after all events and
@@ -111,6 +103,14 @@ void Game::eventHandler(const std::shared_ptr<Event>& event)
         env->sendMessage();
     }
 }
+
+Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
+        : players(std::move(players)), server(std::move(server))
+{
+}
+
+Game::~Game()
+= default;
 
 void Game::queueEffects(const std::shared_ptr<Event>& event)
 {
