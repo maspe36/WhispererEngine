@@ -14,7 +14,7 @@ StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared
     {
         for (auto opponentJSON : opponentsJSON)
         {
-            if (opponentJSON["playerID"] == player->tag)
+            if (opponentJSON["playerTag"] == player->tag)
             {
                 opponentJSON["avatarURL"] = player->client->avatarURL;
             }

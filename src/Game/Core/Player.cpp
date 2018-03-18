@@ -79,7 +79,7 @@ json Player::getState()
 {
     json playerJSON;
 
-    playerJSON["playerID"] = tag;
+    playerJSON["playerTag"] = tag;
     playerJSON["hand"] = hand->getJSON();
     playerJSON["health"] = health;
     playerJSON["deckCount"] = board->deck->count();
@@ -92,7 +92,7 @@ json Player::getOpponentState()
 {
     json opponentJSON;
 
-    opponentJSON["playerID"] = tag;
+    opponentJSON["playerTag"] = tag;
     opponentJSON["name"] = name;
     opponentJSON["health"] = health;
     opponentJSON["handCount"] = hand->count();
