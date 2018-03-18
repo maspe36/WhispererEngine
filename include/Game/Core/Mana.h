@@ -23,6 +23,7 @@ public:
     void payMana(Mana mana);
     void increaseMana(Mana mana);
     bool canPay(Mana mana);
+    int getTotalCount();
 
     json getJSON();
 

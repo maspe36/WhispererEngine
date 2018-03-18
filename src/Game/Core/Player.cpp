@@ -52,7 +52,11 @@ void Player::playCard(const json &rawJSON)
             availableMana.payMana(card->mana);
             board->playCard(card);
 
-            totalMana.increaseMana(card->mana);
+            if (totalMana.getTotalCount() <= 15)
+            {
+                totalMana.increaseMana(card->mana);
+            }
+
             game->cardOrder.push_back(card);
 
             PlayCardEvent playCardEvent(game, card);
