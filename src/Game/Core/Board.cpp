@@ -25,5 +25,15 @@ Board::Board()
 {
 }
 
+json Board::getJSON()
+{
+    json boardJSON;
+
+    boardJSON["creatures"] = creatures->getJSON();
+    boardJSON["graveyard"] = graveyard->getJSON();
+
+    return boardJSON;
+}
+
 Board::~Board()
 = default;

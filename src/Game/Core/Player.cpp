@@ -84,6 +84,7 @@ json Player::getState()
     playerJSON["health"] = health;
     playerJSON["deckCount"] = board->deck->count();
     playerJSON["mana"] = getManaJSON();
+    playerJSON["board"] = board->getJSON();
 
     return playerJSON;
 }
@@ -98,6 +99,7 @@ json Player::getOpponentState()
     opponentJSON["handCount"] = hand->count();
     opponentJSON["deckCount"] = board->deck->count();
     opponentJSON["mana"] = getManaJSON();
+    opponentJSON["board"] = board->getJSON();
 
     return opponentJSON;
 }
