@@ -12,6 +12,9 @@
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Derived/ChatMessage.h"
 #include "../../../include/Network/Derived/PlayCardMessage.h"
+#include "../../../include/Game/Derived/Containers/Deck.h"
+#include "../../../include/Game/Derived/Containers/Hand.h"
+#include "../../../include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h"
 
 void Player::draw()
 {
@@ -52,8 +55,8 @@ void Player::playCard(const json &rawJSON)
             totalMana.increaseMana(card->mana);
             game->cardOrder.push_back(card);
 
-            // Check for play card effects
-            // Send updated state
+            PlayCardEvent playCardEvent(game, card);
+            game->eventHandler(std::make_shared<PlayCardEvent>(playCardEvent));
         }
     }
 }

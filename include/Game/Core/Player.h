@@ -6,10 +6,10 @@
 #define WHISPERERENGINE_PLAYER_H
 
 
-#include "Containers/Hand.h"
 #include "Mana.h"
 #include "Board.h"
 #include "../../Network/Message.h"
+#include "../Utilities/Exportable.h"
 
 #include <string>
 #include <vector>
@@ -17,6 +17,7 @@
 class Card;
 class Client;
 class Game;
+class Hand;
 
 /* Represents a single player. */
 class Player
