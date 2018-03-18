@@ -6,13 +6,16 @@
 #include <utility>
 
 #include "../../../include/Game/Core/Game.h"
+#include "../../../include/Game/Core/Card.h"
 #include "../../../include/Game/Core/Player.h"
+#include "../../../include/Game/Core/Effect.h"
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Server.h"
 #include "../../../include/Network/Message.h"
 #include "../../../include/Network/Derived/StartGameMessage.h"
 #include "../../../include/Network/Derived/StartTurnMessage.h"
 #include "../../../include/Network/Derived/EndTurnMessage.h"
+#include "../../../include/Game/Derived/Event/GameEvents/StartGameEvent.h"
 
 std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
 {
@@ -46,6 +49,32 @@ void Game::registerPlayers()
     }
 }
 
+void Game::eventHandler(Event event)
+{
+    history.push_back(std::make_shared<Event>(event));
+    queueEffects(event);
+    solveEffects();
+}
+
+void Game::queueEffects(Event event)
+{
+    for (const auto& card : cardOrder)
+    {
+        for (const auto& effect : card->effects)
+        {
+            if (effect->triggered(event))
+            {
+                stack.push_back(effect);
+            }
+        }
+    }
+}
+
+void Game::solveEffects()
+{
+    // Resolve the effects in the queue
+}
+
 void Game::startGame()
 {
     for (const auto& player : players)
@@ -58,7 +87,8 @@ void Game::startGame()
     activePlayer = players.front();
 
     // Check for game start effects
-
+    StartGameEvent startGameEvent(shared_from_this());
+    eventHandler(startGameEvent);
     sendStartGameMessage();
 }
 
