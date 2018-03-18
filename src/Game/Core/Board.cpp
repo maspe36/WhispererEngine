@@ -18,7 +18,12 @@ void Board::playCard(std::shared_ptr<Card> card)
 }
 
 Board::Board()
-= default;
+        : creatures(std::make_shared<CreatureZone>()),
+          deck(std::make_shared<Deck>()),
+          graveyard(std::make_shared<Graveyard>())
+
+{
+}
 
 Board::~Board()
 = default;
