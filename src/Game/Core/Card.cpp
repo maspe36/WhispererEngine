@@ -5,16 +5,6 @@
 #include "../../../include/Game/Core/Card.h"
 
 
-void Card::addEffect(Effect *effect)
-{
-    effects.push_back(effect);
-}
-
-void Card::addModifier(Modifier *modifier)
-{
-    modifiers.push_back(modifier);
-}
-
 json Card::getJSON()
 {
     json rawJSON;

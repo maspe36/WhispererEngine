@@ -27,11 +27,8 @@ public:
     std::string text;
     Mana mana;
     std::shared_ptr<Player> player;
-    std::vector<Effect*> effects;
-    std::vector<Modifier*> modifiers;
-
-    void addEffect(Effect *effect);
-    void addModifier(Modifier *modifier);
+    std::vector<std::shared_ptr<Effect>> effects;
+    std::vector<std::shared_ptr<Modifier>> modifiers;
 
     json getJSON() override;
 
