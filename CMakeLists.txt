@@ -123,12 +123,6 @@ set(WHISPERER_FILES
         src/Game/Derived/Card/Spell.cpp
         include/Game/Derived/Card/Spell.h
 
-        src/Game/Derived/Effect/TriggerEffect.cpp
-        include/Game/Derived/Effect/TriggerEffect.h
-
-        src/Game/Derived/Effect/AuraEffect.cpp
-        include/Game/Derived/Effect/AuraEffect.h
-
         src/Game/Derived/Event/GameEvents/DeadEvent.cpp
         include/Game/Derived/Event/GameEvents/DeadEvent.h
 
