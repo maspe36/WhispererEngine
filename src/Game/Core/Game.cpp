@@ -9,7 +9,6 @@
 #include "../../../include/Game/Core/Card.h"
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Effect.h"
-#include "../../../include/Game/Core/Event.h"
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Server.h"
 #include "../../../include/Game/Derived/Event/GameEvents/StartGameEvent.h"
@@ -47,6 +46,52 @@ void Game::registerPlayers()
         player->game = shared_from_this();
     }
 }
+
+void Game::startGame()
+{
+    for (const auto& player : players)
+    {
+        player->board->deck->shuffle();
+        player->draw(5);
+    }
+
+    std::shuffle(players.begin(), players.end(), std::mt19937(std::random_device()()));
+    activePlayer = players.front();
+
+    // Check for game start effects
+    StartGameEvent startGameEvent(shared_from_this());
+    eventHandler(std::make_shared<StartGameEvent>(startGameEvent));
+}
+
+void Game::changeTurn()
+{
+    // Check for end turn effects
+    EndTurnEvent endTurnEvent(shared_from_this());
+    eventHandler(std::make_shared<EndTurnEvent>(endTurnEvent));
+
+    for (const auto& player : players)
+    {
+        if (player->tag != activePlayer->tag)
+        {
+            activePlayer = player;
+            break;
+        }
+    }
+
+    activePlayer->startTurn();
+
+    // Check for start turn effects
+    StartTurnEvent startTurnEvent(shared_from_this());
+    eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
+}
+
+Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
+        : players(std::move(players)), server(std::move(server))
+{
+}
+
+Game::~Game()
+= default;
 
 void Game::eventHandler(const std::shared_ptr<Event>& event)
 {
@@ -110,49 +155,3 @@ std::vector<std::shared_ptr<Event>> Game::getHistoryDifference(const std::vector
 
     return historyDiff;
 }
-
-void Game::startGame()
-{
-    for (const auto& player : players)
-    {
-        player->board->deck->shuffle();
-        player->draw(5);
-    }
-
-    std::shuffle(players.begin(), players.end(), std::mt19937(std::random_device()()));
-    activePlayer = players.front();
-
-    // Check for game start effects
-    StartGameEvent startGameEvent(shared_from_this());
-    eventHandler(std::make_shared<StartGameEvent>(startGameEvent));
-}
-
-void Game::changeTurn()
-{
-    // Check for end turn effects
-    EndTurnEvent endTurnEvent(shared_from_this());
-    eventHandler(std::make_shared<EndTurnEvent>(endTurnEvent));
-
-    for (const auto& player : players)
-    {
-        if (player->tag != activePlayer->tag)
-        {
-            activePlayer = player;
-            break;
-        }
-    }
-
-    activePlayer->startTurn();
-
-    // Check for start turn effects
-    StartTurnEvent startTurnEvent(shared_from_this());
-    eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
-}
-
-Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
-        : players(std::move(players)), server(std::move(server))
-{
-}
-
-Game::~Game()
-= default;
