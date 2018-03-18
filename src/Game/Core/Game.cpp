@@ -15,6 +15,38 @@
 #include "../../../include/Game/Derived/Event/GameEvents/StartTurnEvent.h"
 #include "../../../include/Game/Derived/Event/GameEvents/EndTurnEvent.h"
 
+json Game::getJSON(const std::shared_ptr<Player>& toPlayer)
+{
+    json gameJSON;
+
+    gameJSON["players"] = getPlayersJSON(toPlayer);
+
+    return gameJSON;
+}
+
+std::vector<json> Game::getPlayersJSON(std::shared_ptr<Player> toPlayer)
+{
+    std::vector<json> playersJSON;
+
+    for (const auto& player : players)
+    {
+        json playerJSON;
+
+        if (player->tag == toPlayer->tag)
+        {
+            playerJSON = player->getState();
+        }
+        else
+        {
+            playerJSON = player->getOpponentState();
+        }
+
+        playersJSON.push_back(playerJSON);
+    }
+
+    return playersJSON;
+}
+
 std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
 {
     std::vector<json> opponentsJSON;

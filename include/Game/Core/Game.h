@@ -12,6 +12,7 @@
 #include <typeindex>
 #include "Event.h"
 #include "../../Network/Message.h"
+#include "../Utilities/Exportable.h"
 
 class Card;
 class Event;
@@ -22,7 +23,8 @@ class Server;
 
 /* Overall handler for game interactions. */
 class Game
-        : public std::enable_shared_from_this<Game>
+        : public Exportable,
+          public std::enable_shared_from_this<Game>
 {
 public:
     std::vector<std::shared_ptr<Player>> players;
@@ -32,6 +34,8 @@ public:
     std::vector<std::shared_ptr<Card>> cardOrder;
     std::shared_ptr<Server> server;
 
+    json getJSON(const std::shared_ptr<Player>& toPlayer);
+    std::vector<json> getPlayersJSON(std::shared_ptr<Player> toPlayer);
     std::vector<json> getOpponentJSON(std::shared_ptr<Player> toPlayer);
 
     void writePlayers(const std::string &data);
