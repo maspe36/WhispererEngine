@@ -23,9 +23,7 @@ PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
         .def_readwrite("mana", &Card::mana)
         .def_readwrite("player", &Card::player)
         .def_readwrite("effects", &Card::effects)
-        .def_readwrite("modifiers", &Card::modifiers)
-        .def("addEffect", &Card::addEffect)
-        .def("addModifier", &Card::addModifier);
+        .def_readwrite("modifiers", &Card::modifiers);
 
     py::class_<Constant, Card, std::shared_ptr<Constant>> (m, "Constant")
         .def(py::init<const std::string &, const std::string &, const Mana &>(),
