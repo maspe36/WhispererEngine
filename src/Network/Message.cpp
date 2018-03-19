@@ -88,7 +88,7 @@ Message::Message(std::string type)
 Message::Message()
 {
     rawJSON[TYPE_KEY] = "";
-    rawJSON[DATA_KEY] = nullptr;
+    rawJSON[DATA_KEY] = json::object();
 }
 
 Message::~Message()
