@@ -92,8 +92,10 @@ void Player::fightPlayer(const json &rawJSON)
     // You can't attack yourself!
     if (player != shared_from_this())
     {
-        creature->attack(player);
+        throw std::runtime_error("You cannot attack yourself");
     }
+
+    creature->attack(player);
 
     if (player->health <= 0)
     {
