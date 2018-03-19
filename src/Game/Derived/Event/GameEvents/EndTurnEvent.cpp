@@ -9,7 +9,7 @@
 
 void EndTurnEvent::sendMessage()
 {
-    EndTurnMessage endTurnMessage;
+    EndTurnMessage endTurnMessage(game, player);
     player->client->write(endTurnMessage.getJSON());
 }
 
