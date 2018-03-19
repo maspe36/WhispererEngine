@@ -34,8 +34,9 @@ PYBIND11_EMBEDDED_MODULE(Whisperer, m) {
                  py::arg("name"), py::arg("text"), py::arg("mana"), py::arg("attackStat"), py::arg("defenseStat"))
             .def_readwrite("attackStat", &Creature::attackStat)
             .def_readwrite("defenseStat", &Creature::defenseStat)
-            .def_readwrite("attacks", &Creature::attacks)
-            .def_readwrite("remainingAttacks", &Creature::remainingAttacks);
+            .def_readwrite("availableAttacks", &Creature::availableAttacks)
+            .def_readwrite("usedAttacks", &Creature::usedAttacks)
+            .def_readwrite("attacks", &Creature::attacks);
 
     py::class_<Mana> (m, "Mana")
             .def(py::init<const int &, const int &, const int &, const int &, const int &, const int &>(),

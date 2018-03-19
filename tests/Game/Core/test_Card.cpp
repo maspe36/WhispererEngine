@@ -63,7 +63,7 @@ TEST_CASE("Create cards from modules")
 
         REQUIRE(creature->attackStat == 2);
         REQUIRE(creature->defenseStat == 1);
-        REQUIRE(creature->attacks == 0);
-        REQUIRE(creature->remainingAttacks == 0);
+        REQUIRE(creature->availableAttacks == 0);
+        REQUIRE(creature->usedAttacks == 0);
     }
 }

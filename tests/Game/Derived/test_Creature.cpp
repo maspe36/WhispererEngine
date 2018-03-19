@@ -28,8 +28,8 @@ TEST_CASE("Export Creature")
 
     REQUIRE(result["attackStat"] == creature->attackStat);
     REQUIRE(result["defenseStat"] == creature->defenseStat);
-    REQUIRE(result["attacks"] == creature->attacks);
-    REQUIRE(result["remainingAttacks"] == creature->remainingAttacks);
+    REQUIRE(result["availableAttacks"] == creature->availableAttacks);
+    REQUIRE(result["usedAttacks"] == creature->usedAttacks);
 
     std::cout << result.dump() << std::endl;
 }

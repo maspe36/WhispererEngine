@@ -12,27 +12,42 @@ json Creature::getJSON()
 
     rawJSON["attackStat"] = attackStat;
     rawJSON["defenseStat"] = defenseStat;
+    rawJSON["availableAttacks"] = availableAttacks;
+    rawJSON["usedAttacks"] = usedAttacks;
     rawJSON["attacks"] = attacks;
-    rawJSON["remainingAttacks"] = remainingAttacks;
 
     return rawJSON;
 }
 
 void Creature::attack(const std::shared_ptr<Player>& player)
 {
-    player->health -= attackStat;
+    if (canAttack())
+    {
+        player->health -= attackStat;
+        availableAttacks++;
+    }
 }
 
 void Creature::attack(const std::shared_ptr<Creature>& creature)
 {
-    creature->defenseStat -= defenseStat;
+    if (canAttack())
+    {
+        creature->defenseStat -= defenseStat;
+        availableAttacks++;
+    }
 }
 
 Creature::Creature(std::string name, std::string text, Mana mana, int attackStat, int defenseStat)
         : Card(std::move(name), std::move(text), mana),
-          attackStat(attackStat), defenseStat(defenseStat), attacks(0), remainingAttacks(0)
+          attackStat(attackStat), defenseStat(defenseStat), availableAttacks(0), usedAttacks(0), attacks(1)
 {
+}
 
+bool Creature::canAttack()
+{
+    // A creature can attack if it has attacked less than the number of attacks available to it
+    // and if the number of available attacks is greater than 0
+    return (usedAttacks < availableAttacks && availableAttacks > 0);
 }
 
 Creature::~Creature()

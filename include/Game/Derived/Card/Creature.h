@@ -15,13 +15,15 @@ class Creature
 public:
     int attackStat;
     int defenseStat;
+    int availableAttacks;
+    int usedAttacks;
     int attacks;
-    int remainingAttacks;
 
     json getJSON() override;
 
     void attack(const std::shared_ptr<Player>& player);
     void attack(const std::shared_ptr<Creature>& creature);
+    bool canAttack();
 
     Creature(std::string name, std::string text, Mana mana, int attackStat, int defenseStat);
     ~Creature();
