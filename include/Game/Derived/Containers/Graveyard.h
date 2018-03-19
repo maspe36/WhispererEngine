@@ -12,10 +12,6 @@ class Graveyard
         : public Container
 {
 public:
-    std::vector<std::shared_ptr<Card>> cards;
-
-    json getJSON() override;
-
     Graveyard();
     ~Graveyard();
 };

@@ -26,11 +26,6 @@ json Deck::getJSON()
     return rawJSON;
 }
 
-void Deck::shuffle()
-{
-    std::shuffle(cards.begin(), cards.end(), std::mt19937(std::random_device()()));
-}
-
 std::shared_ptr<Card> Deck::draw()
 {
     if (!cards.empty())
@@ -43,18 +38,13 @@ std::shared_ptr<Card> Deck::draw()
 }
 
 Deck::Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards)
-        : id(std::move(deckID)), cards(std::move(cards))
+        : id(std::move(deckID)), Container(cards)
 {
 }
 
 Deck::Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards)
-        : name(std::move(deckName)), id(std::move(deckID)), cards(std::move(cards))
+        : name(std::move(deckName)), id(std::move(deckID)), Container(cards)
 {
-}
-
-int Deck::count()
-{
-    return cards.size();
 }
 
 Deck::Deck()

@@ -8,16 +8,10 @@
 
 #include "../../Core/Container.h"
 
-class Creature;
-
 class CreatureZone
         : public Container
 {
 public:
-    std::vector<std::shared_ptr<Creature>> cards;
-
-    json getJSON() override;
-
     CreatureZone();
     ~CreatureZone();
 };

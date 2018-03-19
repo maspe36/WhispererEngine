@@ -15,6 +15,17 @@ class Container
       public std::enable_shared_from_this<Container>
 {
 public:
+    std::vector<std::shared_ptr<Card>> cards;
+
+    json getJSON() override;
+
+    std::shared_ptr<Card> findCard(const std::string& tag);
+    int count();
+    void shuffle();
+    void addCard(std::shared_ptr<Card> card);
+    void removeCard(std::shared_ptr<Card> card);
+
+    Container(const std::vector<std::shared_ptr<Card>>& cards);
     Container();
     virtual ~Container();
 };
