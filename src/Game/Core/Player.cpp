@@ -90,7 +90,7 @@ void Player::fightPlayer(const json &rawJSON)
     auto creature = std::dynamic_pointer_cast<Creature>(card);
 
     // You can't attack yourself!
-    if (player != shared_from_this())
+    if (player == shared_from_this())
     {
         throw std::runtime_error("You cannot attack yourself");
     }
