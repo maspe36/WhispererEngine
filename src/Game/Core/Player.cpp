@@ -89,7 +89,11 @@ void Player::fightPlayer(const json &rawJSON)
     auto card = board->creatures->findCard(fightPlayerMessage.cardTag);
     auto creature = std::dynamic_pointer_cast<Creature>(card);
 
-    creature->attack(player);
+    // You can't attack yourself!
+    if (player != shared_from_this())
+    {
+        creature->attack(player);
+    }
 
     if (player->health <= 0)
     {
