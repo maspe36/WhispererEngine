@@ -181,6 +181,7 @@ void Client::assembleProtocolMap()
     gameFunctions[Message::CHAT] = &Player::sendChatMessage;
     gameFunctions[Message::PLAY_CARD] = &Player::playCard;
     gameFunctions[Message::STOP_TURN] = &Player::endTurn;
+    gameFunctions[Message::FIGHT_PLAYER] = &Player::fightPlayer;
 }
 
 void Client::lobbyListen()

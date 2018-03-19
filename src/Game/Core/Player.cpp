@@ -8,13 +8,15 @@
 #include "../../../include/Game/Core/Card.h"
 #include "../../../include/Game/Core/Player.h"
 #include "../../../include/Game/Core/Game.h"
-#include "../../../include/Game/Core/Board.h"
+#include "../../../include/Game/Derived/Card/Creature.h"
+#include "../../../include/Game/Derived/Containers/Deck.h"
+#include "../../../include/Game/Derived/Containers/Hand.h"
+#include "../../../include/Game/Derived/Containers/CreatureZone.h"
+#include "../../../include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h"
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Derived/ChatMessage.h"
 #include "../../../include/Network/Derived/PlayCardMessage.h"
-#include "../../../include/Game/Derived/Containers/Deck.h"
-#include "../../../include/Game/Derived/Containers/Hand.h"
-#include "../../../include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h"
+#include "../../../include/Network/Derived/FightPlayerMessage.h"
 
 void Player::draw()
 {
@@ -45,7 +47,7 @@ void Player::playCard(const json &rawJSON)
     if (shared_from_this() == game->activePlayer)
     {
         PlayCardMessage moveCardMessage(rawJSON);
-        auto card = hand->getCard(moveCardMessage.cardTag);
+        auto card = hand->findCard(moveCardMessage.cardTag);
 
         if (availableMana.canPay(card->mana))
         {
@@ -78,6 +80,21 @@ void Player::sendChatMessage(const json &rawJSON)
     chatMessage.rawJSON[Message::DATA_KEY]["text"] = name + ": " + chatMessage.text;
 
     game->writePlayers(chatMessage.getJSON());
+}
+
+void Player::fightPlayer(const json &rawJSON)
+{
+    FightPlayerMessage fightPlayerMessage(rawJSON);
+    auto player = game->findPlayer(fightPlayerMessage.attackingPlayerTag);
+    auto card = board->creatures->findCard(fightPlayerMessage.cardTag);
+    auto creature = std::dynamic_pointer_cast<Creature>(card);
+
+    creature->attack(player);
+
+    if (player->health <= 0)
+    {
+        // End the game
+    }
 }
 
 json Player::getState()

@@ -46,6 +46,7 @@ public:
     void playCard(const json &rawJSON);
     void endTurn(const json &rawJSON);
     void sendChatMessage(const json& rawJSON);
+    void fightPlayer(const json& rawJSON);
 
     json getState();
     json getOpponentState();
