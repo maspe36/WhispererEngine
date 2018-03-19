@@ -20,6 +20,9 @@ public:
 
     json getJSON() override;
 
+    void attack(const std::shared_ptr<Player>& player);
+    void attack(const std::shared_ptr<Creature>& creature);
+
     Creature(std::string name, std::string text, Mana mana, int attackStat, int defenseStat);
     ~Creature();
 };

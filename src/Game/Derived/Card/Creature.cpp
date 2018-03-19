@@ -3,7 +3,7 @@
 //
 
 #include "../../../../include/Game/Derived/Card/Creature.h"
-#include <utility>
+#include "../../../../include/Game/Core/Player.h"
 
 
 json Creature::getJSON()
@@ -16,6 +16,16 @@ json Creature::getJSON()
     rawJSON["remainingAttacks"] = remainingAttacks;
 
     return rawJSON;
+}
+
+void Creature::attack(const std::shared_ptr<Player>& player)
+{
+    player->health -= attackStat;
+}
+
+void Creature::attack(const std::shared_ptr<Creature>& creature)
+{
+    creature->defenseStat -= defenseStat;
 }
 
 Creature::Creature(std::string name, std::string text, Mana mana, int attackStat, int defenseStat)
