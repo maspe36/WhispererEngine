@@ -25,7 +25,7 @@ public:
     void addCard(std::shared_ptr<Card> card);
     void removeCard(std::shared_ptr<Card> card);
 
-    Container(const std::vector<std::shared_ptr<Card>>& cards);
+    explicit Container(const std::vector<std::shared_ptr<Card>>& cards);
     Container();
     virtual ~Container();
 };
