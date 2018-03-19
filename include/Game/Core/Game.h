@@ -38,6 +38,7 @@ public:
     std::vector<json> getPlayersJSON(std::shared_ptr<Player> toPlayer);
     std::vector<json> getOpponentJSON(std::shared_ptr<Player> toPlayer);
 
+    std::shared_ptr<Player> findPlayer(const std::string& tag);
     void writePlayers(const std::string &data);
     void registerPlayers();
 

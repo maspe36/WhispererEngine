@@ -63,6 +63,19 @@ std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
     return opponentsJSON;
 }
 
+std::shared_ptr<Player> Game::findPlayer(const std::string &tag)
+{
+    for (const auto& player : players)
+    {
+        if (player->tag == tag)
+        {
+            return player;
+        }
+    }
+
+    throw std::runtime_error("No player with this tag (" + tag + ") was found");
+}
+
 void Game::writePlayers(const std::string &data)
 {
     for (const auto& player : players)
