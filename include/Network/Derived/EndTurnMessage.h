@@ -8,11 +8,14 @@
 
 #include "../Message.h"
 
+class Game;
+class Player;
+
 class EndTurnMessage
         : public Message
 {
 public:
-    explicit EndTurnMessage();
+    explicit EndTurnMessage(std::shared_ptr<Game> game, std::shared_ptr<Player> toPlayer);
     ~EndTurnMessage() override;
 };
 
