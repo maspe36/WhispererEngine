@@ -34,12 +34,23 @@ void Player::draw(int count)
 void Player::startTurn()
 {
     refillMana();
+    refreshCreatures();
     draw();
 }
 
 void Player::refillMana()
 {
     availableMana = totalMana;
+}
+
+void Player::refreshCreatures()
+{
+    for (const auto& card : board->creatures->cards)
+    {
+        const auto& creature = std::dynamic_pointer_cast<Creature>(card);
+        creature->availableAttacks = creature->attacks;
+        creature->usedAttacks = 0;
+    }
 }
 
 void Player::playCard(const json &rawJSON)

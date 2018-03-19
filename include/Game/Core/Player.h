@@ -42,6 +42,7 @@ public:
     void draw(int count);
     void startTurn();
     void refillMana();
+    void refreshCreatures();
 
     void playCard(const json &rawJSON);
     void endTurn(const json &rawJSON);
