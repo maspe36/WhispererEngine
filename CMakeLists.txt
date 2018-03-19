@@ -144,6 +144,9 @@ set(WHISPERER_FILES
         src/Game/Derived/Event/PlayerEvents/PlayCardEvent.cpp
         include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h
 
+        src/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.h
+
         src/Game/Python/Factory.cpp
         include/Game/Python/Factory.h
 
@@ -179,6 +182,9 @@ set(WHISPERER_FILES
 
         src/Network/Derived/PlayCardMessage.cpp
         include/Network/Derived/PlayCardMessage.h
+
+        src/Network/Derived/PlayerAttackedMessage.cpp
+        include/Network/Derived/PlayerAttackedMessage.h
 
         src/Network/Derived/QueueMessage.cpp
         include/Network/Derived/QueueMessage.h
