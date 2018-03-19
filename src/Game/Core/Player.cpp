@@ -17,6 +17,7 @@
 #include "../../../include/Network/Derived/ChatMessage.h"
 #include "../../../include/Network/Derived/PlayCardMessage.h"
 #include "../../../include/Network/Derived/FightPlayerMessage.h"
+#include "../../../include/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.h"
 
 void Player::draw()
 {
@@ -107,6 +108,9 @@ void Player::fightPlayer(const json &rawJSON)
     }
 
     creature->attack(player);
+
+    PlayerAttackedEvent playerAttackedEvent(game, card, player);
+    game->eventHandler(std::make_shared<PlayerAttackedEvent>(playerAttackedEvent));
 
     if (player->health <= 0)
     {
