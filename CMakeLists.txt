@@ -174,6 +174,9 @@ set(WHISPERER_FILES
         src/Network/Derived/EndTurnMessage.cpp
         include/Network/Derived/EndTurnMessage.h
 
+        src/Network/Derived/FightPlayerMessage.cpp
+        include/Network/Derived/FightPlayerMessage.h
+
         src/Network/Derived/PlayCardMessage.cpp
         include/Network/Derived/PlayCardMessage.h
 
