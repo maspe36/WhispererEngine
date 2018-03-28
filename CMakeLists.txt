@@ -141,6 +141,9 @@ set(WHISPERER_FILES
         src/Game/Derived/Event/GameEvents/StartTurnEvent.cpp
         include/Game/Derived/Event/GameEvents/StartTurnEvent.h
 
+        src/Game/Derived/Event/PlayerEvents/DrawEvent.cpp
+        include/Game/Derived/Event/PlayerEvents/DrawEvent.h
+
         src/Game/Derived/Event/PlayerEvents/PlayCardEvent.cpp
         include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h
 
@@ -173,6 +176,9 @@ set(WHISPERER_FILES
 
         src/Network/Derived/ChatMessage.cpp
         include/Network/Derived/ChatMessage.h
+
+        src/Network/Derived/DrawMessage.cpp
+        include/Network/Derived/DrawMessage.h
 
         src/Network/Derived/EndTurnMessage.cpp
         include/Network/Derived/EndTurnMessage.h
