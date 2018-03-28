@@ -12,8 +12,6 @@
 #include "../../../include/Network/Client.h"
 #include "../../../include/Network/Server.h"
 #include "../../../include/Game/Derived/Event/GameEvents/StartGameEvent.h"
-#include "../../../include/Game/Derived/Event/GameEvents/StartTurnEvent.h"
-#include "../../../include/Game/Derived/Event/GameEvents/EndTurnEvent.h"
 
 json Game::getJSON(const std::shared_ptr<Player>& toPlayer)
 {
@@ -50,7 +48,7 @@ std::vector<json> Game::getPlayersJSON(std::shared_ptr<Player> toPlayer)
 std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
 {
     std::vector<json> opponentsJSON;
-    std::vector<std::shared_ptr<Player>> opponents = getOpponents(toPlayer);
+    std::vector<std::shared_ptr<Player>> opponents = getOpponents(std::move(toPlayer));
 
     for (const auto& player : opponents)
     {
@@ -123,10 +121,6 @@ void Game::startGame()
 
 void Game::changeTurn()
 {
-    // Check for end turn effects
-    EndTurnEvent endTurnEvent(shared_from_this());
-    eventHandler(std::make_shared<EndTurnEvent>(endTurnEvent));
-
     for (const auto& player : players)
     {
         if (player->tag != activePlayer->tag)
@@ -137,10 +131,6 @@ void Game::changeTurn()
     }
 
     activePlayer->startTurn();
-
-    // Check for start turn effects
-    StartTurnEvent startTurnEvent(shared_from_this());
-    eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
 }
 
 void Game::eventHandler(const std::shared_ptr<Event>& event)

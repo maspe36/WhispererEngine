@@ -18,6 +18,8 @@
 #include "../../../include/Network/Derived/PlayCardMessage.h"
 #include "../../../include/Network/Derived/FightPlayerMessage.h"
 #include "../../../include/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.h"
+#include "../../../include/Game/Derived/Event/GameEvents/StartTurnEvent.h"
+#include "../../../include/Game/Derived/Event/GameEvents/EndTurnEvent.h"
 
 void Player::draw()
 {
@@ -37,6 +39,9 @@ void Player::startTurn()
     refillMana();
     refreshCreatures();
     draw();
+
+    StartTurnEvent startTurnEvent(game);
+    game->eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
 }
 
 void Player::refillMana()
@@ -82,6 +87,9 @@ void Player::playCard(const json &rawJSON)
 
 void Player::endTurn(const json &rawJSON)
 {
+    EndTurnEvent endTurnEvent(game);
+    game->eventHandler(std::make_shared<EndTurnEvent>(endTurnEvent));
+
     game->changeTurn();
 }
 
