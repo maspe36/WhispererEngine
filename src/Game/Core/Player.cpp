@@ -20,6 +20,7 @@
 #include "../../../include/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.h"
 #include "../../../include/Game/Derived/Event/GameEvents/StartTurnEvent.h"
 #include "../../../include/Game/Derived/Event/GameEvents/EndTurnEvent.h"
+#include "../../../include/Game/Derived/Event/PlayerEvents/DrawEvent.h"
 
 void Player::startGameSetup()
 {
@@ -30,22 +31,31 @@ void Player::startGameSetup()
 void Player::draw()
 {
     internalDraw();
-    // Create draw message
+
+    DrawEvent drawEvent(game, { hand->cards.back() }, shared_from_this());
+    game->eventHandler(std::make_shared<DrawEvent>(drawEvent));
 }
 
 void Player::draw(int count)
 {
     internalDraw(count);
-    // Create multiple draw message
+
+    auto first = hand->cards.end() - count;
+    auto last = hand->cards.end();
+    std::vector<std::shared_ptr<Card>> drawnCards(first, last);
+
+    DrawEvent drawEvent(game, drawnCards, shared_from_this());
+    game->eventHandler(std::make_shared<DrawEvent>(drawEvent));
 }
 
 void Player::startTurn()
 {
+    refillMana();
+    refreshCreatures();
+
     StartTurnEvent startTurnEvent(game);
     game->eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
 
-    refillMana();
-    refreshCreatures();
     draw();
 }
 
