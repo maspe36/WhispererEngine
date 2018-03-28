@@ -50,14 +50,12 @@ std::vector<json> Game::getPlayersJSON(std::shared_ptr<Player> toPlayer)
 std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
 {
     std::vector<json> opponentsJSON;
+    std::vector<std::shared_ptr<Player>> opponents = getOpponents(toPlayer);
 
-    for (const auto& player : players)
+    for (const auto& player : opponents)
     {
-        if (toPlayer != player)
-        {
-            auto opponentJSON = player->getOpponentState();
-            opponentsJSON.push_back(opponentJSON);
-        }
+        auto opponentJSON = player->getOpponentState();
+        opponentsJSON.push_back(opponentJSON);
     }
 
     return opponentsJSON;
@@ -74,6 +72,21 @@ std::shared_ptr<Player> Game::findPlayer(const std::string &tag)
     }
 
     throw std::runtime_error("No player with this tag (" + tag + ") was found");
+}
+
+std::vector<std::shared_ptr<Player>> Game::getOpponents(std::shared_ptr<Player> forPlayer)
+{
+    std::vector<std::shared_ptr<Player>> opponents;
+
+    for (const auto& player : players)
+    {
+        if (forPlayer != player)
+        {
+            opponents.push_back(player);
+        }
+    }
+
+    return opponents;
 }
 
 void Game::writePlayers(const std::string &data)
