@@ -21,27 +21,32 @@
 #include "../../../include/Game/Derived/Event/GameEvents/StartTurnEvent.h"
 #include "../../../include/Game/Derived/Event/GameEvents/EndTurnEvent.h"
 
+void Player::startGameSetup()
+{
+    board->deck->shuffle();
+    internalDraw(5);
+}
+
 void Player::draw()
 {
-    hand->addCard(board->deck->draw());
+    internalDraw();
+    // Create draw message
 }
 
 void Player::draw(int count)
 {
-    for (int i = 0; i < count; i++)
-    {
-        draw();
-    }
+    internalDraw(count);
+    // Create multiple draw message
 }
 
 void Player::startTurn()
 {
+    StartTurnEvent startTurnEvent(game);
+    game->eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
+
     refillMana();
     refreshCreatures();
     draw();
-
-    StartTurnEvent startTurnEvent(game);
-    game->eventHandler(std::make_shared<StartTurnEvent>(startTurnEvent));
 }
 
 void Player::refillMana()
@@ -177,3 +182,16 @@ Player::Player(std::shared_ptr<Client> client)
 
 Player::~Player()
 = default;
+
+void Player::internalDraw()
+{
+    hand->addCard(board->deck->draw());
+}
+
+void Player::internalDraw(int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        internalDraw();
+    }
+}

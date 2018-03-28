@@ -107,8 +107,7 @@ void Game::startGame()
 {
     for (const auto& player : players)
     {
-        player->board->deck->shuffle();
-        player->draw(5);
+        player->startGameSetup();
     }
 
     std::shuffle(players.begin(), players.end(), std::mt19937(std::random_device()()));

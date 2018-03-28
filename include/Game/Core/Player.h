@@ -38,6 +38,7 @@ public:
     std::shared_ptr<Hand> hand;
     int health;
 
+    void startGameSetup();
     void draw();
     void draw(int count);
     void startTurn();
@@ -56,6 +57,10 @@ public:
 
     explicit Player(std::shared_ptr<Client> client);
     ~Player();
+
+private:
+    void internalDraw();
+    void internalDraw(int count);
 };
 
 
