@@ -21,6 +21,7 @@ std::string Message::END_TURN = "endTurn";
 std::string Message::STOP_TURN = "stopTurn";
 std::string Message::FIGHT_PLAYER = "fightPlayer";
 std::string Message::PLAYER_ATTACKED = "playerAttacked";
+std::string Message::DRAW_CARD = "drawCard";
 
 std::string Message::CHAT = "chat";
 

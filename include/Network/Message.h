@@ -28,6 +28,7 @@ public:
     static std::string STOP_TURN;
     static std::string FIGHT_PLAYER;
     static std::string PLAYER_ATTACKED;
+    static std::string DRAW_CARD;
 
     static std::string CHAT;
 
