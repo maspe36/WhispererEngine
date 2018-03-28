@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_QUEUEMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class QueueMessage
         : public Message

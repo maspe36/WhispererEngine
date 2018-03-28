@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_AUTHMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class AuthMessage
         : public Message

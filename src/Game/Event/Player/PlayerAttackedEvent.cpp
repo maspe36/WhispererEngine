@@ -3,7 +3,7 @@
 //
 
 #include "../../../../include/Game/Event/Player/PlayerAttackedEvent.h"
-#include "../../../../include/Network/Message/PlayerAttackedMessage.h"
+#include "../../../../include/Network/Response/Game/PlayerAttackedMessage.h"
 #include "../../../../include/Network/Client.h"
 
 void PlayerAttackedEvent::sendMessage()

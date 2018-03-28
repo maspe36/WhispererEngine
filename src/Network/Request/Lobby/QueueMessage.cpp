@@ -2,7 +2,7 @@
 // Created by Sam on 2/5/2018.
 //
 
-#include "../../../include/Network/Message/QueueMessage.h"
+#include "../../../../include/Network/Request/Lobby/QueueMessage.h"
 
 QueueMessage::QueueMessage(const json& newJSON)
 {

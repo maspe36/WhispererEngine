@@ -7,7 +7,7 @@
 #include "../../../../include/Game/Game.h"
 #include "../../../../include/Game/Player.h"
 #include "../../../../include/Network/Client.h"
-#include "../../../../include/Network/Message/DrawMessage.h"
+#include "../../../../include/Network/Response/Game/DrawMessage.h"
 
 void DrawEvent::sendMessage()
 {

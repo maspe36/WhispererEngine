@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_CARDMOVEDMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class Card;
 class Container;

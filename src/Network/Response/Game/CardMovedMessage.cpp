@@ -2,14 +2,14 @@
 // Created by Sam on 3/18/2018.
 //
 
-#include "../../../include/Network/Message/CardMovedMessage.h"
-#include "../../../include/Game/Card.h"
-#include "../../../include/Game/Container.h"
-#include "../../../include/Game/Player.h"
-#include "../../../include/Game/Container/CreatureZone.h"
-#include "../../../include/Game/Container/Deck.h"
-#include "../../../include/Game/Container/Graveyard.h"
-#include "../../../include/Game/Container/Hand.h"
+#include "../../../../include/Network/Response/Game/CardMovedMessage.h"
+#include "../../../../include/Game/Card.h"
+#include "../../../../include/Game/Container.h"
+#include "../../../../include/Game/Player.h"
+#include "../../../../include/Game/Container/CreatureZone.h"
+#include "../../../../include/Game/Container/Deck.h"
+#include "../../../../include/Game/Container/Graveyard.h"
+#include "../../../../include/Game/Container/Hand.h"
 
 CardMovedMessage::CardMovedMessage(const std::shared_ptr<Container> &origin,
                                    const std::shared_ptr<Container> &destination,

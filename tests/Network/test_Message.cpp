@@ -4,7 +4,7 @@
 
 #include "../../../build/catch-src/include/catch.hpp"
 #include "../../../include/Network/Message.h"
-#include "../../include/Network/Message/AuthMessage.h"
+#include "../../include/Network/Request/Lobby/AuthMessage.h"
 #include <iostream>
 
 

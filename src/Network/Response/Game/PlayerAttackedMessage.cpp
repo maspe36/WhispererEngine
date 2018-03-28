@@ -2,8 +2,8 @@
 // Created by Sam on 3/19/2018.
 //
 
-#include "../../../include/Network/Message/PlayerAttackedMessage.h"
-#include "../../../include/Game/Card.h"
+#include "../../../../include/Network/Response/Game/PlayerAttackedMessage.h"
+#include "../../../../include/Game/Card.h"
 
 PlayerAttackedMessage::PlayerAttackedMessage(std::shared_ptr<Game> game, std::shared_ptr<Card> card)
 {

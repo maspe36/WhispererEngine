@@ -2,9 +2,9 @@
 // Created by Sam on 3/7/2018.
 //
 
-#include "../../../include/Network/Message/StartGameMessage.h"
-#include "../../../include/Network/Client.h"
-#include "../../../include/Game/Game.h"
+#include "../../../../include/Network/Response/Game/StartGameMessage.h"
+#include "../../../../include/Network/Client.h"
+#include "../../../../include/Game/Game.h"
 
 StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared_ptr<Game> game)
 {

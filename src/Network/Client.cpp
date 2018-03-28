@@ -10,8 +10,8 @@
 #include "../../include/Network/HTTPRequest.h"
 #include "../../include/Network/Message.h"
 #include "../../include/Network/Server.h"
-#include "../../include/Network/Message/AuthMessage.h"
-#include "../../include/Network/Message/QueueMessage.h"
+#include "../../include/Network/Request/Lobby/AuthMessage.h"
+#include "../../include/Network/Request/Lobby/QueueMessage.h"
 
 #include <iostream>
 #include <utility>

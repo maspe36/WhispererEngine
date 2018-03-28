@@ -5,7 +5,7 @@
 #include "../../../../include/Game/Event/Game/StartTurnEvent.h"
 #include "../../../../include/Game/Game.h"
 #include "../../../../include/Network/Client.h"
-#include "../../../../include/Network/Message/StartTurnMessage.h"
+#include "../../../../include/Network/Response/Game/StartTurnMessage.h"
 
 void StartTurnEvent::sendMessage()
 {

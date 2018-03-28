@@ -5,7 +5,7 @@
 #ifndef WHISPERERENGINE_DRAWCARDMESSAGE_H
 #define WHISPERERENGINE_DRAWCARDMESSAGE_H
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class Card;
 class Player;

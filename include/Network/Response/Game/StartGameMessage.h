@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_STARTGAMEMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class Player;
 class Game;

@@ -5,7 +5,7 @@
 #include "../../../../include/Game/Event/Game/EndTurnEvent.h"
 #include "../../../../include/Game/Game.h"
 #include "../../../../include/Network/Client.h"
-#include "../../../../include/Network/Message/EndTurnMessage.h"
+#include "../../../../include/Network/Response/Game/EndTurnMessage.h"
 
 void EndTurnEvent::sendMessage()
 {

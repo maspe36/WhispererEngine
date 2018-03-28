@@ -7,7 +7,7 @@
 
 
 #include "../../Event.h"
-#include "../../../Network/Message/StartGameMessage.h"
+#include "../../../Network/Response/Game/StartGameMessage.h"
 
 class Game;
 

@@ -168,38 +168,38 @@ set(WHISPERER_FILES
         src/Network/HTTPRequest.cpp
         include/Network/HTTPRequest.h
 
-        include/Network/Message/AuthMessage.h
-        src/Network/Messsage/AuthMessage.cpp
+        include/Network/Request/Lobby/AuthMessage.h
+        src/Network/Request/Lobby/AuthMessage.cpp
 
-        src/Network/Messsage/CardMovedMessage.cpp
-        include/Network/Message/CardMovedMessage.h
+        src/Network/Response/Game/CardMovedMessage.cpp
+        include/Network/Response/Game/CardMovedMessage.h
 
-        src/Network/Messsage/ChatMessage.cpp
-        include/Network/Message/ChatMessage.h
+        src/Network/Request/Game/ChatMessage.cpp
+        include/Network/Request/Game/ChatMessage.h
 
-        src/Network/Messsage/DrawMessage.cpp
-        include/Network/Message/DrawMessage.h
+        src/Network/Response/Game/DrawMessage.cpp
+        include/Network/Response/Game/DrawMessage.h
 
-        src/Network/Messsage/EndTurnMessage.cpp
-        include/Network/Message/EndTurnMessage.h
+        src/Network/Response/Game/EndTurnMessage.cpp
+        include/Network/Response/Game/EndTurnMessage.h
 
-        src/Network/Messsage/FightPlayerMessage.cpp
-        include/Network/Message/FightPlayerMessage.h
+        src/Network/Request/Game/FightPlayerMessage.cpp
+        include/Network/Request/Game/FightPlayerMessage.h
 
-        src/Network/Messsage/PlayCardMessage.cpp
-        include/Network/Message/PlayCardMessage.h
+        src/Network/Request/Game/PlayCardMessage.cpp
+        include/Network/Request/Game/PlayCardMessage.h
 
-        src/Network/Messsage/PlayerAttackedMessage.cpp
-        include/Network/Message/PlayerAttackedMessage.h
+        src/Network/Response/Game/PlayerAttackedMessage.cpp
+        include/Network/Response/Game/PlayerAttackedMessage.h
 
-        src/Network/Messsage/QueueMessage.cpp
-        include/Network/Message/QueueMessage.h
+        src/Network/Request/Lobby/QueueMessage.cpp
+        include/Network/Request/Lobby/QueueMessage.h
 
-        src/Network/Messsage/StartGameMessage.cpp
-        include/Network/Message/StartGameMessage.h
+        src/Network/Response/Game/StartGameMessage.cpp
+        include/Network/Response/Game/StartGameMessage.h
 
-        src/Network/Messsage/StartTurnMessage.cpp
-        include/Network/Message/StartTurnMessage.h
+        src/Network/Response/Game/StartTurnMessage.cpp
+        include/Network/Response/Game/StartTurnMessage.h
 
         src/Network/Exceptions/JSONError.cpp
         include/Network/Exceptions/JSONError.h

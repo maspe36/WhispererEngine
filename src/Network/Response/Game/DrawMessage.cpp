@@ -2,8 +2,8 @@
 // Created by Sam on 3/28/2018.
 //
 
-#include "../../../include/Network/Message/DrawMessage.h"
-#include "../../../include/Game/Card.h"
+#include "../../../../include/Network/Response/Game/DrawMessage.h"
+#include "../../../../include/Game/Card.h"
 
 void DrawMessage::toOpponent()
 {

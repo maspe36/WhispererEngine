@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_PLAYERATTACKEDMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class Game;
 class Card;

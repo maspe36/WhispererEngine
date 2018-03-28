@@ -4,7 +4,7 @@
 
 #include "../../../../include/Game/Event/Player/PlayCardEvent.h"
 #include "../../../../include/Game/Game.h"
-#include "../../../../include/Network/Message/CardMovedMessage.h"
+#include "../../../../include/Network/Response/Game/CardMovedMessage.h"
 #include "../../../../include/Game/Card.h"
 #include "../../../../include/Game/Container.h"
 #include "../../../../include/Game/Player.h"

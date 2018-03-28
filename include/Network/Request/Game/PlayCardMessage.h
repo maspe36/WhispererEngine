@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_MOVECARDMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class PlayCardMessage
         : public Message

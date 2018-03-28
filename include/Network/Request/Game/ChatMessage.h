@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_CHATMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class ChatMessage
         : public Message

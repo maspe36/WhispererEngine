@@ -6,7 +6,7 @@
 #define WHISPERERENGINE_FIGHTPLAYERMESSAGE_H
 
 
-#include "../Message.h"
+#include "../../Message.h"
 
 class FightPlayerMessage
         : public Message

@@ -2,7 +2,7 @@
 // Created by Sam on 1/27/2018.
 //
 
-#include "../../../include/Network/Message/AuthMessage.h"
+#include "../../../../include/Network/Request/Lobby/AuthMessage.h"
 
 AuthMessage::AuthMessage(const json& newJSON)
 {

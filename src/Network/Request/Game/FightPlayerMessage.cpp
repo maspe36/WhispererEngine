@@ -2,7 +2,7 @@
 // Created by Sam on 3/19/2018.
 //
 
-#include "../../../include/Network/Message/FightPlayerMessage.h"
+#include "../../../../include/Network/Request/Game/FightPlayerMessage.h"
 
 FightPlayerMessage::FightPlayerMessage(const json &newJSON)
 {
