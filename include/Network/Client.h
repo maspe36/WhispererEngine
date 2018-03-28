@@ -12,7 +12,7 @@
 #include <boost/variant.hpp>
 #include <boost/bind/bind.hpp>
 #include "Message.h"
-#include "../Game/Core/Player.h"
+#include "../Game/Player.h"
 
 class Server;
 class Card;

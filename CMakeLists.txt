@@ -72,83 +72,83 @@ set(PYBIND11_CPP_STANDARD -std=c++17)
 #pybind11_add_module(<module name> [<module source files>, ...])
 pybind11_add_module(Whisperer
         include/Game/Python/Module.h
-        src/Game/Core/Card.cpp
-        src/Game/Core/Mana.cpp
+        src/Game/Card.cpp
+        src/Game/Mana.cpp
         src/Game/Utilities/Taggable.cpp
         src/Game/Utilities/Exportable.cpp
-        src/Game/Derived/Card/Constant.cpp
-        src/Game/Derived/Card/Creature.cpp)
+        src/Game/Card/Constant.cpp
+        src/Game/Card/Creature.cpp)
 
 # Define the default libraries to include with the targets
 set(DEFAULT_LIBS pybind11::embed ${Boost_LIBRARIES})
 
 # All the headers and source code for classes used in the core game
 set(WHISPERER_FILES
-        src/Game/Core/Modifier.cpp
-        include/Game/Core/Modifier.h
+        src/Game/Modifier.cpp
+        include/Game/Modifier.h
 
-        src/Game/Core/Board.cpp
-        include/Game/Core/Board.h
+        src/Game/Board.cpp
+        include/Game/Board.h
 
-        src/Game/Core/Card.cpp
-        include/Game/Core/Card.h
+        src/Game/Card.cpp
+        include/Game/Card.h
 
-        src/Game/Core/Container.cpp
-        include/Game/Core/Container.h
+        src/Game/Container.cpp
+        include/Game/Container.h
 
-        src/Game/Core/Effect.cpp
-        include/Game/Core/Effect.h
+        src/Game/Effect.cpp
+        include/Game/Effect.h
 
-        src/Game/Core/Event.cpp
-        include/Game/Core/Event.h
+        src/Game/Event.cpp
+        include/Game/Event.h
 
-        src/Game/Core/Game.cpp
-        include/Game/Core/Game.h
+        src/Game/Game.cpp
+        include/Game/Game.h
 
-        src/Game/Core/Mana.cpp
-        include/Game/Core/Mana.h
+        src/Game/Mana.cpp
+        include/Game/Mana.h
 
-        src/Game/Core/Player.cpp
-        include/Game/Core/Player.h
+        src/Game/Player.cpp
+        include/Game/Player.h
 
-        src/Game/Derived/Containers/Deck.cpp
-        include/Game/Derived/Containers/Deck.h
+        src/Game/Container/Deck.cpp
+        include/Game/Container/Deck.h
 
-        src/Game/Derived/Containers/Graveyard.cpp
-        include/Game/Derived/Containers/Graveyard.h
+        src/Game/Container/Graveyard.cpp
+        include/Game/Container/Graveyard.h
 
-        src/Game/Derived/Containers/Hand.cpp
-        include/Game/Derived/Containers/Hand.h
+        src/Game/Container/Hand.cpp
+        include/Game/Container/Hand.h
 
-        src/Game/Derived/Containers/CreatureZone.cpp
-        include/Game/Derived/Containers/CreatureZone.h
+        src/Game/Container/CreatureZone.cpp
+        include/Game/Container/CreatureZone.h
 
-        src/Game/Derived/Card/Constant.cpp
-        include/Game/Derived/Card/Constant.h
+        src/Game/Card/Constant.cpp
+        include/Game/Card/Constant.h
 
-        src/Game/Derived/Card/Creature.cpp
-        include/Game/Derived/Card/Creature.h
+        src/Game/Card/Creature.cpp
+        include/Game/Card/Creature.h
 
-        src/Game/Derived/Card/Spell.cpp
-        include/Game/Derived/Card/Spell.h
+        src/Game/Card/Spell.cpp
+        include/Game/Card/Spell.h
 
-        src/Game/Derived/Event/GameEvents/EndTurnEvent.cpp
-        include/Game/Derived/Event/GameEvents/EndTurnEvent.h
+        src/Game/Event/Game/EndTurnEvent.cpp
+        include/Game/Event/Game/EndTurnEvent.h
 
-        src/Game/Derived/Event/GameEvents/StartGameEvent.cpp
-        include/Game/Derived/Event/GameEvents/StartGameEvent.h
+        src/Game/Event/Game/StartGameEvent.cpp
+        include/Game/Event/Game/StartGameEvent.h
 
-        src/Game/Derived/Event/GameEvents/StartTurnEvent.cpp
-        include/Game/Derived/Event/GameEvents/StartTurnEvent.h
+        src/Game/Event/Game/StartTurnEvent.cpp
+        include/Game/Event/Game/StartTurnEvent.h
 
-        src/Game/Derived/Event/PlayerEvents/DrawEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/DrawEvent.h
+        src/Game/Event/Player/DrawEvent.cpp
+        include/Game/Event/Player/DrawEvent.h
 
-        src/Game/Derived/Event/PlayerEvents/PlayCardEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/PlayCardEvent.h
+        src/Game/Event/Player/PlayCardEvent.cpp
+        include/Game/Event/Player/PlayCardEvent.h
 
-        src/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.cpp
-        include/Game/Derived/Event/PlayerEvents/PlayerAttackedEvent.h
+        src/Game/Event/Player/PlayerAttackedEvent.cpp
+        include/Game/Event/Player/PlayerAttackedEvent.h
 
         src/Game/Python/Factory.cpp
         include/Game/Python/Factory.h
@@ -168,38 +168,38 @@ set(WHISPERER_FILES
         src/Network/HTTPRequest.cpp
         include/Network/HTTPRequest.h
 
-        include/Network/Derived/AuthMessage.h
-        src/Network/Derived/AuthMessage.cpp
+        include/Network/Message/AuthMessage.h
+        src/Network/Messsage/AuthMessage.cpp
 
-        src/Network/Derived/CardMovedMessage.cpp
-        include/Network/Derived/CardMovedMessage.h
+        src/Network/Messsage/CardMovedMessage.cpp
+        include/Network/Message/CardMovedMessage.h
 
-        src/Network/Derived/ChatMessage.cpp
-        include/Network/Derived/ChatMessage.h
+        src/Network/Messsage/ChatMessage.cpp
+        include/Network/Message/ChatMessage.h
 
-        src/Network/Derived/DrawMessage.cpp
-        include/Network/Derived/DrawMessage.h
+        src/Network/Messsage/DrawMessage.cpp
+        include/Network/Message/DrawMessage.h
 
-        src/Network/Derived/EndTurnMessage.cpp
-        include/Network/Derived/EndTurnMessage.h
+        src/Network/Messsage/EndTurnMessage.cpp
+        include/Network/Message/EndTurnMessage.h
 
-        src/Network/Derived/FightPlayerMessage.cpp
-        include/Network/Derived/FightPlayerMessage.h
+        src/Network/Messsage/FightPlayerMessage.cpp
+        include/Network/Message/FightPlayerMessage.h
 
-        src/Network/Derived/PlayCardMessage.cpp
-        include/Network/Derived/PlayCardMessage.h
+        src/Network/Messsage/PlayCardMessage.cpp
+        include/Network/Message/PlayCardMessage.h
 
-        src/Network/Derived/PlayerAttackedMessage.cpp
-        include/Network/Derived/PlayerAttackedMessage.h
+        src/Network/Messsage/PlayerAttackedMessage.cpp
+        include/Network/Message/PlayerAttackedMessage.h
 
-        src/Network/Derived/QueueMessage.cpp
-        include/Network/Derived/QueueMessage.h
+        src/Network/Messsage/QueueMessage.cpp
+        include/Network/Message/QueueMessage.h
 
-        src/Network/Derived/StartGameMessage.cpp
-        include/Network/Derived/StartGameMessage.h
+        src/Network/Messsage/StartGameMessage.cpp
+        include/Network/Message/StartGameMessage.h
 
-        src/Network/Derived/StartTurnMessage.cpp
-        include/Network/Derived/StartTurnMessage.h
+        src/Network/Messsage/StartTurnMessage.cpp
+        include/Network/Message/StartTurnMessage.h
 
         src/Network/Exceptions/JSONError.cpp
         include/Network/Exceptions/JSONError.h
@@ -227,9 +227,9 @@ target_link_libraries(WhispererEngine PRIVATE ${DEFAULT_LIBS} ${PLATFORM_LIBS} $
 set(TEST_FILES
         ${WHISPERER_FILES}
         tests/CatchMain.cpp
-        tests/Game/Core/test_Card.cpp
-        tests/Game/Core/test_Player.cpp
-        tests/Game/Derived/test_Creature.cpp
+        tests/Game/test_Card.cpp
+        tests/Game/test_Player.cpp
+        tests/Game/Card/test_Creature.cpp
         tests/Game/Python/test_Factory.cpp
         tests/Game/Python/test_Integration.cpp
         tests/Game/Utilities/test_Database.cpp

@@ -3,8 +3,8 @@
 //
 
 #include "../../include/Network/Server.h"
-#include "../../include/Game/Core/Game.h"
-#include "../../include/Game/Core/Player.h"
+#include "../../include/Game/Game.h"
+#include "../../include/Game/Player.h"
 #include "../../include/Network/Message.h"
 
 void Server::writeAll(std::string data)

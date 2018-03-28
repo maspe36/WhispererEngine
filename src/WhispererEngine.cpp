@@ -2,11 +2,11 @@
 // Created by Sam on 9/25/2017.
 //
 
-#include "../include/Game/Core/Card.h"
-#include "../include/Game/Core/Game.h"
-#include "../include/Game/Core/Player.h"
+#include "../include/Game/Card.h"
+#include "../include/Game/Game.h"
+#include "../include/Game/Player.h"
 #include "../include/Game/Python/Factory.h"
-#include "../include/Game/Derived/Card/Creature.h"
+#include "../include/Game/Card/Creature.h"
 #include "../include/Network/Server.h"
 
 #include <pybind11/embed.h>

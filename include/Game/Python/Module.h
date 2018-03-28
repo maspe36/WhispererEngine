@@ -2,13 +2,13 @@
 // Created by Sam Privett on 11/13/2017.
 //
 
-#include "../Core/Card.h"
-#include "../Core/Mana.h"
-#include "../Core/Player.h"
-#include "../Core/Effect.h"
-#include "../Core/Modifier.h"
-#include "../Derived/Card/Constant.h"
-#include "../Derived/Card/Creature.h"
+#include "../Card.h"
+#include "../Mana.h"
+#include "../Player.h"
+#include "../Effect.h"
+#include "../Modifier.h"
+#include "../Card/Constant.h"
+#include "../Card/Creature.h"
 
 #include <pybind11/embed.h>
 

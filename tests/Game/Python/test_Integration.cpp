@@ -3,10 +3,10 @@
 //
 
 #include "../../../build/catch-src/include/catch.hpp"
-#include "../../../include/Game/Core/Card.h"
+#include "../../../include/Game/Card.h"
 #include "../../../include/Game/Python/Factory.h"
-#include "../../../include/Game/Derived/Card/Constant.h"
-#include "../../../include/Game/Derived/Card/Creature.h"
+#include "../../../include/Game/Card/Constant.h"
+#include "../../../include/Game/Card/Creature.h"
 
 #include <pybind11/embed.h>
 
@@ -37,7 +37,7 @@ TEST_CASE("Polymorphic down casting")
 {
     Factory factory;
 
-    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game/Core");
+    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game");
 
     SECTION("Card* to Constant*")
     {
@@ -66,7 +66,7 @@ TEST_CASE("Polymorphic up casting")
 {
     Factory factory;
 
-    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game/Core");
+    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game");
 
     SECTION("Constant* to Card*")
     {
@@ -95,7 +95,7 @@ TEST_CASE("shared_ptr Downcasting")
 {
     Factory factory;
 
-    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game/Core");
+    py::module::import("sys").attr("path").cast<py::list>().append("../tests/Game");
 
     SECTION("shared_ptr<Card> -> shared_ptr<Creature>")
     {

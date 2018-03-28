@@ -2,16 +2,16 @@
 // Created by Sam on 9/25/2017.
 //
 
-#include "../../include/Game/Core/Board.h"
-#include "../../include/Game/Core/Card.h"
-#include "../../include/Game/Core/Game.h"
-#include "../../include/Game/Core/Player.h"
+#include "../../include/Game/Board.h"
+#include "../../include/Game/Card.h"
+#include "../../include/Game/Game.h"
+#include "../../include/Game/Player.h"
 #include "../../include/Network/Client.h"
 #include "../../include/Network/HTTPRequest.h"
 #include "../../include/Network/Message.h"
 #include "../../include/Network/Server.h"
-#include "../../include/Network/Derived/AuthMessage.h"
-#include "../../include/Network/Derived/QueueMessage.h"
+#include "../../include/Network/Message/AuthMessage.h"
+#include "../../include/Network/Message/QueueMessage.h"
 
 #include <iostream>
 #include <utility>
