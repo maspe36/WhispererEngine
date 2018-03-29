@@ -9,7 +9,7 @@
 
 void StartTurnEvent::sendMessage()
 {
-    StartTurnMessage startTurnMessage(game, player);
+    StartTurnMessage startTurnMessage(*this);
     player->client->write(startTurnMessage.getJSON());
 }
 

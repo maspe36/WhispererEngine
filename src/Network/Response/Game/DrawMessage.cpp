@@ -22,8 +22,8 @@ void DrawMessage::toSelf()
     rawJSON[DATA_KEY]["cards"] = cardsJSON;
 }
 
-DrawMessage::DrawMessage(std::shared_ptr<Game> game, std::vector<std::shared_ptr<Card>> cards, std::shared_ptr<Player> toPlayer)
-        : cards(cards)
+DrawMessage::DrawMessage(DrawEvent drawEvent)
+        : cards(drawEvent.cards)
 {
     rawJSON[TYPE_KEY] = Message::DRAW_CARD;
 }

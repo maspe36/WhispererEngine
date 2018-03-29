@@ -6,8 +6,11 @@
 #include "../../../../include/Game/Game.h"
 #include "../../../../include/Game/Player.h"
 
-EndTurnMessage::EndTurnMessage(std::shared_ptr<Game> game, std::shared_ptr<Player> toPlayer)
+EndTurnMessage::EndTurnMessage(EndTurnEvent endTurnEvent)
 {
+    auto toPlayer = endTurnEvent.player;
+    auto game = endTurnEvent.game;
+
     std::vector<json> opponentsJSON = game->getOpponentJSON(toPlayer);
 
     rawJSON[TYPE_KEY] = Message::END_TURN;

@@ -7,17 +7,15 @@
 
 
 #include "../../Message.h"
+#include "../../../Game/Event/Player/PlayCardEvent.h"
 
-class Card;
 class Container;
 
 class CardMovedMessage
         : public Message
 {
 public:
-    explicit CardMovedMessage(const std::shared_ptr<Container>& origin,
-                              const std::shared_ptr<Container>& destination,
-                              const std::shared_ptr<Card>& card);
+    explicit CardMovedMessage(PlayCardEvent playCardEvent);
     ~CardMovedMessage();
 
 private:

@@ -5,8 +5,10 @@
 #include "../../../../include/Network/Response/Game/PlayerAttackedMessage.h"
 #include "../../../../include/Game/Card.h"
 
-PlayerAttackedMessage::PlayerAttackedMessage(std::shared_ptr<Game> game, std::shared_ptr<Card> card)
+PlayerAttackedMessage::PlayerAttackedMessage(PlayerAttackedEvent playerAttackedEvent)
 {
+    auto card = playerAttackedEvent.card;
+
     rawJSON[TYPE_KEY] = Message::PLAYER_ATTACKED;
     rawJSON[DATA_KEY]["cardTag"] = card->tag;
 }

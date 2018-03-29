@@ -6,8 +6,11 @@
 #include "../../../../include/Game/Game.h"
 #include "../../../../include/Game/Player.h"
 
-StartTurnMessage::StartTurnMessage(std::shared_ptr<Game> game, std::shared_ptr<Player> toPlayer)
+StartTurnMessage::StartTurnMessage(StartTurnEvent startTurnEvent)
 {
+    auto game = startTurnEvent.game;
+    auto toPlayer = startTurnEvent.player;
+
     std::vector<json> opponentsJSON = game->getOpponentJSON(toPlayer);
 
     rawJSON[TYPE_KEY] = Message::START_TURN;

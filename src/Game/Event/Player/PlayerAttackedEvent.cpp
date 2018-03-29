@@ -8,7 +8,7 @@
 
 void PlayerAttackedEvent::sendMessage()
 {
-    PlayerAttackedMessage playerAttackedMessage(game, card);
+    PlayerAttackedMessage playerAttackedMessage(*this);
     targetPlayer->client->write(playerAttackedMessage.getJSON());
 }
 

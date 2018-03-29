@@ -7,6 +7,7 @@
 
 
 #include "../../Message.h"
+#include "../../../Game/Event/Game/StartTurnEvent.h"
 
 class Game;
 class Player;
@@ -15,7 +16,7 @@ class StartTurnMessage
     : public Message
 {
 public:
-    explicit StartTurnMessage(std::shared_ptr<Game> game, std::shared_ptr<Player> toPlayer);
+    explicit StartTurnMessage(StartTurnEvent startTurnEvent);
     ~StartTurnMessage() override;
 };
 

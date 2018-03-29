@@ -11,13 +11,15 @@
 #include "../../../../include/Game/Container/Graveyard.h"
 #include "../../../../include/Game/Container/Hand.h"
 
-CardMovedMessage::CardMovedMessage(const std::shared_ptr<Container> &origin,
-                                   const std::shared_ptr<Container> &destination,
-                                   const std::shared_ptr<Card> &card)
+CardMovedMessage::CardMovedMessage(PlayCardEvent playCardEvent)
 {
+    auto originZone = playCardEvent.card->player->hand;
+    auto destinationZone = playCardEvent.card->player->board->creatures;
+    auto card = playCardEvent.card;
+
     rawJSON[TYPE_KEY] = Message::CARD_MOVED;
-    addDataMember("originZoneID", getZoneID(origin));
-    addDataMember("destinationZoneID", getZoneID(destination));
+    addDataMember("originZoneID", getZoneID(originZone));
+    addDataMember("destinationZoneID", getZoneID(destinationZone));
     addDataMember("card", card->getJSON());
     addDataMember("playerTag", card->player->tag);
 }

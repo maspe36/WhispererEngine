@@ -13,7 +13,7 @@ void DrawEvent::sendMessage()
 {
     for (const auto& player : game->players)
     {
-        DrawMessage drawMessage(game, cards, toPlayer);
+        DrawMessage drawMessage(*this);
 
         if (player == toPlayer)
         {

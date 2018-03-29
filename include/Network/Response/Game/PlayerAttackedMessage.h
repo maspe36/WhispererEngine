@@ -7,6 +7,7 @@
 
 
 #include "../../Message.h"
+#include "../../../Game/Event/Player/PlayerAttackedEvent.h"
 
 class Game;
 class Card;
@@ -15,7 +16,7 @@ class PlayerAttackedMessage
         : public Message
 {
 public:
-    explicit PlayerAttackedMessage(std::shared_ptr<Game> game, std::shared_ptr<Card> card);
+    explicit PlayerAttackedMessage(PlayerAttackedEvent playerAttackedEvent);
     ~PlayerAttackedMessage();
 };
 

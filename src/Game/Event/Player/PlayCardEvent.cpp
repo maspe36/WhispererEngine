@@ -8,13 +8,12 @@
 #include "../../../../include/Game/Card.h"
 #include "../../../../include/Game/Container.h"
 #include "../../../../include/Game/Player.h"
-#include "../../../../include/Game/Container/CreatureZone.h"
 #include "../../../../include/Game/Container/Hand.h"
 #include "../../../../include/Network/Client.h"
 
 void PlayCardEvent::sendMessage()
 {
-    CardMovedMessage cardMovedMessage(card->player->hand, card->player->board->creatures, card);
+    CardMovedMessage cardMovedMessage(*this);
     game->writePlayers(cardMovedMessage.getJSON());
 }
 
