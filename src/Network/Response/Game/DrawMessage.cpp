@@ -4,6 +4,7 @@
 
 #include "../../../../include/Network/Response/Game/DrawMessage.h"
 #include "../../../../include/Game/Card.h"
+#include "../../../../include/Game/Player.h"
 
 void DrawMessage::toOpponent()
 {
@@ -26,6 +27,7 @@ DrawMessage::DrawMessage(DrawEvent drawEvent)
         : cards(drawEvent.cards)
 {
     rawJSON[TYPE_KEY] = Message::DRAW_CARD;
+    rawJSON[DATA_KEY]["playerTag"] = drawEvent.toPlayer->tag;
 }
 
 DrawMessage::~DrawMessage()
