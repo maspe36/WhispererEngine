@@ -12,6 +12,7 @@
 #include "../../include/Game/Container/Deck.h"
 #include "../../include/Game/Container/Hand.h"
 #include "../../include/Game/Container/CreatureZone.h"
+#include "../../include/Game/Container/Graveyard.h"
 #include "../../include/Network/Client.h"
 #include "../../include/Network/Request/Game/ChatMessage.h"
 #include "../../include/Network/Request/Game/PlayCardMessage.h"
@@ -258,6 +259,7 @@ void Player::internalDraw(int count)
 void Player::destroyCreature(const std::shared_ptr<Creature> &target) const
 {
     auto targetOwner = target->player;
+    targetOwner->board->graveyard->cards.push_back(target);
     targetOwner->board->creatures->removeCard(target);
 
     CreatureDestroyedEvent creatureDestroyedEvent(game, target);
