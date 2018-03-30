@@ -21,6 +21,8 @@
 #include "../../include/Game/Event/Player/PlayerAttackedEvent.h"
 #include "../../include/Game/Event/Game/StartTurnEvent.h"
 #include "../../include/Game/Event/Game/EndTurnEvent.h"
+#include "../../include/Network/Request/Game/FightCreatureMessage.h"
+#include "../../include/Game/Event/Player/CreatureAttackedEvent.h"
 
 void Player::startGameSetup()
 {
@@ -138,6 +140,47 @@ void Player::fightPlayer(const json &rawJSON)
     if (player->health <= 0)
     {
         // End the game
+    }
+}
+
+void Player::fightCreature(const json &rawJSON)
+{
+    FightCreatureMessage fightCreatureMessage(rawJSON);
+
+    auto attackingPlayer = game->findPlayer(fightCreatureMessage.attackingPlayerTag);
+    auto attackingCard = attackingPlayer->board->creatures->findCard(fightCreatureMessage.attackingCardTag);
+    auto attacker = std::dynamic_pointer_cast<Creature>(attackingCard);
+    std::shared_ptr<Creature> target;
+
+    for (const auto& player : game->players)
+    {
+        try
+        {
+            auto card = player->board->creatures->findCard(fightCreatureMessage.attackedCardTag);
+            target = std::dynamic_pointer_cast<Creature>(card);
+        }
+        catch (const std::runtime_error& ex)
+        {/* Eat this because findCard throws a runtime error if the card is not found */}
+    }
+
+    if (!target)
+    {
+        throw std::runtime_error("Cannot find attacked card with tag '" + fightCreatureMessage.attackedCardTag + "'");
+    }
+
+    if (attacker->player == target->player)
+    {
+        throw std::runtime_error("You cannot attack your own creatures");
+    }
+
+    attacker->attack(target);
+
+    CreatureAttackedEvent creatureAttackedEvent(game, target, attacker);
+    game->eventHandler(std::make_shared<CreatureAttackedEvent>(creatureAttackedEvent));
+
+    if (target->defenseStat <= 0)
+    {
+        // Destroy creature
     }
 }
 

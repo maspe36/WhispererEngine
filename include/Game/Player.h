@@ -50,6 +50,7 @@ public:
     void endTurn(const json &rawJSON);
     void sendChatMessage(const json& rawJSON);
     void fightPlayer(const json& rawJSON);
+    void fightCreature(const json& rawJSON);
 
     json getState();
     json getOpponentState();

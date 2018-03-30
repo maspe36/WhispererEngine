@@ -132,6 +132,9 @@ set(WHISPERER_FILES
         src/Game/Card/Spell.cpp
         include/Game/Card/Spell.h
 
+        src/Game/Event/Game/CreatureDestroyedEvent.cpp
+        include/Game/Event/Game/CreatureDestroyedEvent.h
+
         src/Game/Event/Game/EndTurnEvent.cpp
         include/Game/Event/Game/EndTurnEvent.h
 
@@ -140,6 +143,9 @@ set(WHISPERER_FILES
 
         src/Game/Event/Game/StartTurnEvent.cpp
         include/Game/Event/Game/StartTurnEvent.h
+
+        src/Game/Event/Player/CreatureAttackedEvent.cpp
+        include/Game/Event/Player/CreatureAttackedEvent.h
 
         src/Game/Event/Player/DrawEvent.cpp
         include/Game/Event/Player/DrawEvent.h
@@ -171,11 +177,17 @@ set(WHISPERER_FILES
         include/Network/Request/Lobby/AuthMessage.h
         src/Network/Request/Lobby/AuthMessage.cpp
 
+        src/Network/Response/Game/CreatureAttackedMessage.cpp
+        include/Network/Response/Game/CreatureAttackedMessage.h
+
         src/Network/Response/Game/CardMovedMessage.cpp
         include/Network/Response/Game/CardMovedMessage.h
 
         src/Network/Request/Game/ChatMessage.cpp
         include/Network/Request/Game/ChatMessage.h
+
+        src/Network/Request/Game/FightCreatureMessage.cpp
+        include/Network/Request/Game/FightCreatureMessage.h
 
         src/Network/Response/Game/DrawMessage.cpp
         include/Network/Response/Game/DrawMessage.h

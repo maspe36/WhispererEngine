@@ -182,6 +182,7 @@ void Client::assembleProtocolMap()
     gameFunctions[Message::PLAY_CARD] = &Player::playCard;
     gameFunctions[Message::STOP_TURN] = &Player::endTurn;
     gameFunctions[Message::FIGHT_PLAYER] = &Player::fightPlayer;
+    gameFunctions[Message::FIGHT_CREATURE] = &Player::fightCreature;
 }
 
 void Client::lobbyListen()
