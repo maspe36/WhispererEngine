@@ -23,6 +23,7 @@
 #include "../../include/Game/Event/Game/EndTurnEvent.h"
 #include "../../include/Network/Request/Game/FightCreatureMessage.h"
 #include "../../include/Game/Event/Player/CreatureAttackedEvent.h"
+#include "../../include/Game/Event/Game/CreatureDestroyedEvent.h"
 
 void Player::startGameSetup()
 {
@@ -180,7 +181,12 @@ void Player::fightCreature(const json &rawJSON)
 
     if (target->defenseStat <= 0)
     {
-        // Destroy creature
+        destroyCreature(target);
+    }
+
+    if (attacker->defenseStat <= 0)
+    {
+        destroyCreature(attacker);
     }
 }
 
@@ -247,4 +253,13 @@ void Player::internalDraw(int count)
     {
         internalDraw();
     }
+}
+
+void Player::destroyCreature(const std::shared_ptr<Creature> &target) const
+{
+    auto targetOwner = target->player;
+    targetOwner->board->creatures->removeCard(target);
+
+    CreatureDestroyedEvent creatureDestroyedEvent(game, target);
+    game->eventHandler(std::make_shared<CreatureDestroyedEvent>(creatureDestroyedEvent));
 }

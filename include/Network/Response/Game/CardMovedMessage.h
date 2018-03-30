@@ -8,6 +8,7 @@
 
 #include "../../Message.h"
 #include "../../../Game/Event/Player/PlayCardEvent.h"
+#include "../../../Game/Event/Game/CreatureDestroyedEvent.h"
 
 class Container;
 
@@ -16,6 +17,7 @@ class CardMovedMessage
 {
 public:
     explicit CardMovedMessage(PlayCardEvent playCardEvent);
+    explicit CardMovedMessage(CreatureDestroyedEvent creatureDestroyedEvent);
     ~CardMovedMessage();
 
 private:

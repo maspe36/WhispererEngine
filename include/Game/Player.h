@@ -62,6 +62,8 @@ public:
 private:
     void internalDraw();
     void internalDraw(int count);
+
+    void destroyCreature(const std::shared_ptr<Creature> &target) const;
 };
 
 

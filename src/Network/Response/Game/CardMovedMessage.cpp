@@ -4,6 +4,7 @@
 
 #include "../../../../include/Network/Response/Game/CardMovedMessage.h"
 #include "../../../../include/Game/Card.h"
+#include "../../../../include/Game/Card/Creature.h"
 #include "../../../../include/Game/Container.h"
 #include "../../../../include/Game/Player.h"
 #include "../../../../include/Game/Container/CreatureZone.h"
@@ -22,6 +23,19 @@ CardMovedMessage::CardMovedMessage(PlayCardEvent playCardEvent)
     addDataMember("destinationZoneID", getZoneID(destinationZone));
     addDataMember("card", card->getJSON());
     addDataMember("playerTag", card->player->tag);
+}
+
+CardMovedMessage::CardMovedMessage(CreatureDestroyedEvent creatureDestroyedEvent)
+{
+    auto creature = creatureDestroyedEvent.creature;
+    auto originZone = creature->player->board->creatures;
+    auto destinationZone = creature->player->board->graveyard;
+
+    rawJSON[TYPE_KEY] = Message::CARD_MOVED;
+    addDataMember("originZoneID", getZoneID(originZone));
+    addDataMember("destinationZoneID", getZoneID(destinationZone));
+    addDataMember("card", creature->getJSON());
+    addDataMember("playerTag", creature->player->tag);
 }
 
 CardMovedMessage::~CardMovedMessage()

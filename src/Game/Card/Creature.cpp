@@ -24,7 +24,7 @@ void Creature::attack(const std::shared_ptr<Player>& player)
     if (canAttack())
     {
         player->health -= attackStat;
-        availableAttacks++;
+        usedAttacks++;
     }
 }
 
@@ -32,8 +32,9 @@ void Creature::attack(const std::shared_ptr<Creature>& creature)
 {
     if (canAttack())
     {
-        creature->defenseStat -= defenseStat;
-        availableAttacks++;
+        creature->defenseStat -= attackStat;
+        defenseStat -= creature->attackStat;
+        usedAttacks++;
     }
 }
 
