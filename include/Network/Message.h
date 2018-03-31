@@ -31,6 +31,7 @@ public:
     static std::string PLAYER_ATTACKED;
     static std::string CREATURE_ATTACKED;
     static std::string DRAW_CARD;
+    static std::string END_GAME;
 
     static std::string CHAT;
 

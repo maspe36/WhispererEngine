@@ -59,6 +59,38 @@ std::vector<json> Game::getOpponentJSON(std::shared_ptr<Player> toPlayer)
     return opponentsJSON;
 }
 
+bool Game::isGameOver()
+{
+    std::vector<std::shared_ptr<Player>> alive;
+
+    for (const auto& player : players)
+    {
+        if (player->health > 0)
+        {
+            alive.push_back(player);
+        }
+    }
+
+    // Will return true when more players exist in the game than players that are alive
+    return players.size() > alive.size();
+}
+
+std::shared_ptr<Player> Game::getWinner()
+{
+    std::vector<std::shared_ptr<Player>> alive;
+
+    for (const auto& player : players)
+    {
+        if (player->health > 0)
+        {
+            alive.push_back(player);
+        }
+    }
+
+    // Will need to change this if we ever want say 2v2
+    return alive.at(0);
+}
+
 std::shared_ptr<Player> Game::findPlayer(const std::string &tag)
 {
     for (const auto& player : players)

@@ -135,6 +135,9 @@ set(WHISPERER_FILES
         src/Game/Event/Game/CreatureDestroyedEvent.cpp
         include/Game/Event/Game/CreatureDestroyedEvent.h
 
+        src/Game/Event/Game/EndGameEvent.cpp
+        include/Game/Event/Game/EndGameEvent.h
+
         src/Game/Event/Game/EndTurnEvent.cpp
         include/Game/Event/Game/EndTurnEvent.h
 
@@ -191,6 +194,9 @@ set(WHISPERER_FILES
 
         src/Network/Response/Game/DrawMessage.cpp
         include/Network/Response/Game/DrawMessage.h
+
+        src/Network/Response/Game/EndGameMessage.cpp
+        include/Network/Response/Game/EndGameMessage.h
 
         src/Network/Response/Game/EndTurnMessage.cpp
         include/Network/Response/Game/EndTurnMessage.h

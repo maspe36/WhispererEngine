@@ -25,6 +25,7 @@
 #include "../../include/Network/Request/Game/FightCreatureMessage.h"
 #include "../../include/Game/Event/Player/CreatureAttackedEvent.h"
 #include "../../include/Game/Event/Game/CreatureDestroyedEvent.h"
+#include "../../include/Game/Event/Game/EndGameEvent.h"
 
 void Player::startGameSetup()
 {
@@ -139,9 +140,13 @@ void Player::fightPlayer(const json &rawJSON)
     PlayerAttackedEvent playerAttackedEvent(game, card, player);
     game->eventHandler(std::make_shared<PlayerAttackedEvent>(playerAttackedEvent));
 
-    if (player->health <= 0)
+    std::vector<std::shared_ptr<Player>> alive;
+
+    if (game->isGameOver())
     {
-        // End the game
+        auto winner = game->getWinner();
+        EndGameEvent endGameEvent(game, winner);
+        game->eventHandler(std::make_shared<EndGameEvent>(endGameEvent));
     }
 }
 

@@ -38,6 +38,8 @@ public:
     std::vector<json> getPlayersJSON(std::shared_ptr<Player> toPlayer);
     std::vector<json> getOpponentJSON(std::shared_ptr<Player> toPlayer);
 
+    bool isGameOver();
+    std::shared_ptr<Player> getWinner();
     std::shared_ptr<Player> findPlayer(const std::string& tag);
     std::vector<std::shared_ptr<Player>> getOpponents(std::shared_ptr<Player> forPlayer);
     void writePlayers(const std::string &data);
