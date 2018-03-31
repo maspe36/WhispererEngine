@@ -102,6 +102,14 @@ void Player::playCard(const json &rawJSON)
             PlayCardEvent playCardEvent(game, card);
             game->eventHandler(std::make_shared<PlayCardEvent>(playCardEvent));
         }
+        else
+        {
+            throw std::runtime_error("Insufficient mana to play " + card->name);
+        }
+    }
+    else
+    {
+        throw std::runtime_error("You cannot play a card when it was not your turn");
     }
 }
 
