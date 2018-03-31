@@ -12,9 +12,9 @@ CreatureAttackedMessage::CreatureAttackedMessage(CreatureAttackedEvent creatureA
     auto attacker = creatureAttackedEvent.attacker;
 
     rawJSON[TYPE_KEY] = Message::CREATURE_ATTACKED;
-    rawJSON[DATA_KEY]["target"] = target->getJSON();
-    rawJSON[DATA_KEY]["attacker"] = attacker->getJSON();
-    rawJSON[DATA_KEY]["attackerOwner"] = creatureAttackedEvent.attacker->player->getJSON();
+    rawJSON[DATA_KEY]["targetCardTag"] = target->tag;
+    rawJSON[DATA_KEY]["attackerCardTag"] = attacker->tag;
+    rawJSON[DATA_KEY]["attackerOwnerTag"] = creatureAttackedEvent.attacker->player->tag;
 }
 
 CreatureAttackedMessage::~CreatureAttackedMessage()
