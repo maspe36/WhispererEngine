@@ -223,6 +223,7 @@ json Player::getOpponentState()
     json opponentJSON;
 
     opponentJSON["playerTag"] = tag;
+    opponentJSON["avatarURL"] = client->avatarURL;
     opponentJSON["name"] = name;
     opponentJSON["health"] = health;
     opponentJSON["handCount"] = hand->count();

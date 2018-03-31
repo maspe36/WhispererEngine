@@ -10,17 +10,6 @@ StartGameMessage::StartGameMessage(std::shared_ptr<Player> toPlayer, std::shared
 {
     std::vector<json> opponentsJSON = game->getOpponentJSON(toPlayer);
 
-    for (const auto& player : game->players)
-    {
-        for (auto opponentJSON : opponentsJSON)
-        {
-            if (opponentJSON["playerTag"] == player->tag)
-            {
-                opponentJSON["avatarURL"] = player->client->avatarURL;
-            }
-        }
-    }
-
     rawJSON[TYPE_KEY] = Message::START_GAME;
     addDataMember("opponents", opponentsJSON);
     addDataMember("player", toPlayer->getState());
