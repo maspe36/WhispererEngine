@@ -17,8 +17,6 @@ class CreatureDestroyedEvent
 public:
     std::shared_ptr<Creature> creature;
 
-    void sendMessage() override;
-
     explicit CreatureDestroyedEvent(const std::shared_ptr<Game>& game, const std::shared_ptr<Creature>& creature);
     ~CreatureDestroyedEvent();
 };
