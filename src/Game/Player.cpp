@@ -152,9 +152,7 @@ void Player::fightPlayer(const json &rawJSON)
 
     if (game->isGameOver())
     {
-        auto winner = game->getWinner();
-        EndGameEvent endGameEvent(game, winner);
-        game->eventHandler(std::make_shared<EndGameEvent>(endGameEvent));
+        game->endGame();
     }
 }
 

@@ -31,6 +31,7 @@ public:
     void stop();
     void addClient(Client::pointer client);
     void removeClient(Client::pointer client);
+    void endGame(std::shared_ptr<Game> game);
 
     explicit Server(int port);
 
@@ -48,6 +49,8 @@ private:
     void onAccept(Client::pointer client, const boost::system::error_code &error);
 
     static void close(Client::pointer connection);
+
+    void resetPlayerClientListeners(const std::shared_ptr<Game> &game) const;
 };
 
 #endif //WHISPERERENGINE_SERVER_H

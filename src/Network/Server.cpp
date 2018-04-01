@@ -77,6 +77,36 @@ void Server::removeClient(Client::pointer client)
     queue.erase(std::remove(queue.begin(), queue.end(), client->player), queue.end());
 }
 
+void Server::endGame(std::shared_ptr<Game> game)
+{
+
+    std::cout << "Game over between ";
+    for (const auto& player : game->players)
+    {
+        if (player != game->players.back())
+        {
+            std::cout << player->name;
+        }
+        else
+        {
+            std::cout << " and " << player->name << std::endl;
+        }
+    }
+
+    // Reset the callback listeners to listen for the lobby function
+    resetPlayerClientListeners(game);
+    games.erase(std::remove(games.begin(), games.end(), game), games.end());
+}
+
+void Server::resetPlayerClientListeners(const std::shared_ptr<Game> &game) const
+{
+    for (const auto& player : game->players)
+    {
+        player->client->getSocket().cancel();
+        player->client->asyncListen(&Client::lobbyListen);
+    }
+}
+
 Server::Server(int port)
         : database(Database()), factory(Factory()), io_service(), workLock(io_service), io_thread(),
           matchmaking_thread(), acceptor(io_service,
@@ -115,6 +145,19 @@ void Server::matchMake(std::atomic<bool>& quit)
             std::shared_ptr<Game> game = std::make_shared<Game>(players, shared_from_this());
             game->registerPlayers();
             game->startGame();
+
+            std::cout << "Game started for ";
+            for (const auto& player : game->players)
+            {
+                if (player != game->players.back())
+                {
+                    std::cout << player->name;
+                }
+                else
+                {
+                    std::cout << " and " << player->name << std::endl;
+                }
+            }
 
             games.push_back(game);
         }

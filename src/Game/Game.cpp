@@ -12,6 +12,7 @@
 #include "../../include/Network/Client.h"
 #include "../../include/Network/Server.h"
 #include "../../include/Game/Event/Game/StartGameEvent.h"
+#include "../../include/Game/Event/Game/EndGameEvent.h"
 
 json Game::getJSON(const std::shared_ptr<Player>& toPlayer)
 {
@@ -162,6 +163,16 @@ void Game::changeTurn()
     }
 
     activePlayer->startTurn();
+}
+
+void Game::endGame()
+{
+    auto winner = getWinner();
+
+    EndGameEvent endGameEvent(shared_from_this(), winner);
+    eventHandler(std::make_shared<EndGameEvent>(endGameEvent));
+
+    server->endGame(shared_from_this());
 }
 
 void Game::eventHandler(const std::shared_ptr<Event>& event)

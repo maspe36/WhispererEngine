@@ -47,6 +47,7 @@ public:
 
     void startGame();
     void changeTurn();
+    void endGame();
 
     void eventHandler(const std::shared_ptr<Event>& event);
 

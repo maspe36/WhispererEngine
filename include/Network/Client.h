@@ -51,6 +51,8 @@ public:
     void handleQueue(const json& rawJSON);
     void handleLogin(const json& rawJSON);
 
+    void lobbyListen();
+    void gameListen();
 private:
     std::string delimiter;
     boost::asio::streambuf buffer;
@@ -63,8 +65,6 @@ private:
     void assembleDeck(const std::string& deckID);
 
     void assembleProtocolMap();
-    void lobbyListen();
-    void gameListen();
 
     explicit Client(boost::asio::io_service& ioService);
 
