@@ -68,7 +68,7 @@ void Client::asyncListen(func callback)
 
 void Client::listen(const boost::system::error_code &errorCode, func callback)
 {
-    if (errorCode.value() == ERROR_OPERATION_ABORTED)
+    if (errorCode.value() == WINDOWS_ERROR_OPERATION_ABORTED)
     {
         return;
     }
