@@ -89,6 +89,7 @@ void Client::listen(const boost::system::error_code &errorCode, func callback)
     else
     {
         disconnect();
+        std::cout << "Error code: " << errorCode.value() << std::endl;
     }
 }
 
