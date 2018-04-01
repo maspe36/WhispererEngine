@@ -28,7 +28,8 @@ public:
     typedef std::map<std::string, Player::protocolFunc> GameFunctions;
 
     int WINDOWS_ERROR_OPERATION_ABORTED = 995;
-    
+    int UNIX_ECANCELED = 125;
+
     std::string name;
     std::string steamID;
     std::string avatarURL;
