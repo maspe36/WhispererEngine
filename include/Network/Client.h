@@ -53,6 +53,7 @@ public:
 
     void handleQueue(const json& rawJSON);
     void handleLogin(const json& rawJSON);
+    void handleNewPlayerSetup();
 
     void lobbyListen();
     void gameListen();
