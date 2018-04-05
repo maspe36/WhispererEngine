@@ -115,6 +115,10 @@ std::string Database::formatGetAllDecksAndCardsQuery(const std::string &steamID)
 bool Database::isNewSteamID(const std::string& steamID)
 {
     std::string query = formatIsNewSteamIDQuery(steamID);
+
+    std::cout << "Executing isNewSteamID..." << std::endl;
+    std::cout << query << std::endl;
+
     result = PQexec(connection, query.c_str());
 
     std::string strCount;
@@ -164,6 +168,10 @@ std::string Database::formatCreateUserQuery(const std::string &steamID)
 void Database::giveCards(const std::string &steamID)
 {
     std::string query = formatGiveCardsQuery(steamID);
+
+    std::cout << "Executing giveCards..." << std::endl;
+    std::cout << query << std::endl;
+
     result = PQexec(connection, query.c_str());
 }
 
@@ -185,8 +193,10 @@ std::string Database::formatGiveCardsQuery(const std::string &steamID)
 void Database::createDeckFor(const std::string &steamID)
 {
     std::string query = formatCreateDeckForQuery(steamID);
+
     std::cout << "Executing createDeckFor..." << std::endl;
     std::cout << query << std::endl;
+
     result = PQexec(connection, query.c_str());
 }
 
