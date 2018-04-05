@@ -150,6 +150,10 @@ std::string Database::formatIsNewSteamIDQuery(const std::string& steamID)
 void Database::createUser(const std::string &steamID)
 {
     std::string query = formatCreateUserQuery(steamID);
+
+    std::cout << "Executing createUser..." << std::endl;
+    std::cout << query << "\n" << std::endl;
+
     result = PQexec(connection, query.c_str());
 }
 
@@ -170,7 +174,7 @@ void Database::giveCards(const std::string &steamID)
     std::string query = formatGiveCardsQuery(steamID);
 
     std::cout << "Executing giveCards..." << std::endl;
-    std::cout << query << std::endl;
+    std::cout << query << "\n" << std::endl;
 
     result = PQexec(connection, query.c_str());
 }
@@ -195,7 +199,7 @@ void Database::createDeckFor(const std::string &steamID)
     std::string query = formatCreateDeckForQuery(steamID);
 
     std::cout << "Executing createDeckFor..." << std::endl;
-    std::cout << query << std::endl;
+    std::cout << query << "\n" << std::endl;
 
     result = PQexec(connection, query.c_str());
 }
@@ -227,7 +231,7 @@ void Database::createFirstTimeDeck(const std::string &steamID)
     std::string query = formatCreateFirstTimeDeck(steamID);
 
     std::cout << "Executing createFirstTimeDeck..." << std::endl;
-    std::cout << query << std::endl;
+    std::cout << query << "\n" << std::endl;
 
     result = PQexec(connection, query.c_str());
 }
