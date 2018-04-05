@@ -130,7 +130,7 @@ bool Database::isNewSteamID(const std::string& steamID)
 
     count = stoi(strCount);
 
-    return count > 0;
+    return count == 0;
 }
 
 std::string Database::formatIsNewSteamIDQuery(const std::string& steamID)
