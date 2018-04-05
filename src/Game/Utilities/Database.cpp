@@ -196,7 +196,8 @@ std::string Database::formatGiveCardsQuery(const std::string &steamID)
 
 void Database::createDeckFor(const std::string &steamID)
 {
-    std::string query = formatCreateDeckForQuery(steamID);
+    int deckID = createDeckAndGetID();
+    std::string query = formatCreateDeckForQuery(steamID, deckID);
 
     std::cout << "Executing createDeckFor..." << std::endl;
     std::cout << query << "\n" << std::endl;
@@ -204,7 +205,7 @@ void Database::createDeckFor(const std::string &steamID)
     result = PQexec(connection, query.c_str());
 }
 
-std::string Database::formatCreateDeckForQuery(const std::string &steamID)
+std::string Database::formatCreateDeckForQuery(const std::string &steamID, int deckID)
 {
     std::ostringstream getUserIDSQL;
     getUserIDSQL <<
@@ -212,15 +213,10 @@ std::string Database::formatCreateDeckForQuery(const std::string &steamID)
         R"(FROM public."User" )" <<
         R"(WHERE "SteamID" = ')" << steamID << "'";
 
-    std::ostringstream createDeckSQL;
-    createDeckSQL <<
-        R"(INSERT INTO "Deck" ("Name"))" <<
-            "VALUES('" << "Starter Deck" << R"(') RETURNING "Deck"."ID")";
-
     std::ostringstream linkDeckToUserSQL;
     linkDeckToUserSQL <<
         R"(INSERT INTO "DeckToUser" ("UserID", "DeckID") )" <<
-        "VALUES(" << "(" << getUserIDSQL.str() << ")" << ", (" << createDeckSQL.str() << "))" ;
+        "VALUES(" << "(" << getUserIDSQL.str() << ")" << ", (" << deckID << "))" ;
 
     return linkDeckToUserSQL.str();
 }
@@ -256,6 +252,37 @@ std::string Database::formatCreateFirstTimeDeck(const std::string &steamID)
     createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardUserID", "DeckID") )" << getCardUserIDSQLStream.str();
 
     return createSQLStream.str();
+}
+
+int Database::createDeckAndGetID()
+{
+    std::string query = formatCreateDeckAndGetIDQuery();
+
+    std::cout << "Executing createDeckAndGetID..." << std::endl;
+    std::cout << query << "\n" << std::endl;
+
+    result = PQexec(connection, query.c_str());
+
+    std::string strDeckID;
+    int deckID;
+    for (int i = 0; i < PQntuples(result); i++)
+    {
+        strDeckID = PQgetvalue(result, i, 0);
+    }
+
+    deckID = stoi(strDeckID);
+
+    return deckID;
+}
+
+std::string Database::formatCreateDeckAndGetIDQuery()
+{
+    std::ostringstream createDeckSQL;
+    createDeckSQL <<
+                  R"(INSERT INTO "Deck" ("Name"))" <<
+                  "VALUES('" << "Starter Deck" << R"(') RETURNING "Deck"."ID")";
+
+    return createDeckSQL.str();
 }
 
 Database::Database()

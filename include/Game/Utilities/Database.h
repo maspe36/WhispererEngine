@@ -39,7 +39,10 @@ public:
     std::string formatGiveCardsQuery(const std::string& steamID);
 
     void createDeckFor(const std::string& steamID);
-    std::string formatCreateDeckForQuery(const std::string& steamID);
+    std::string formatCreateDeckForQuery(const std::string& steamID, int deckID);
+
+    int createDeckAndGetID();
+    std::string formatCreateDeckAndGetIDQuery();
 
     void createFirstTimeDeck(const std::string& steamID);
     std::string formatCreateFirstTimeDeck(const std::string& steamID);
