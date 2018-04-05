@@ -204,7 +204,7 @@ std::string Database::formatCreateDeckForQuery(const std::string &steamID)
     std::ostringstream linkDeckToUserSQL;
     linkDeckToUserSQL <<
         R"(INSERT INTO "DeckToUser" ("UserID", "DeckID") )" <<
-        "VALUES(" << "(" << getUserIDSQL << ")" << ", (" >> createDeckSQL << "))" ;
+        "VALUES(" << "(" << getUserIDSQL.str() << ")" << ", (" << createDeckSQL.str() << "))" ;
 
     return linkDeckToUserSQL.str();
 }
@@ -227,13 +227,13 @@ std::string Database::formatCreateFirstTimeDeck(const std::string &steamID)
 
     std::ostringstream getCardUserIDSQLStream;
     getCardUserIDSQLStream <<
-        R"(SELECT "CardToUser"."ID", ()" << getFirstUserDeckIDSQL << ") " <<
+        R"(SELECT "CardToUser"."ID", ()" << getFirstUserDeckIDSQL.str() << ") " <<
         R"(FROM "User", "Card", "CardToUser" )" <<
         R"(WHERE "User"."ID" = "CardToUser"."UserID" AND "Card"."ID" = "CardToUser"."CardID" )" <<
         R"(AND User"."SteamID" = ')" << steamID << "' LIMIT 40)";
 
     std::ostringstream createSQLStream;
-    createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardUserID", "DeckID") )" << getCardUserIDSQLStream;
+    createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardUserID", "DeckID") )" << getCardUserIDSQLStream.str();
 
     return createSQLStream.str();
 }
