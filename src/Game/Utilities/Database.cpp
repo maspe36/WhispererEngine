@@ -185,6 +185,8 @@ std::string Database::formatGiveCardsQuery(const std::string &steamID)
 void Database::createDeckFor(const std::string &steamID)
 {
     std::string query = formatCreateDeckForQuery(steamID);
+    std::cout << "Executing createDeckFor..." << std::endl;
+    std::cout << query << std::endl;
     result = PQexec(connection, query.c_str());
 }
 
@@ -213,6 +215,10 @@ void Database::createFirstTimeDeck(const std::string &steamID)
 {
     createDeckFor(steamID);
     std::string query = formatCreateFirstTimeDeck(steamID);
+
+    std::cout << "Executing createFirstTimeDeck..." << std::endl;
+    std::cout << query << std::endl;
+
     result = PQexec(connection, query.c_str());
 }
 
