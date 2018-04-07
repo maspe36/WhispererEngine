@@ -101,6 +101,7 @@ std::shared_ptr<Player> Game::getWinner()
 
 void Game::surrender(std::shared_ptr<Player> player)
 {
+    player->client->resetLobbyListen();
     removePlayer(player);
     endGame();
 }

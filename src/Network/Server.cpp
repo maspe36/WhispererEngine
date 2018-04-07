@@ -102,8 +102,7 @@ void Server::resetPlayerClientListeners(const std::shared_ptr<Game> &game) const
 {
     for (const auto& player : game->players)
     {
-        player->client->getSocket().cancel();
-        player->client->asyncListen(&Client::lobbyListen);
+        player->client->resetLobbyListen();
     }
 }
 

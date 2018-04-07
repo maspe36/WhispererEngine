@@ -57,6 +57,7 @@ public:
 
     void lobbyListen();
     void gameListen();
+    void resetLobbyListen();
 private:
     std::string delimiter;
     boost::asio::streambuf buffer;

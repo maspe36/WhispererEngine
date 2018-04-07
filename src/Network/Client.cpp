@@ -244,6 +244,12 @@ void Client::gameListen()
     asyncListen(listenerCallback);
 }
 
+void Client::resetLobbyListen()
+{
+    getSocket().cancel();
+    asyncListen(&Client::lobbyListen);
+}
+
 Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr),
           listening(false), socket(ioService), delimiter("\n"), listenerCallback(&Client::lobbyListen)
