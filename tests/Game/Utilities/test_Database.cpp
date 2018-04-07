@@ -52,7 +52,10 @@ TEST_CASE("Get CardIDs for Deck")
                                               "Azar", "Azar", "Azar", "Azar", "Azar",
                                               "Azar", "Azar", "Azar", "Azar", "Azar",
                                               "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar"};
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar", "Azar", "Azar", "Azar",
+                                              "Azar", "Azar"};
 
     std::string steamID = "76561198026041712";
     std::string deckID = "1";
