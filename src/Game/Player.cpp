@@ -202,6 +202,11 @@ void Player::fightCreature(const json &rawJSON)
     }
 }
 
+void Player::surrender(const json &rawJSON)
+{
+    game->surrender(shared_from_this());
+}
+
 json Player::getState()
 {
     json playerJSON;

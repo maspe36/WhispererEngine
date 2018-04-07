@@ -51,6 +51,7 @@ public:
     void sendChatMessage(const json& rawJSON);
     void fightPlayer(const json& rawJSON);
     void fightCreature(const json& rawJSON);
+    void surrender(const json& rawJSON);
 
     json getState();
     json getOpponentState();

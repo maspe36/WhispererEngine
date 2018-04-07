@@ -80,6 +80,7 @@ std::shared_ptr<Player> Game::getWinner()
 {
     std::vector<std::shared_ptr<Player>> alive;
 
+    // Is a players health zero?
     for (const auto& player : players)
     {
         if (player->health > 0)
@@ -88,8 +89,20 @@ std::shared_ptr<Player> Game::getWinner()
         }
     }
 
+    // Did a player leave?
+    if (players.size() == 1)
+    {
+        alive.push_back(players.front());
+    }
+
     // Will need to change this if we ever want say 2v2
     return alive.at(0);
+}
+
+void Game::surrender(std::shared_ptr<Player> player)
+{
+    removePlayer(player);
+    endGame();
 }
 
 std::shared_ptr<Player> Game::findPlayer(const std::string &tag)
@@ -118,6 +131,11 @@ std::vector<std::shared_ptr<Player>> Game::getOpponents(std::shared_ptr<Player> 
     }
 
     return opponents;
+}
+
+void Game::removePlayer(std::shared_ptr<Player> player)
+{
+    players.erase(std::remove(players.begin(), players.end(), player));
 }
 
 void Game::writePlayers(const std::string &data)

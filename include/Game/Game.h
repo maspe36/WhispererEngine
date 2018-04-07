@@ -40,8 +40,11 @@ public:
 
     bool isGameOver();
     std::shared_ptr<Player> getWinner();
+    void surrender(std::shared_ptr<Player> player);
+
     std::shared_ptr<Player> findPlayer(const std::string& tag);
     std::vector<std::shared_ptr<Player>> getOpponents(std::shared_ptr<Player> forPlayer);
+    void removePlayer(std::shared_ptr<Player> player);
     void writePlayers(const std::string &data);
     void registerPlayers();
 

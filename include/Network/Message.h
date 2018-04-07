@@ -26,6 +26,7 @@ public:
     static std::string START_TURN;
     static std::string END_TURN;
     static std::string STOP_TURN;
+    static std::string STOP_GAME;
     static std::string FIGHT_PLAYER;
     static std::string FIGHT_CREATURE;
     static std::string PLAYER_ATTACKED;

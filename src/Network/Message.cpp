@@ -19,6 +19,7 @@ std::string Message::CARD_MOVED = "cardMoved";
 std::string Message::START_TURN = "startTurn";
 std::string Message::END_TURN = "endTurn";
 std::string Message::STOP_TURN = "stopTurn";
+std::string Message::STOP_GAME = "stopGame";
 std::string Message::FIGHT_PLAYER = "fightPlayer";
 std::string Message::FIGHT_CREATURE = "fightCreature";
 std::string Message::PLAYER_ATTACKED = "playerAttacked";
