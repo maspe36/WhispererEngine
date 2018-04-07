@@ -12,6 +12,10 @@ class CreatureZone
         : public Container
 {
 public:
+    int sizeLimit = 6;
+
+    void addCard(const std::shared_ptr<Card>& card) override;
+
     CreatureZone();
     ~CreatureZone();
 };

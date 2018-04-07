@@ -10,3 +10,15 @@ CreatureZone::CreatureZone()
 
 CreatureZone::~CreatureZone()
 = default;
+
+void CreatureZone::addCard(const std::shared_ptr<Card>& card)
+{
+    if (count() < sizeLimit)
+    {
+        Container::addCard(card);
+    }
+    else
+    {
+        throw std::runtime_error("You may not have more than 7 creatures in play");
+    }
+}

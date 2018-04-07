@@ -13,7 +13,7 @@ void Board::playCard(std::shared_ptr<Card> card)
 {
     if (auto creature = std::dynamic_pointer_cast<Creature>(card))
     {
-        creatures->cards.push_back(creature);
+        creatures->addCard(creature);
     }
 }
 

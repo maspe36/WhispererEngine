@@ -22,8 +22,9 @@ public:
     std::shared_ptr<Card> findCard(const std::string& tag);
     int count();
     void shuffle();
-    void addCard(std::shared_ptr<Card> card);
-    void removeCard(std::shared_ptr<Card> card);
+
+    virtual void addCard(const std::shared_ptr<Card>& card);
+    void removeCard(const std::shared_ptr<Card>& card);
 
     explicit Container(const std::vector<std::shared_ptr<Card>>& cards);
     Container();

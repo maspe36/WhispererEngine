@@ -41,12 +41,12 @@ void Container::shuffle()
     std::shuffle(cards.begin(), cards.end(), std::mt19937(std::random_device()()));
 }
 
-void Container::addCard(std::shared_ptr<Card> card)
+void Container::addCard(const std::shared_ptr<Card>& card)
 {
     cards.push_back(card);
 }
 
-void Container::removeCard(std::shared_ptr<Card> card)
+void Container::removeCard(const std::shared_ptr<Card>& card)
 {
     cards.erase(std::remove(cards.begin(), cards.end(), card));
 }
