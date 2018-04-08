@@ -42,7 +42,7 @@ public:
     bool listening;
 
     static pointer create(boost::asio::io_service &ioService);
-    boost::asio::ip::tcp::socket& getSocket();
+    std::shared_ptr<boost::asio::ip::tcp::socket> getSocket();
     std::string getAddress();
 
     void start(std::shared_ptr<Server> server);
@@ -61,7 +61,7 @@ public:
 private:
     std::string delimiter;
     boost::asio::streambuf buffer;
-    boost::asio::ip::tcp::socket socket;
+    std::shared_ptr<boost::asio::ip::tcp::socket> socket;
 
     std::string getString(boost::asio::streambuf &buffer);
     void emptyBuffer();

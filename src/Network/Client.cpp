@@ -23,14 +23,14 @@ Client::pointer Client::create(boost::asio::io_service &ioService)
     return pointer(new Client(ioService));
 }
 
-boost::asio::ip::tcp::socket & Client::getSocket()
+std::shared_ptr<boost::asio::ip::tcp::socket> Client::getSocket()
 {
     return socket;
 }
 
 std::string Client::getAddress()
 {
-    return shared_from_this()->getSocket().remote_endpoint().address().to_string();
+    return shared_from_this()->getSocket()->remote_endpoint().address().to_string();
 }
 
 void Client::start(std::shared_ptr<Server> server)
@@ -47,21 +47,21 @@ void Client::write(std::string data)
 {
     data.append(delimiter);
 
-    boost::asio::async_write(socket, boost::asio::buffer(data.c_str(), data.size()),
+    boost::asio::async_write(*socket, boost::asio::buffer(data.c_str(), data.size()),
                              boost::bind(&Client::onWrite, shared_from_this(),
                                          boost::asio::placeholders::error, data));
 }
 
 void Client::disconnect()
 {
-    socket.close();
+    socket->close();
     server->removeClient(shared_from_this());
     std::cout << "Lost connection to client!" << std::endl;
 }
 
 void Client::asyncListen(func callback)
 {
-    boost::asio::async_read_until(socket, buffer, delimiter,
+    boost::asio::async_read_until(*socket, buffer, delimiter,
                                   boost::bind(&Client::listen, shared_from_this(),
                                               boost::asio::placeholders::error, callback));
 }
@@ -246,13 +246,13 @@ void Client::gameListen()
 
 void Client::resetLobbyListen()
 {
-    getSocket().cancel();
+    getSocket()->cancel();
     asyncListen(&Client::lobbyListen);
 }
 
 Client::Client(boost::asio::io_service & ioService)
         : player(nullptr), server(nullptr),
-          listening(false), socket(ioService), delimiter("\n"), listenerCallback(&Client::lobbyListen)
+          listening(false), socket(new boost::asio::ip::tcp::socket(ioService)), delimiter("\n"), listenerCallback(&Client::lobbyListen)
 {
     assembleProtocolMap();
 }

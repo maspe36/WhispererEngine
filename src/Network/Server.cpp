@@ -121,7 +121,7 @@ void Server::listen()
     Client::pointer client = Client::create(acceptor.get_io_service());
 
     // Calls onAccept when a connection happens
-    acceptor.async_accept(client->getSocket(),
+    acceptor.async_accept(*client->getSocket(),
                           boost::bind(&Server::onAccept, this, client,
                                       boost::asio::placeholders::error));
 }
@@ -178,5 +178,5 @@ void Server::onAccept(Client::pointer client, const boost::system::error_code &e
 void Server::close(Client::pointer client)
 {
     std::cout << "Closing connection from " << client->name << std::endl;
-    client->getSocket().close();
+    client->getSocket()->close();
 }
