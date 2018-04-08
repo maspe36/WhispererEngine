@@ -9,6 +9,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include "../Utilities/Database.h"
 
 class Card;
 class Version;
@@ -24,9 +25,12 @@ class Factory
 {
 public:
     Version* version;
+    Database database;
 
     std::shared_ptr<Card> createCard(const std::string &name);
     pybind11::object createPyCard(const std::string &name);
+
+    void refreshCards();
 
     Factory();
     ~Factory();

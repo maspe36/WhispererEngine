@@ -6,23 +6,34 @@
 #include "../../../include/Game/Python/Module.h"
 #include "../../../include/Game/Python/Version.h"
 
+#include "pybind11/eval.h"
+
 namespace py = pybind11;
 
 std::shared_ptr<Card> Factory::createCard(const std::string &name)
 {
-    auto pyCard = Factory::createPyCard(name);
+    py::object pyCard = createPyCard(name);
+
     auto card = pyCard.cast<std::shared_ptr<Card>>();
     card->pythonName = name;
     return card;
 }
 
-py::object Factory::createPyCard(const std::string &name)
+pybind11::object Factory::createPyCard(const std::string &name)
 {
-    py::module cardModule = py::module::import(name.c_str());
-    cardModule.reload();
-    py::object pyCard = cardModule.attr(name.c_str())();
+    py::module scope = py::module::import("__main__");
+    return scope.attr(name.c_str())();
+}
 
-    return pyCard;
+void Factory::refreshCards()
+{
+    std::map<std::string, std::string> cardDict = database.getAllCards();
+
+    for (auto const& item : cardDict)
+    {
+        auto script = item.second;
+        py::exec(script);
+    }
 }
 
 Factory::Factory()
@@ -34,6 +45,7 @@ Factory::Factory()
     updateVersion();
 
     py::module::import("sys").attr("path").cast<py::list>().append("../cards");
+    refreshCards();
 }
 
 Factory::~Factory()

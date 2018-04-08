@@ -16,6 +16,31 @@ void Database::setupUser(const std::string &steamID)
     createFirstTimeDeck(steamID);
 }
 
+std::map<std::string, std::string> Database::getAllCards()
+{
+    std::map<std::string, std::string> cards;
+
+    std::string query = formatGetAllCards();
+    result = PQexec(connection, query.c_str());
+
+    for (int i = 0; i < PQntuples(result); i++)
+    {
+        std::string className = PQgetvalue(result, i, 0);
+        std::string script = PQgetvalue(result, i, 1);
+        cards[className] = script;
+    }
+
+    return cards;
+}
+
+std::string Database::formatGetAllCards()
+{
+    std::ostringstream sqlStream;
+    sqlStream << R"(SELECT "className", "script" FROM "Card")";
+
+    return sqlStream.str();
+}
+
 std::vector<std::string> Database::getDeckCards(const std::string& steamID, const std::string& deckID)
 {
     std::vector<std::string> rows;
