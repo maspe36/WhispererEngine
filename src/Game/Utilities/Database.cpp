@@ -71,7 +71,7 @@ std::string Database::formatGetDeckCardsQuery(const std::string& steamID, const 
                 R"(public."User" )" <<
               "WHERE " <<
                 R"("Card"."id" = "CardToUser"."CardId" AND )" <<
-                R"("CardUserToDeck"."CardUserId" = "CardToUser"."id" AND )" <<
+                R"("CardUserToDeck"."CardToUserId" = "CardToUser"."id" AND )" <<
                 R"("CardUserToDeck"."DeckId" = "Deck"."id" AND )" <<
                 R"("Deck"."id" = "DeckToUser"."DeckId" AND )" <<
                 R"("DeckToUser"."UserId" = "User"."id" AND )" <<
@@ -127,7 +127,7 @@ std::string Database::formatGetAllDecksAndCardsQuery(const std::string &steamID)
               R"(public."User" )" <<
               "WHERE " <<
               R"("Card"."id" = "CardToUser"."CardId" AND )" <<
-              R"("CardUserToDeck"."CardUserId" = "CardToUser"."id" AND )" <<
+              R"("CardUserToDeck"."CardToUserId" = "CardToUser"."id" AND )" <<
               R"("CardUserToDeck"."DeckId" = "Deck"."id" AND )" <<
               R"("Deck"."id" = "DeckToUser"."DeckId" AND )" <<
               R"("DeckToUser"."UserId" = "User"."id" AND )" <<
