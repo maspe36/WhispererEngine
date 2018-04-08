@@ -79,11 +79,6 @@ void Player::refreshCreatures()
     }
 }
 
-void Player::surrender()
-{
-    game->surrender(shared_from_this());
-}
-
 void Player::quit()
 {
     game->quit(shared_from_this());
@@ -214,7 +209,7 @@ void Player::fightCreature(const json &rawJSON)
 
 void Player::surrender(const json &rawJSON)
 {
-    surrender();
+    game->surrender(shared_from_this());
 }
 
 json Player::getState()

@@ -54,7 +54,7 @@ void Client::write(std::string data)
 
 void Client::disconnect()
 {
-    if (player->game)
+    if (player->game->players.size() > 1)
     {
         player->quit();
     }
