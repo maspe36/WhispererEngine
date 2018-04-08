@@ -4,7 +4,17 @@
 
 [![Build Status](http://74.208.200.101:8080/job/WhispererEngine/badge/icon)](http://74.208.200.101:8080/job/WhispererEngine/)
 
+Whisperer is a digital collectible card game that focuses on deck building. We give players the freedom to create their own cards for games between friends. Are you an r/customhearthstone subscriber? Did you create custom cards for your favorite game as a kid? Whisperer is for you.
 WhispererEngine is the backend server for the Whisperer game. It handles clients connecting, starting a game, and most importantly verifying valid moves. In the future this server will also support deck creation and editing.
+
+## Dependencies
+
+- [Postgres](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) (Or just apt-get the pg libs)
+    - libpq, required for connecting to Postgres DB's
+- [Boost](https://www.boost.org/) 1.65.1 or newer
+    - asio, required for communicating with the client
+- [cURL](https://curl.haxx.se/download.html)
+    - libcurl, required for making API calls
 
 ## Supported compilers
 
