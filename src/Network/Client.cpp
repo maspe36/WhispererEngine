@@ -54,11 +54,14 @@ void Client::write(std::string data)
 
 void Client::disconnect()
 {
-    if (player->game)
+    if (player)
     {
-        if (player->game->players.size() > 1)
+        if (player->game)
         {
-            player->quit();
+            if (player->game->players.size() > 1)
+            {
+                player->quit();
+            }
         }
     }
 
