@@ -41,39 +41,3 @@ TEST_CASE("Verify get CardIDs for Deck SQL")
 
     REQUIRE(query == expectedQuery.str());
 }
-
-TEST_CASE("Get CardIDs for Deck")
-{
-    // Don't fill this from a loop because this could change soon
-    std::vector<std::string> expectedNames = {"Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar", "Azar", "Azar", "Azar",
-                                              "Azar", "Azar"};
-
-    std::string steamID = "76561198026041712";
-    std::string deckID = "1";
-
-    Database database;
-    std::vector<std::string> cardIDs = database.getDeckCards(steamID, deckID);
-
-    REQUIRE(cardIDs == expectedNames);
-}
-
-TEST_CASE("Get all Deck Cards")
-{
-    // Krusher99 steamID
-    std::string steamID = "76561198819580946";
-
-    Database database;
-    Factory factory;
-    std::map<std::string, Deck> deckMap = database.getAllDeckCards(steamID, &factory);
-
-    REQUIRE(!deckMap.empty());
-}
