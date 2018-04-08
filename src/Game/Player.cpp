@@ -84,6 +84,11 @@ void Player::surrender()
     game->surrender(shared_from_this());
 }
 
+void Player::quit()
+{
+    game->quit(shared_from_this());
+}
+
 void Player::playCard(const json &rawJSON)
 {
     if (shared_from_this() == game->activePlayer)

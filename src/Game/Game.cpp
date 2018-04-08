@@ -101,7 +101,13 @@ std::shared_ptr<Player> Game::getWinner()
 
 void Game::surrender(std::shared_ptr<Player> player)
 {
+    // Surrender a player is still connected so send them back to the lobby before they quit the game
     player->client->resetLobbyListen();
+    quit(player);
+}
+
+void Game::quit(std::shared_ptr<Player> player)
+{
     removePlayer(player);
     endGame();
 }
