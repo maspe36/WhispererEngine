@@ -19,7 +19,7 @@ TEST_CASE("Verify get CardIDs for Deck SQL")
     std::ostringstream expectedQuery;
     expectedQuery <<
                   "SELECT " <<
-                    R"("Card"."PythonName" )" <<
+                    R"("Card"."className" )" <<
                   "FROM " <<
                     R"(public."Card", )" <<
                     R"(public."CardToUser", )" <<
@@ -28,13 +28,13 @@ TEST_CASE("Verify get CardIDs for Deck SQL")
                     R"(public."DeckToUser", )" <<
                     R"(public."User" )" <<
                   "WHERE " <<
-                    R"("Card"."ID" = "CardToUser"."CardID" AND )" <<
-                    R"("CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND )" <<
-                    R"("CardUserToDeck"."DeckID" = "Deck"."ID" AND )" <<
-                    R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
-                    R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
-                    R"("User"."ID" = "CardToUser"."UserID" AND )" <<
-                    R"("User"."SteamID" = '76561198026041712' AND "Deck"."ID" = 1;)";
+                    R"("Card"."id" = "CardToUser"."CardId" AND )" <<
+                    R"("CardUserToDeck"."CardUserId" = "CardToUser"."id" AND )" <<
+                    R"("CardUserToDeck"."DeckId" = "Deck"."id" AND )" <<
+                    R"("Deck"."id" = "DeckToUser"."DeckId" AND )" <<
+                    R"("DeckToUser"."UserId" = "User"."id" AND )" <<
+                    R"("User"."id" = "CardToUser"."UserId" AND )" <<
+                    R"("User"."steamId" = '76561198026041712' AND "Deck"."id" = 1;)";
 
     Database database;
     std::string query = database.formatGetDeckCardsQuery(steamID, deckID);
