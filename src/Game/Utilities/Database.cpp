@@ -61,7 +61,7 @@ std::string Database::formatGetDeckCardsQuery(const std::string& steamID, const 
     std::ostringstream sqlStream;
     sqlStream <<
               "SELECT " <<
-                R"("Card"."PythonName" )" <<
+                R"("Card"."className" )" <<
               "FROM " <<
                 R"(public."Card", )" <<
                 R"(public."CardToUser", )" <<
@@ -70,13 +70,13 @@ std::string Database::formatGetDeckCardsQuery(const std::string& steamID, const 
                 R"(public."DeckToUser", )" <<
                 R"(public."User" )" <<
               "WHERE " <<
-                R"("Card"."ID" = "CardToUser"."CardID" AND )" <<
-                R"("CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND )" <<
-                R"("CardUserToDeck"."DeckID" = "Deck"."ID" AND )" <<
-                R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
-                R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
-                R"("User"."ID" = "CardToUser"."UserID" AND )" <<
-                R"("User"."SteamID" = ')" << steamID << R"(' AND "Deck"."ID" = )" << deckID << ";";
+                R"("Card"."id" = "CardToUser"."CardId" AND )" <<
+                R"("CardUserToDeck"."CardUserId" = "CardToUser"."id" AND )" <<
+                R"("CardUserToDeck"."DeckId" = "Deck"."id" AND )" <<
+                R"("Deck"."id" = "DeckToUser"."DeckId" AND )" <<
+                R"("DeckToUser"."UserId" = "User"."id" AND )" <<
+                R"("User"."id" = "CardToUser"."UserId" AND )" <<
+                R"("User"."steamId" = ')" << steamID << R"(' AND "Deck"."id" = )" << deckID << ";";
 
     return sqlStream.str();
 }
@@ -91,8 +91,8 @@ std::map<std::string, Deck> Database::getAllDeckCards(const std::string &steamID
     for (int i = 0; i < PQntuples(result); i++)
     {
         std::string name = PQgetvalue(result, i, 0);
-        std::string ID = PQgetvalue(result, i, 1);
-        std::string pythonName = PQgetvalue(result, i, 2);
+        std::string id = PQgetvalue(result, i, 1);
+        std::string className = PQgetvalue(result, i, 2);
 
         if (deckMap[name].name.empty())
         {
@@ -101,10 +101,10 @@ std::map<std::string, Deck> Database::getAllDeckCards(const std::string &steamID
 
         if (deckMap[name].id.empty())
         {
-            deckMap[name].id = ID;
+            deckMap[name].id = id;
         }
 
-        deckMap[name].cards.push_back(factory->createCard(pythonName));
+        deckMap[name].cards.push_back(factory->createCard(className));
     }
 
     return deckMap;
@@ -115,9 +115,9 @@ std::string Database::formatGetAllDecksAndCardsQuery(const std::string &steamID)
     std::ostringstream sqlStream;
     sqlStream <<
               "SELECT " <<
-              R"("Deck"."Name", )" <<
-              R"("Deck"."ID", )" <<
-              R"("Card"."PythonName" )" <<
+              R"("Deck"."name", )" <<
+              R"("Deck"."id", )" <<
+              R"("Card"."className" )" <<
               "FROM " <<
               R"(public."Card", )" <<
               R"(public."CardToUser", )" <<
@@ -126,13 +126,13 @@ std::string Database::formatGetAllDecksAndCardsQuery(const std::string &steamID)
               R"(public."DeckToUser", )" <<
               R"(public."User" )" <<
               "WHERE " <<
-              R"("Card"."ID" = "CardToUser"."CardID" AND )" <<
-              R"("CardUserToDeck"."CardUserID" = "CardToUser"."ID" AND )" <<
-              R"("CardUserToDeck"."DeckID" = "Deck"."ID" AND )" <<
-              R"("Deck"."ID" = "DeckToUser"."DeckID" AND )" <<
-              R"("DeckToUser"."UserID" = "User"."ID" AND )" <<
-              R"("User"."ID" = "CardToUser"."UserID" AND )" <<
-              R"("User"."SteamID" = ')" << steamID << "';";
+              R"("Card"."id" = "CardToUser"."CardId" AND )" <<
+              R"("CardUserToDeck"."CardUserId" = "CardToUser"."id" AND )" <<
+              R"("CardUserToDeck"."DeckId" = "Deck"."id" AND )" <<
+              R"("Deck"."id" = "DeckToUser"."DeckId" AND )" <<
+              R"("DeckToUser"."UserId" = "User"."id" AND )" <<
+              R"("User"."id" = "CardToUser"."UserId" AND )" <<
+              R"("User"."steamId" = ')" << steamID << "';";
 
     return sqlStream.str();
 }
@@ -163,11 +163,11 @@ std::string Database::formatIsNewSteamIDQuery(const std::string& steamID)
     std::ostringstream sqlStream;
     sqlStream <<
               "SELECT " <<
-              R"(COUNT("SteamID"))" <<
+              R"(COUNT("steamId"))" <<
               "FROM " <<
               R"(public."User" )" <<
               "WHERE " <<
-              R"("SteamID" = ')" << steamID << "';";
+              R"("steamId" = ')" << steamID << "';";
 
     return sqlStream.str();
 }
@@ -187,7 +187,7 @@ std::string Database::formatCreateUserQuery(const std::string &steamID)
     std::ostringstream sqlStream;
     sqlStream <<
         "INSERT INTO " <<
-            R"("User" ("SteamID"))" <<
+            R"("User" ("steamId"))" <<
         "VALUES('" << steamID << "')";
 
     return sqlStream.str();
@@ -211,8 +211,8 @@ std::string Database::formatGiveCardsQuery(const std::string &steamID)
         "DO $$ DECLARE i bigint; " <<
         "BEGIN " <<
             R"(FOR i IN 1..20 LOOP )" <<
-                R"(INSERT INTO "CardToUser"("CardID", "UserID") SELECT "Card"."ID", "User"."ID" )" <<
-                R"(FROM "Card", "User" WHERE "User"."SteamID" = ')" << steamID << "'; " <<
+                R"(INSERT INTO "CardToUser"("CardId", "UserId") SELECT "Card"."id", "User"."id" )" <<
+                R"(FROM "Card", "User" WHERE "User"."steamId" = ')" << steamID << "'; " <<
             "END LOOP; " <<
         "END$$;";
 
@@ -234,13 +234,13 @@ std::string Database::formatCreateDeckForQuery(const std::string &steamID, int d
 {
     std::ostringstream getUserIDSQL;
     getUserIDSQL <<
-        R"(SELECT "ID" )" <<
+        R"(SELECT "id" )" <<
         R"(FROM public."User" )" <<
-        R"(WHERE "SteamID" = ')" << steamID << "'";
+        R"(WHERE "steamId" = ')" << steamID << "'";
 
     std::ostringstream linkDeckToUserSQL;
     linkDeckToUserSQL <<
-        R"(INSERT INTO "DeckToUser" ("UserID", "DeckID") )" <<
+        R"(INSERT INTO "DeckToUser" ("UserId", "DeckId") )" <<
         "VALUES(" << "(" << getUserIDSQL.str() << ")" << ", (" << deckID << "))" ;
 
     return linkDeckToUserSQL.str();
@@ -261,20 +261,20 @@ std::string Database::formatCreateFirstTimeDeck(const std::string &steamID)
 {
     std::ostringstream getFirstUserDeckIDSQL;
     getFirstUserDeckIDSQL <<
-        R"(SELECT "Deck"."ID" )" <<
+        R"(SELECT "Deck"."id" )" <<
         R"(FROM "Deck", "User", "DeckToUser" )" <<
-        R"(WHERE "Deck"."ID" = "DeckToUser"."DeckID" AND "User"."ID" = "DeckToUser"."UserID" )" <<
-        R"(AND "User"."SteamID" = ')" << steamID << "' LIMIT 1";
+        R"(WHERE "Deck"."id" = "DeckToUser"."DeckId" AND "User"."id" = "DeckToUser"."UserId" )" <<
+        R"(AND "User"."steamId" = ')" << steamID << "' LIMIT 1";
 
     std::ostringstream getCardUserIDSQLStream;
     getCardUserIDSQLStream <<
-        R"(SELECT "CardToUser"."ID", ()" << getFirstUserDeckIDSQL.str() << ") " <<
+        R"(SELECT "CardToUser"."id", ()" << getFirstUserDeckIDSQL.str() << ") " <<
         R"(FROM "User", "Card", "CardToUser" )" <<
-        R"(WHERE "User"."ID" = "CardToUser"."UserID" AND "Card"."ID" = "CardToUser"."CardID" )" <<
-        R"(AND "User"."SteamID" = ')" << steamID << "' LIMIT 40";
+        R"(WHERE "User"."id" = "CardToUser"."UserId" AND "Card"."id" = "CardToUser"."CardId" )" <<
+        R"(AND "User"."steamId" = ')" << steamID << "' LIMIT 40";
 
     std::ostringstream createSQLStream;
-    createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardUserID", "DeckID") )" << getCardUserIDSQLStream.str();
+    createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardUserId", "DeckId") )" << getCardUserIDSQLStream.str();
 
     return createSQLStream.str();
 }
@@ -304,8 +304,8 @@ std::string Database::formatCreateDeckAndGetIDQuery()
 {
     std::ostringstream createDeckSQL;
     createDeckSQL <<
-                  R"(INSERT INTO "Deck" ("Name"))" <<
-                  "VALUES('" << "Starter Deck" << R"(') RETURNING "Deck"."ID")";
+                  R"(INSERT INTO "Deck" ("name"))" <<
+                  "VALUES('" << "Starter Deck" << R"(') RETURNING "Deck"."id")";
 
     return createDeckSQL.str();
 }
