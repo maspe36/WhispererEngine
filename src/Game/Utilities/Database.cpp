@@ -274,7 +274,7 @@ std::string Database::formatCreateFirstTimeDeck(const std::string &steamID)
         R"(AND "User"."steamId" = ')" << steamID << "' LIMIT 40";
 
     std::ostringstream createSQLStream;
-    createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardUserId", "DeckId") )" << getCardUserIDSQLStream.str();
+    createSQLStream << R"(INSERT INTO "CardUserToDeck"("CardToUserId", "DeckId") )" << getCardUserIDSQLStream.str();
 
     return createSQLStream.str();
 }
