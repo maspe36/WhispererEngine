@@ -79,6 +79,11 @@ void Player::refreshCreatures()
     }
 }
 
+void Player::surrender()
+{
+    game->surrender(shared_from_this());
+}
+
 void Player::playCard(const json &rawJSON)
 {
     if (shared_from_this() == game->activePlayer)
@@ -204,7 +209,7 @@ void Player::fightCreature(const json &rawJSON)
 
 void Player::surrender(const json &rawJSON)
 {
-    game->surrender(shared_from_this());
+    surrender();
 }
 
 json Player::getState()

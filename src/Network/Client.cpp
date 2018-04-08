@@ -54,6 +54,11 @@ void Client::write(std::string data)
 
 void Client::disconnect()
 {
+    if (player->game)
+    {
+        player->surrender();
+    }
+    
     socket->close();
     server->removeClient(shared_from_this());
     std::cout << "Lost connection to client!" << std::endl;

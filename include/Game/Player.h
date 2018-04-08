@@ -44,6 +44,7 @@ public:
     void startTurn();
     void refillMana();
     void refreshCreatures();
+    void surrender();
 
     // Protocol functions
     void playCard(const json &rawJSON);
