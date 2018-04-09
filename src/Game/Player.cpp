@@ -97,7 +97,7 @@ void Player::playCard(const json &rawJSON)
             board->playCard(card);
             hand->removeCard(card);
 
-            if (totalMana.getTotalCount() <= 15 && totalMana.withinIndividualLimit())
+            if (totalMana.getTotalCount() < 15 && totalMana.withinIndividualLimit())
             {
                 totalMana.increaseMana(card->mana);
             }
