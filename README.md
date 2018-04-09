@@ -16,6 +16,14 @@ WhispererEngine is the backend server for the Whisperer game. It handles clients
 - [cURL](https://curl.haxx.se/download.html)
     - libcurl, required for making API calls
 
+## Note
+You will need to create a "dbconfig.json" file with contents similar to this, which is used to pull the connection string from
+`
+{
+    "CONNECTION_INFO":"postgresql://74.208.200.101:5432/WhispererDev?user=reader"
+}
+`
+
 ## Supported compilers
 
 - GCC 7.2.0 or newer
