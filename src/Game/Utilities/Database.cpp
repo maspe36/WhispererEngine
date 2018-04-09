@@ -210,7 +210,7 @@ std::string Database::formatGiveCardsQuery(const std::string &steamID)
     sqlStream <<
         "DO $$ DECLARE i bigint; " <<
         "BEGIN " <<
-            R"(FOR i IN 1..20 LOOP )" <<
+            R"(FOR i IN 1..3 LOOP )" <<
                 R"(INSERT INTO "CardToUser"("CardId", "UserId") SELECT "Card"."id", "User"."id" )" <<
                 R"(FROM "Card", "User" WHERE "User"."steamId" = ')" << steamID << "'; " <<
             "END LOOP; " <<
