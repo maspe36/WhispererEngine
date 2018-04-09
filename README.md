@@ -18,11 +18,11 @@ WhispererEngine is the backend server for the Whisperer game. It handles clients
 
 ## Note
 You will need to create a "dbconfig.json" file with contents similar to this, which is used to pull the connection string from
-`
+```
 {
     "CONNECTION_INFO":"postgresql://74.208.200.101:5432/WhispererDev?user=reader"
 }
-`
+```
 
 ## Supported compilers
 
@@ -31,4 +31,4 @@ You will need to create a "dbconfig.json" file with contents similar to this, wh
 
 ## About
 
-This project was created by [Sam Privett](https://github.com/maspe36) for the University of Cincinnati's Information Technology Senior Design class of 2018. With significant contributions from [Connor Bowman](https://github.com/conbow)(User Interface) and Garry Le (Server admin on the VPS).
+This project was created by [Sam Privett](https://github.com/maspe36) for the University of Cincinnati's Information Technology Senior Design class of 2018. With significant contributions from [Connor Bowman](https://github.com/conbow) (User Interface) and Garry Le (Server admin on the VPS).
