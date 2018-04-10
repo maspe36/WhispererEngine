@@ -170,6 +170,7 @@ void Server::onAccept(Client::pointer client, const boost::system::error_code &e
     if (!error)
     {
         std::cout << "Connection from " << client->getAddress() << std::endl;
+        factory.refreshCards();
         client->start(shared_from_this());
     }
 
