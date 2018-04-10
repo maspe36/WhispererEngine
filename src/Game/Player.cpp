@@ -92,7 +92,9 @@ void Player::refreshDeck()
 
     for (auto const& className : board->deck->classNames)
     {
-        newDeck.push_back(client->server->factory.createCard(className));
+        auto card = client->server->factory.createCard(className);
+        card->player = shared_from_this();
+        newDeck.push_back(card);
     }
 
     board->deck = std::make_shared<Deck>(deckID, newDeck);
