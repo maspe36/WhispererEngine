@@ -40,11 +40,21 @@ std::shared_ptr<Card> Deck::draw()
 Deck::Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards)
         : id(std::move(deckID)), Container(cards)
 {
+    setClassNames();
 }
 
 Deck::Deck(std::string deckName, std::string deckID, std::vector<std::shared_ptr<Card>> cards)
         : name(std::move(deckName)), id(std::move(deckID)), Container(cards)
 {
+    setClassNames();
+}
+
+void Deck::setClassNames()
+{
+    for (auto const& card : cards)
+    {
+        classNames.push_back(card->pythonName);
+    }
 }
 
 Deck::Deck()

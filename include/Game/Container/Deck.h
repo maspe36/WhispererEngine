@@ -14,9 +14,10 @@ class Deck
 public:
     std::string id;
     std::string name;
+    std::vector<std::string> classNames;
 
     json getJSON();
-
+    void setClassNames();
     std::shared_ptr<Card> draw();
 
     Deck(std::string deckID, std::vector<std::shared_ptr<Card>> cards);

@@ -14,6 +14,7 @@
 #include "../../include/Game/Container/CreatureZone.h"
 #include "../../include/Game/Container/Graveyard.h"
 #include "../../include/Network/Client.h"
+#include "../../include/Network/Server.h"
 #include "../../include/Network/Request/Game/ChatMessage.h"
 #include "../../include/Network/Request/Game/PlayCardMessage.h"
 #include "../../include/Network/Request/Game/FightPlayerMessage.h"
@@ -82,6 +83,19 @@ void Player::refreshCreatures()
 void Player::quit()
 {
     game->quit(shared_from_this());
+}
+
+void Player::refreshDeck()
+{
+    std::vector<std::shared_ptr<Card>> newDeck;
+    std::string deckID = board->deck->id;
+
+    for (auto const& className : board->deck->classNames)
+    {
+        newDeck.push_back(client->server->factory.createCard(className));
+    }
+
+    board->deck = std::make_shared<Deck>(deckID, newDeck);
 }
 
 void Player::playCard(const json &rawJSON)

@@ -47,6 +47,8 @@ public:
     void surrender();
     void quit();
 
+    void refreshDeck();
+
     // Protocol functions
     void playCard(const json &rawJSON);
     void endTurn(const json &rawJSON);
