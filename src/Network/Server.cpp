@@ -5,6 +5,7 @@
 #include "../../include/Network/Server.h"
 #include "../../include/Game/Game.h"
 #include "../../include/Game/Player.h"
+#include "../../include/Game/Card/Creature.h"
 #include "../../include/Network/Message.h"
 
 void Server::writeAll(std::string data)
@@ -143,6 +144,23 @@ void Server::matchMake(std::atomic<bool>& quit)
 
             // Wait until cards have been refreshed to start a game
             factory.refreshCards();
+
+            // Update the player decks
+            for (auto const& player : players)
+            {
+                player->refreshDeck();
+            }
+
+            for (auto const& card : players[0]->board->deck->cards)
+            {
+                auto creature = std::dynamic_pointer_cast<Creature>(card);
+
+                if (creature->pythonName == "Azar")
+                {
+                    std::cout << creature->getJSON().dump(4) << std::endl;
+                    break;
+                }
+            }
 
             std::shared_ptr<Game> game = std::make_shared<Game>(players, shared_from_this());
             game->registerPlayers();

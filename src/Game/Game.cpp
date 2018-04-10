@@ -222,10 +222,6 @@ void Game::eventHandler(const std::shared_ptr<Event>& event)
 Game::Game(std::vector<std::shared_ptr<Player>> players, std::shared_ptr<Server> server)
         : players(std::move(players)), server(std::move(server))
 {
-    for (auto const& player : players)
-    {
-        player->refreshDeck();
-    }
 }
 
 Game::~Game()
