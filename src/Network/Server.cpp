@@ -142,8 +142,7 @@ void Server::matchMake(std::atomic<bool>& quit)
             }
 
             // Wait until cards have been refreshed to start a game
-            boost::thread refreshWait(boost::bind(&Factory::refreshCards, &factory));
-            refreshWait.join();
+            factory.refreshCards();
 
             std::shared_ptr<Game> game = std::make_shared<Game>(players, shared_from_this());
             game->registerPlayers();
