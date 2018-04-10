@@ -151,17 +151,6 @@ void Server::matchMake(std::atomic<bool>& quit)
                 player->refreshDeck();
             }
 
-            for (auto const& card : players[0]->board->deck->cards)
-            {
-                auto creature = std::dynamic_pointer_cast<Creature>(card);
-
-                if (creature->pythonName == "Azar")
-                {
-                    std::cout << creature->getJSON().dump(4) << std::endl;
-                    break;
-                }
-            }
-
             std::shared_ptr<Game> game = std::make_shared<Game>(players, shared_from_this());
             game->registerPlayers();
             game->startGame();
