@@ -27,9 +27,9 @@ pybind11::object Factory::createPyCard(const std::string &name)
 
 void Factory::refreshCards()
 {
-    std::map<std::string, std::string> cardDict = database.getAllCards();
+    loadedCards = database.getAllCards();
 
-    for (auto const& item : cardDict)
+    for (auto const& item : loadedCards)
     {
         auto script = item.second;
         py::exec(script);

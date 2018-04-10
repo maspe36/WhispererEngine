@@ -193,7 +193,6 @@ std::string Database::formatCreateUserQuery(const std::string &steamID)
     return sqlStream.str();
 }
 
-
 void Database::giveCards(const std::string &steamID)
 {
     std::string query = formatGiveCardsQuery(steamID);
